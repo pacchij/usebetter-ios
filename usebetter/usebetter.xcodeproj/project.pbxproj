@@ -17,6 +17,14 @@
 		C001697B282C4E1800523EFF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0016951282C4E1600523EFF /* ContentView.swift */; };
 		C001697C282C4E1800523EFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0016952282C4E1800523EFF /* Assets.xcassets */; };
 		C001697D282C4E1800523EFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0016952282C4E1800523EFF /* Assets.xcassets */; };
+		C001698D282CB23F00523EFF /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C001698C282CB23F00523EFF /* ViewRouter.swift */; };
+		C001698E282CB23F00523EFF /* ViewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C001698C282CB23F00523EFF /* ViewRouter.swift */; };
+		C0016990282CB46500523EFF /* SignUPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C001698F282CB46500523EFF /* SignUPView.swift */; };
+		C0016991282CB46500523EFF /* SignUPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C001698F282CB46500523EFF /* SignUPView.swift */; };
+		C0016993282CB4D000523EFF /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0016992282CB4D000523EFF /* DashboardView.swift */; };
+		C0016994282CB4D000523EFF /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0016992282CB4D000523EFF /* DashboardView.swift */; };
+		C0016996282CD49D00523EFF /* DashboardHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0016995282CD49D00523EFF /* DashboardHomeView.swift */; };
+		C0016997282CD49D00523EFF /* DashboardHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0016995282CD49D00523EFF /* DashboardHomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +57,10 @@
 		C0016970282C4E1800523EFF /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0016974282C4E1800523EFF /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		C0016976282C4E1800523EFF /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
+		C001698C282CB23F00523EFF /* ViewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRouter.swift; sourceTree = "<group>"; };
+		C001698F282CB46500523EFF /* SignUPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUPView.swift; sourceTree = "<group>"; };
+		C0016992282CB4D000523EFF /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		C0016995282CD49D00523EFF /* DashboardHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardHomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +110,11 @@
 			isa = PBXGroup;
 			children = (
 				C0016950282C4E1600523EFF /* usebetterApp.swift */,
+				C001698C282CB23F00523EFF /* ViewRouter.swift */,
 				C0016951282C4E1600523EFF /* ContentView.swift */,
+				C0016992282CB4D000523EFF /* DashboardView.swift */,
+				C0016995282CD49D00523EFF /* DashboardHomeView.swift */,
+				C001698F282CB46500523EFF /* SignUPView.swift */,
 				C0016952282C4E1800523EFF /* Assets.xcassets */,
 			);
 			path = Shared;
@@ -299,6 +315,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0016996282CD49D00523EFF /* DashboardHomeView.swift in Sources */,
+				C0016990282CB46500523EFF /* SignUPView.swift in Sources */,
+				C001698D282CB23F00523EFF /* ViewRouter.swift in Sources */,
+				C0016993282CB4D000523EFF /* DashboardView.swift in Sources */,
 				C001697A282C4E1800523EFF /* ContentView.swift in Sources */,
 				C0016978282C4E1800523EFF /* usebetterApp.swift in Sources */,
 			);
@@ -308,6 +328,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0016997282CD49D00523EFF /* DashboardHomeView.swift in Sources */,
+				C0016991282CB46500523EFF /* SignUPView.swift in Sources */,
+				C001698E282CB23F00523EFF /* ViewRouter.swift in Sources */,
+				C0016994282CB4D000523EFF /* DashboardView.swift in Sources */,
 				C001697B282C4E1800523EFF /* ContentView.swift in Sources */,
 				C0016979282C4E1800523EFF /* usebetterApp.swift in Sources */,
 			);

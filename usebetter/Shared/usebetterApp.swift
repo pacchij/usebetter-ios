@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct usebetterApp: App {
+    @StateObject var viewRouter = ViewRouter()
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().environmentObject(viewRouter)
         }
     }
 }
