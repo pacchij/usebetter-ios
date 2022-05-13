@@ -25,6 +25,14 @@
 		C0016994282CB4D000523EFF /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0016992282CB4D000523EFF /* DashboardView.swift */; };
 		C0016996282CD49D00523EFF /* DashboardHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0016995282CD49D00523EFF /* DashboardHomeView.swift */; };
 		C0016997282CD49D00523EFF /* DashboardHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0016995282CD49D00523EFF /* DashboardHomeView.swift */; };
+		C001699E282D921E00523EFF /* DashboardHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C001699D282D921E00523EFF /* DashboardHomeViewModel.swift */; };
+		C001699F282D921E00523EFF /* DashboardHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C001699D282D921E00523EFF /* DashboardHomeViewModel.swift */; };
+		C00169A1282D92D300523EFF /* UBItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169A0282D92D300523EFF /* UBItem.swift */; };
+		C00169A2282D92D300523EFF /* UBItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169A0282D92D300523EFF /* UBItem.swift */; };
+		C00169D7282E203800523EFF /* DashboardMyStuffView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169D6282E203800523EFF /* DashboardMyStuffView.swift */; };
+		C00169D8282E203800523EFF /* DashboardMyStuffView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169D6282E203800523EFF /* DashboardMyStuffView.swift */; };
+		C00169DA282E225900523EFF /* AddItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169D9282E225900523EFF /* AddItemView.swift */; };
+		C00169DB282E225900523EFF /* AddItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169D9282E225900523EFF /* AddItemView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +69,10 @@
 		C001698F282CB46500523EFF /* SignUPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUPView.swift; sourceTree = "<group>"; };
 		C0016992282CB4D000523EFF /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		C0016995282CD49D00523EFF /* DashboardHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardHomeView.swift; sourceTree = "<group>"; };
+		C001699D282D921E00523EFF /* DashboardHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardHomeViewModel.swift; sourceTree = "<group>"; };
+		C00169A0282D92D300523EFF /* UBItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UBItem.swift; sourceTree = "<group>"; };
+		C00169D6282E203800523EFF /* DashboardMyStuffView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardMyStuffView.swift; sourceTree = "<group>"; };
+		C00169D9282E225900523EFF /* AddItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,12 +121,13 @@
 		C001694F282C4E1600523EFF /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				C001699C282D91F400523EFF /* New Group */,
+				C001699B282D919600523EFF /* Protocols */,
+				C001699A282D8D0000523EFF /* Resources */,
+				C0016999282D8CE100523EFF /* ViewModels */,
+				C0016998282D8CD200523EFF /* Views */,
 				C0016950282C4E1600523EFF /* usebetterApp.swift */,
 				C001698C282CB23F00523EFF /* ViewRouter.swift */,
-				C0016951282C4E1600523EFF /* ContentView.swift */,
-				C0016992282CB4D000523EFF /* DashboardView.swift */,
-				C0016995282CD49D00523EFF /* DashboardHomeView.swift */,
-				C001698F282CB46500523EFF /* SignUPView.swift */,
 				C0016952282C4E1800523EFF /* Assets.xcassets */,
 			);
 			path = Shared;
@@ -155,6 +168,49 @@
 				C0016976282C4E1800523EFF /* Tests_macOSLaunchTests.swift */,
 			);
 			path = "Tests macOS";
+			sourceTree = "<group>";
+		};
+		C0016998282D8CD200523EFF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C0016951282C4E1600523EFF /* ContentView.swift */,
+				C0016992282CB4D000523EFF /* DashboardView.swift */,
+				C00169D6282E203800523EFF /* DashboardMyStuffView.swift */,
+				C00169D9282E225900523EFF /* AddItemView.swift */,
+				C0016995282CD49D00523EFF /* DashboardHomeView.swift */,
+				C001698F282CB46500523EFF /* SignUPView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C0016999282D8CE100523EFF /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				C001699D282D921E00523EFF /* DashboardHomeViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		C001699A282D8D0000523EFF /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C001699B282D919600523EFF /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				C00169A0282D92D300523EFF /* UBItem.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		C001699C282D91F400523EFF /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -320,7 +376,11 @@
 				C001698D282CB23F00523EFF /* ViewRouter.swift in Sources */,
 				C0016993282CB4D000523EFF /* DashboardView.swift in Sources */,
 				C001697A282C4E1800523EFF /* ContentView.swift in Sources */,
+				C00169A1282D92D300523EFF /* UBItem.swift in Sources */,
+				C001699E282D921E00523EFF /* DashboardHomeViewModel.swift in Sources */,
 				C0016978282C4E1800523EFF /* usebetterApp.swift in Sources */,
+				C00169D7282E203800523EFF /* DashboardMyStuffView.swift in Sources */,
+				C00169DA282E225900523EFF /* AddItemView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,7 +393,11 @@
 				C001698E282CB23F00523EFF /* ViewRouter.swift in Sources */,
 				C0016994282CB4D000523EFF /* DashboardView.swift in Sources */,
 				C001697B282C4E1800523EFF /* ContentView.swift in Sources */,
+				C00169A2282D92D300523EFF /* UBItem.swift in Sources */,
+				C001699F282D921E00523EFF /* DashboardHomeViewModel.swift in Sources */,
 				C0016979282C4E1800523EFF /* usebetterApp.swift in Sources */,
+				C00169D8282E203800523EFF /* DashboardMyStuffView.swift in Sources */,
+				C00169DB282E225900523EFF /* AddItemView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

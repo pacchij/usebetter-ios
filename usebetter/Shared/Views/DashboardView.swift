@@ -19,11 +19,11 @@ struct DashboardView: View {
     @EnvironmentObject var viewRouter: ViewRouter
     var body: some View {
         TabView {
-            DashboardHomeView()
+            DashboardHomeView(searchText: "")
                 .tabItem {
                     Label("Home", systemImage: "house")
                 }
-            DashboardMyStuffView()
+            DashboardMyStuffView(searchText: "")
                 .tabItem {
                     Label("MyStuff", systemImage: "bag")
                 }
@@ -51,11 +51,11 @@ struct DashboardGroupsView: View {
     }
 }
 
-struct DashboardMyStuffView: View {
-    var body: some View {
-        Text("Welcome to My Stuff view")
-    }
-}
+//struct DashboardMyStuffView: View {
+//    var body: some View {
+//        Text("Welcome to My Stuff view")
+//    }
+//}
 
 struct DashboardSettingsView: View {
     var body: some View {

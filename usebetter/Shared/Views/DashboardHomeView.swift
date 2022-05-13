@@ -8,32 +8,47 @@
 import SwiftUI
 
 struct DashboardHomeView: View {
-    @State var searchText: String = " search"
+    @State var searchText: String
+    let dvm = DashboardHomeViewModel()
     var items: [GridItem] {
         Array(repeating: .init(.flexible()), count: 3)
     }
     var body: some View {
         ZStack(alignment: .top) {
             HStack {
-                TextField("Home Page", text: $searchText)
-                .font(.subheadline)
-                .frame(maxWidth: .infinity, minHeight: 30)
+                Image(systemName: "magnifyingglass.circle.fill")
+                    .foregroundColor(.gray)
+                    .padding(0)
+                    .font(.largeTitle)
+                    .frame(alignment: .topLeading)
+                TextField("Search", text: $searchText)
+                .font(.body)
                 .multilineTextAlignment(.center)
-                .padding(5)
+                .padding()
                 .border(Color.green, width: 1)
                 .onSubmit {
                     onSearchItem()
                 }
+                Spacer()
+                Button(action: {}) {
+                    Image(systemName: "slider.vertical.3")
+                        .renderingMode(.original)
+                        .font(.largeTitle)
+                }
+                Spacer()
             }
             .frame(minWidth: 0, maxHeight: 30, alignment: .topLeading)
-            .padding(20)
-            .offset(x:0, y: 10)
+            .padding(5)
+            .offset(x:5, y: 5)
             VStack(spacing: 0) {
                 ScrollView(.vertical, showsIndicators: false) {
+                    Spacer()
                     LazyVGrid(columns: items, spacing: 10) {
-                        ForEach(0..<100) { it in
-                                Text("Item \(it)")
-                                    .font(.title)
+                        ForEach(dvm.items(searchTag: searchText)) { item in
+                            Image(item.name)
+                                .resizable()
+                                .frame(width: 120, height: 120,  alignment: .center)
+                                .padding(1)
                             }
                         }
                 }
@@ -47,12 +62,12 @@ struct DashboardHomeView: View {
     }
     
     func onSearchItem() {
-        
+        print("on search")
     }
 }
 
 struct DashboardHomeView_Previews: PreviewProvider {
     static var previews: some View {
-        DashboardHomeView()
+        DashboardHomeView(searchText: "")
     }
 }
