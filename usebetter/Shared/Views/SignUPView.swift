@@ -25,25 +25,32 @@ struct SignUpView: View {
                     .multilineTextAlignment(.center)
                     .foregroundColor(.green)
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100)
+                
+                Image("AppIcon")
+                    
+                    
+                    
             
                 HStack(spacing: 10) {
+                    Spacer()
+                        .frame(width: 10)
                     Text("Phone Number")
                         .font(.body)
                         .foregroundColor(.green)
                         .padding(10)
-                    Text("+1")
+                    Text("+1 USA")
                         .font(.body)
                         .foregroundColor(.green)
                         .padding(2)
                     TextField("Phone Number", text: $phoneNumber.value)
-                        .font(.subheadline)
+                        .textFieldStyle(.roundedBorder)
                         .focused($phoneFieldIsFocused)
                         .onSubmit {
                             validatePhoneNumber()
                         }
-                        .border(/*@START_MENU_TOKEN@*/Color.gray/*@END_MENU_TOKEN@*/, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
-                        .padding(10)
                         .keyboardType(.decimalPad)
+                    Spacer()
+                        .frame(width: 10)
                 }
                 Text("Enter Valid Phone Number...")
                     .font(.subheadline)

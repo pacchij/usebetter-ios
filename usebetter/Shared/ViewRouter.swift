@@ -12,5 +12,5 @@ enum CurrentPage {
     case dashboard
 }
 class ViewRouter: ObservableObject {
-    @Published var currentPage: CurrentPage = .dashboard
+    @Published var currentPage: CurrentPage = .signUp
 }

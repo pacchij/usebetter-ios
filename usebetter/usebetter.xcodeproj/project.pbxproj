@@ -33,6 +33,9 @@
 		C00169D8282E203800523EFF /* DashboardMyStuffView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169D6282E203800523EFF /* DashboardMyStuffView.swift */; };
 		C00169DA282E225900523EFF /* AddItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169D9282E225900523EFF /* AddItemView.swift */; };
 		C00169DB282E225900523EFF /* AddItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169D9282E225900523EFF /* AddItemView.swift */; };
+		C00169DD28317C1400523EFF /* URLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169DC28317C1400523EFF /* URLParser.swift */; };
+		C00169DE28317C1400523EFF /* URLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169DC28317C1400523EFF /* URLParser.swift */; };
+		C00169E12831804E00523EFF /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = C00169E02831804E00523EFF /* SwiftSoup */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +76,7 @@
 		C00169A0282D92D300523EFF /* UBItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UBItem.swift; sourceTree = "<group>"; };
 		C00169D6282E203800523EFF /* DashboardMyStuffView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardMyStuffView.swift; sourceTree = "<group>"; };
 		C00169D9282E225900523EFF /* AddItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemView.swift; sourceTree = "<group>"; };
+		C00169DC28317C1400523EFF /* URLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLParser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C00169E12831804E00523EFF /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,7 +126,7 @@
 		C001694F282C4E1600523EFF /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				C001699C282D91F400523EFF /* New Group */,
+				C001699C282D91F400523EFF /* Utils */,
 				C001699B282D919600523EFF /* Protocols */,
 				C001699A282D8D0000523EFF /* Resources */,
 				C0016999282D8CE100523EFF /* ViewModels */,
@@ -206,11 +211,12 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
-		C001699C282D91F400523EFF /* New Group */ = {
+		C001699C282D91F400523EFF /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				C00169DC28317C1400523EFF /* URLParser.swift */,
 			);
-			path = "New Group";
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -229,6 +235,9 @@
 			dependencies = (
 			);
 			name = "usebetter (iOS)";
+			packageProductDependencies = (
+				C00169E02831804E00523EFF /* SwiftSoup */,
+			);
 			productName = "usebetter (iOS)";
 			productReference = C0016957282C4E1800523EFF /* usebetter.app */;
 			productType = "com.apple.product-type.application";
@@ -321,6 +330,9 @@
 				Base,
 			);
 			mainGroup = C001694A282C4E1600523EFF;
+			packageReferences = (
+				C00169DF2831804E00523EFF /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+			);
 			productRefGroup = C0016958282C4E1800523EFF /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -380,6 +392,7 @@
 				C001699E282D921E00523EFF /* DashboardHomeViewModel.swift in Sources */,
 				C0016978282C4E1800523EFF /* usebetterApp.swift in Sources */,
 				C00169D7282E203800523EFF /* DashboardMyStuffView.swift in Sources */,
+				C00169DD28317C1400523EFF /* URLParser.swift in Sources */,
 				C00169DA282E225900523EFF /* AddItemView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -397,6 +410,7 @@
 				C001699F282D921E00523EFF /* DashboardHomeViewModel.swift in Sources */,
 				C0016979282C4E1800523EFF /* usebetterApp.swift in Sources */,
 				C00169D8282E203800523EFF /* DashboardMyStuffView.swift in Sources */,
+				C00169DE28317C1400523EFF /* URLParser.swift in Sources */,
 				C00169DB282E225900523EFF /* AddItemView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -779,6 +793,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C00169DF2831804E00523EFF /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C00169E02831804E00523EFF /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C00169DF2831804E00523EFF /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C001694B282C4E1600523EFF /* Project object */;
 }

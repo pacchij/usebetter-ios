@@ -19,13 +19,13 @@ struct DashboardView: View {
     @EnvironmentObject var viewRouter: ViewRouter
     var body: some View {
         TabView {
-            DashboardHomeView(searchText: "")
-                .tabItem {
-                    Label("Home", systemImage: "house")
-                }
             DashboardMyStuffView(searchText: "")
                 .tabItem {
                     Label("MyStuff", systemImage: "bag")
+                }
+            DashboardHomeView(searchText: "")
+                .tabItem {
+                    Label("Home", systemImage: "house")
                 }
             DashboardGroupsView()
                 .tabItem {

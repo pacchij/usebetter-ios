@@ -9,6 +9,7 @@ import SwiftUI
 
 struct DashboardHomeView: View {
     @State var searchText: String
+    @State var onItemClicked: Bool = false
     let dvm = DashboardHomeViewModel()
     var items: [GridItem] {
         Array(repeating: .init(.flexible()), count: 3)
@@ -25,7 +26,7 @@ struct DashboardHomeView: View {
                 .font(.body)
                 .multilineTextAlignment(.center)
                 .padding()
-                .border(Color.green, width: 1)
+                .textFieldStyle(.roundedBorder)
                 .onSubmit {
                     onSearchItem()
                 }
@@ -45,12 +46,21 @@ struct DashboardHomeView: View {
                     Spacer()
                     LazyVGrid(columns: items, spacing: 10) {
                         ForEach(dvm.items(searchTag: searchText)) { item in
-                            Image(item.name)
-                                .resizable()
-                                .frame(width: 120, height: 120,  alignment: .center)
-                                .padding(1)
+                            NavigationLink(destination: UpdateItemView(item: item, itemName: item.name, itemCount: "1"), isActive: $onItemClicked) {
+                                Button {
+                                    print("Button is tapped")
+                                    onItemClicked = true
+                                } label: {
+                                    item.getImage
+                                        .resizable()
+                                        .frame(width: 120, height: 120,  alignment: .center)
+                                        .padding(1)
+                                }
                             }
                         }
+                        Spacer()
+                            .frame(height: 20)
+                    }
                 }
                 .padding()
             }

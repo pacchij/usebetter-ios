@@ -9,11 +9,14 @@ import SwiftUI
 
 struct DashboardMyStuffView: View {
     @State var searchText: String
+    @State var onAddNewItem: Bool = false
+    @State var onItemClicked: Bool = false
     let dvm = DashboardHomeViewModel()
     var items: [GridItem] {
         Array(repeating: .init(.flexible()), count: 3)
     }
     var body: some View {
+        NavigationView {
         ZStack(alignment: .top) {
             HStack {
                 Image(systemName: "magnifyingglass.circle.fill")
@@ -25,17 +28,19 @@ struct DashboardMyStuffView: View {
                 .font(.body)
                 .multilineTextAlignment(.center)
                 .padding()
-                .border(Color.green, width: 1)
+                .textFieldStyle(.roundedBorder)
                 .onSubmit {
                     onSearchItem()
                 }
                 Spacer()
-                Button(action: {
-                    onAdd()
-                }) {
-                    Image(systemName: "plus.bubble.fill")
-                        .renderingMode(.original)
-                        .font(.largeTitle)
+                NavigationLink(destination: AddItemView(), isActive: $onAddNewItem) {
+                    Button(action: {
+                        onAddNewItem = true
+                    }) {
+                        Image(systemName: "plus.bubble.fill")
+                            .renderingMode(.original)
+                            .font(.largeTitle)
+                    }
                 }
                 Spacer()
             }
@@ -47,12 +52,19 @@ struct DashboardMyStuffView: View {
                     Spacer()
                     LazyVGrid(columns: items, spacing: 10) {
                         ForEach(dvm.items(searchTag: searchText)) { item in
-                            Image(item.name)
-                                .resizable()
-                                .frame(width: 120, height: 120,  alignment: .center)
-                                .padding(1)
+                            NavigationLink(destination: UpdateItemView(item: item, itemName: item.name, itemCount: "1"), isActive: $onItemClicked) {
+                                Button {
+                                    print("Button is tapped")
+                                    onItemClicked = true
+                                } label: {
+                                    item.getImage
+                                        .resizable()
+                                        .frame(width: 120, height: 120,  alignment: .center)
+                                        .padding(1)
+                                }
                             }
                         }
+                    }
                 }
                 .padding()
             }
@@ -60,6 +72,9 @@ struct DashboardMyStuffView: View {
             .padding()
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .leading)
             .offset(x:0, y:40)
+        }
+        .navigationBarHidden(true)
+        .edgesIgnoringSafeArea([.bottom])
         }
     }
     

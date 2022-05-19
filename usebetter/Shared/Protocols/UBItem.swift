@@ -11,7 +11,9 @@ import CoreData
 struct UBItem : Identifiable {
     var name: String
     var image: Image?
+    var imageURL: String?
     var description: String?
+    var price: String?
     var tags: [String] = []
     var id: String { name }
 }
@@ -36,5 +38,23 @@ extension UBItem {
             }
         }
         return false
+    }
+}
+
+extension UBItem {
+    var getTags: String{
+        var tagsWithComma: String = ""
+        for tag in tags {
+            tagsWithComma += tag
+            tagsWithComma += ", "
+        }
+        return tagsWithComma
+    }
+    
+    var getImage: Image {
+        guard let image = self.image else {
+            return Image("notAvailable")
+        }
+        return image
     }
 }
