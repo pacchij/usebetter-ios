@@ -36,6 +36,14 @@
 		C00169DD28317C1400523EFF /* URLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169DC28317C1400523EFF /* URLParser.swift */; };
 		C00169DE28317C1400523EFF /* URLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169DC28317C1400523EFF /* URLParser.swift */; };
 		C00169E12831804E00523EFF /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = C00169E02831804E00523EFF /* SwiftSoup */; };
+		C00169E42836084400523EFF /* UserFeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169E32836084400523EFF /* UserFeedModel.swift */; };
+		C00169E52836084400523EFF /* UserFeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169E32836084400523EFF /* UserFeedModel.swift */; };
+		C00169E72836086400523EFF /* FriendsFeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169E62836086400523EFF /* FriendsFeedModel.swift */; };
+		C00169E82836086400523EFF /* FriendsFeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169E62836086400523EFF /* FriendsFeedModel.swift */; };
+		C00169EA2838A65600523EFF /* UpdateItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169E92838A65600523EFF /* UpdateItemView.swift */; };
+		C00169EB2838A65600523EFF /* UpdateItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169E92838A65600523EFF /* UpdateItemView.swift */; };
+		C00169ED2838A69F00523EFF /* ReadOnlyItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169EC2838A69F00523EFF /* ReadOnlyItemView.swift */; };
+		C00169EE2838A69F00523EFF /* ReadOnlyItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169EC2838A69F00523EFF /* ReadOnlyItemView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +85,10 @@
 		C00169D6282E203800523EFF /* DashboardMyStuffView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardMyStuffView.swift; sourceTree = "<group>"; };
 		C00169D9282E225900523EFF /* AddItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddItemView.swift; sourceTree = "<group>"; };
 		C00169DC28317C1400523EFF /* URLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLParser.swift; sourceTree = "<group>"; };
+		C00169E32836084400523EFF /* UserFeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFeedModel.swift; sourceTree = "<group>"; };
+		C00169E62836086400523EFF /* FriendsFeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsFeedModel.swift; sourceTree = "<group>"; };
+		C00169E92838A65600523EFF /* UpdateItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateItemView.swift; sourceTree = "<group>"; };
+		C00169EC2838A69F00523EFF /* ReadOnlyItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadOnlyItemView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +138,7 @@
 		C001694F282C4E1600523EFF /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				C00169E2283607E300523EFF /* DataModels */,
 				C001699C282D91F400523EFF /* Utils */,
 				C001699B282D919600523EFF /* Protocols */,
 				C001699A282D8D0000523EFF /* Resources */,
@@ -182,6 +195,8 @@
 				C0016992282CB4D000523EFF /* DashboardView.swift */,
 				C00169D6282E203800523EFF /* DashboardMyStuffView.swift */,
 				C00169D9282E225900523EFF /* AddItemView.swift */,
+				C00169E92838A65600523EFF /* UpdateItemView.swift */,
+				C00169EC2838A69F00523EFF /* ReadOnlyItemView.swift */,
 				C0016995282CD49D00523EFF /* DashboardHomeView.swift */,
 				C001698F282CB46500523EFF /* SignUPView.swift */,
 			);
@@ -217,6 +232,15 @@
 				C00169DC28317C1400523EFF /* URLParser.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		C00169E2283607E300523EFF /* DataModels */ = {
+			isa = PBXGroup;
+			children = (
+				C00169E32836084400523EFF /* UserFeedModel.swift */,
+				C00169E62836086400523EFF /* FriendsFeedModel.swift */,
+			);
+			path = DataModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -384,11 +408,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0016996282CD49D00523EFF /* DashboardHomeView.swift in Sources */,
+				C00169E72836086400523EFF /* FriendsFeedModel.swift in Sources */,
+				C00169EA2838A65600523EFF /* UpdateItemView.swift in Sources */,
 				C0016990282CB46500523EFF /* SignUPView.swift in Sources */,
 				C001698D282CB23F00523EFF /* ViewRouter.swift in Sources */,
 				C0016993282CB4D000523EFF /* DashboardView.swift in Sources */,
 				C001697A282C4E1800523EFF /* ContentView.swift in Sources */,
 				C00169A1282D92D300523EFF /* UBItem.swift in Sources */,
+				C00169ED2838A69F00523EFF /* ReadOnlyItemView.swift in Sources */,
+				C00169E42836084400523EFF /* UserFeedModel.swift in Sources */,
 				C001699E282D921E00523EFF /* DashboardHomeViewModel.swift in Sources */,
 				C0016978282C4E1800523EFF /* usebetterApp.swift in Sources */,
 				C00169D7282E203800523EFF /* DashboardMyStuffView.swift in Sources */,
@@ -402,11 +430,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0016997282CD49D00523EFF /* DashboardHomeView.swift in Sources */,
+				C00169E82836086400523EFF /* FriendsFeedModel.swift in Sources */,
+				C00169EB2838A65600523EFF /* UpdateItemView.swift in Sources */,
 				C0016991282CB46500523EFF /* SignUPView.swift in Sources */,
 				C001698E282CB23F00523EFF /* ViewRouter.swift in Sources */,
 				C0016994282CB4D000523EFF /* DashboardView.swift in Sources */,
 				C001697B282C4E1800523EFF /* ContentView.swift in Sources */,
 				C00169A2282D92D300523EFF /* UBItem.swift in Sources */,
+				C00169EE2838A69F00523EFF /* ReadOnlyItemView.swift in Sources */,
+				C00169E52836084400523EFF /* UserFeedModel.swift in Sources */,
 				C001699F282D921E00523EFF /* DashboardHomeViewModel.swift in Sources */,
 				C0016979282C4E1800523EFF /* usebetterApp.swift in Sources */,
 				C00169D8282E203800523EFF /* DashboardMyStuffView.swift in Sources */,

@@ -44,23 +44,23 @@ struct DashboardHomeView: View {
             VStack(spacing: 0) {
                 ScrollView(.vertical, showsIndicators: false) {
                     Spacer()
-                    LazyVGrid(columns: items, spacing: 10) {
-                        ForEach(dvm.items(searchTag: searchText)) { item in
-                            NavigationLink(destination: UpdateItemView(item: item, itemName: item.name, itemCount: "1"), isActive: $onItemClicked) {
-                                Button {
-                                    print("Button is tapped")
-                                    onItemClicked = true
-                                } label: {
-                                    item.getImage
-                                        .resizable()
-                                        .frame(width: 120, height: 120,  alignment: .center)
-                                        .padding(1)
-                                }
-                            }
-                        }
-                        Spacer()
-                            .frame(height: 20)
-                    }
+//                    LazyVGrid(columns: items, spacing: 10) {
+//                        ForEach(dvm.items(searchTag: searchText)) { item in
+//                            NavigationLink(destination: UpdateItemView(item: item, itemName: item.name, itemCount: "1"), isActive: $onItemClicked) {
+//                                Button {
+//                                    print("Button is tapped")
+//                                    onItemClicked = true
+//                                } label: {
+//                                    item.getImage
+//                                        .resizable()
+//                                        .frame(width: 120, height: 120,  alignment: .center)
+//                                        .padding(1)
+//                                }
+//                            }
+//                        }
+//                        Spacer()
+//                            .frame(height: 20)
+//                    }
                 }
                 .padding()
             }

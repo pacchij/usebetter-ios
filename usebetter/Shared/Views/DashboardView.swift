@@ -17,9 +17,11 @@ enum DasbhoardTabs: Hashable {
 
 struct DashboardView: View {
     @EnvironmentObject var viewRouter: ViewRouter
+    @EnvironmentObject var userFeedData: UserFeedModel
     var body: some View {
         TabView {
             DashboardMyStuffView(searchText: "")
+                .environmentObject(userFeedData)
                 .tabItem {
                     Label("MyStuff", systemImage: "bag")
                 }
@@ -41,7 +43,9 @@ struct DashboardView: View {
 
 struct DashboardView_Previews: PreviewProvider {
     static var previews: some View {
-        DashboardView().environmentObject(ViewRouter())
+        DashboardView()
+            .environmentObject(ViewRouter())
+            .environmentObject(UserFeedModel())
     }
 }
 

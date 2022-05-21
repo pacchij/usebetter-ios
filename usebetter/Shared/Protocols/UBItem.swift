@@ -16,6 +16,8 @@ struct UBItem : Identifiable {
     var price: String?
     var tags: [String] = []
     var id: String { name }
+    var originalItemURL: String?
+    var itemCount: String = "1"
 }
 
 extension UBItem {
@@ -57,4 +59,22 @@ extension UBItem {
         }
         return image
     }
+    
+    var getAsyncImage: AsyncImage<Image> {
+        guard let imageURL = self.imageURL else {
+            return AsyncImage(url: URL(string: "notAvailable"))
+        }
+        return AsyncImage(url: URL(string: imageURL))
+    }
+}
+
+
+struct UBItemRemote : Codable {
+    var name: String
+    var imageURL: String?
+    var description: String?
+    var price: String?
+    var tags: [String] = []
+    var originalItemURL: String?
+    var itemCount: String = "1"
 }

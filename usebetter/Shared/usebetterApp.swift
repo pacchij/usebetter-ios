@@ -10,9 +10,12 @@ import SwiftUI
 @main
 struct usebetterApp: App {
     @StateObject var viewRouter = ViewRouter()
+    @StateObject var userFeedData = UserFeedModel()
     var body: some Scene {
         WindowGroup {
-            ContentView().environmentObject(viewRouter)
+            ContentView()
+                .environmentObject(viewRouter)
+                .environmentObject(userFeedData)
         }
     }
 }

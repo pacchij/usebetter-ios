@@ -23,6 +23,7 @@ struct ContentView: View {
     }
     
     @EnvironmentObject var viewRouter: ViewRouter
+    @EnvironmentObject var userFeedData: UserFeedModel
     @State var selectedScreenItem: ScreenItems? = .signUp
     @State var signedInFlag: Bool = false
     @State var signUpFlag: Bool = true
@@ -33,7 +34,9 @@ struct ContentView: View {
         case .signUp:
             SignUpView().environmentObject(viewRouter)
         case .dashboard:
-            DashboardView().environmentObject(viewRouter)
+            DashboardView()
+                .environmentObject(viewRouter)
+                .environmentObject(userFeedData)
         }
     }
 }

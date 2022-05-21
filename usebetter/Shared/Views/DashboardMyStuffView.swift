@@ -11,6 +11,7 @@ struct DashboardMyStuffView: View {
     @State var searchText: String
     @State var onAddNewItem: Bool = false
     @State var onItemClicked: Bool = false
+    @EnvironmentObject var userFeedData: UserFeedModel
     let dvm = DashboardHomeViewModel()
     var items: [GridItem] {
         Array(repeating: .init(.flexible()), count: 3)
@@ -51,18 +52,28 @@ struct DashboardMyStuffView: View {
                 ScrollView(.vertical, showsIndicators: false) {
                     Spacer()
                     LazyVGrid(columns: items, spacing: 10) {
-                        ForEach(dvm.items(searchTag: searchText)) { item in
-                            NavigationLink(destination: UpdateItemView(item: item, itemName: item.name, itemCount: "1"), isActive: $onItemClicked) {
-                                Button {
-                                    print("Button is tapped")
-                                    onItemClicked = true
-                                } label: {
-                                    item.getImage
-                                        .resizable()
-                                        .frame(width: 120, height: 120,  alignment: .center)
-                                        .padding(1)
-                                }
-                            }
+                        ForEach(userFeedData.userItems.indices, id:\.self) { index in
+                            NavigationLink(destination: UpdateItemView(itemIndex: index, itemName: userFeedData.userItems[index].name, itemCount: userFeedData.userItems[index].itemCount ).environmentObject(userFeedData), label: {
+                                    if let imageURL = userFeedData.userItems[index].imageURL {
+                                        AsyncImage(url: URL(string: imageURL)) { image1 in
+                                            image1.resizable()
+                                                .scaledToFit()
+                                                .frame(width: 120, height: 120,  alignment: .center)
+                                        } placeholder: {
+                                            ProgressView()
+                                        }
+                                    }
+                                    else {
+                                        AsyncImage(url: URL(string: "notAvailable")) { image1 in
+                                            image1.resizable()
+                                                .scaledToFit()
+                                                .frame(width: 120, height: 120,  alignment: .center)
+                                        } placeholder: {
+                                            ProgressView()
+                                        }
+                                    }
+                                })
+                            
                         }
                     }
                 }

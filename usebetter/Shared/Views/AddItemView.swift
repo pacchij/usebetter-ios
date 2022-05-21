@@ -17,6 +17,7 @@ struct AddItemView: View {
     @State private var isURLParsing: ItemParsingState
     @State private var item: UBItem = UBItem(name: "")
     @State private var itemName: String
+    @EnvironmentObject var userFeedData: UserFeedModel
     init() {
         itemURL = ""
         isURLParsing = .notStarted
@@ -46,7 +47,7 @@ struct AddItemView: View {
                     })
                 }
                 else if isURLParsing == .complete && self.item.name != "" {
-                    UpdateItemView(item: self.item, itemName: self.item.name, itemCount: "1")
+                    UpdateItemView(itemIndex: userFeedData.userItems.count-1)
                 }
             }
             .frame(minWidth: 0, maxHeight: .infinity, alignment: .center)
@@ -82,10 +83,11 @@ struct AddItemView: View {
                 self.item.name = item.name
                 self.item.description = item.description
                 self.item.imageURL = item.imageURL
-                //self.item.image = AsyncImage(url: URL(string:item.imageURL ?? ""))
                 self.item.price = item.price
                 self.item.tags = item.tags
+                self.item.originalItemURL = itemURL
                  
+                userFeedData.append(item: self.item)
                 print("callback returned with item: ", item)
             }
         }
@@ -95,78 +97,5 @@ struct AddItemView: View {
 struct AddItemView_Previews: PreviewProvider {
     static var previews: some View {
         AddItemView()
-    }
-}
-
-struct UpdateItemView: View {
-    @State var item: UBItem
-    @State var itemName: String
-    @State var itemCount: String
-    @Environment(\.presentationMode) var presentationMode
-    var body: some View {
-        ZStack(alignment: .top) {
-            VStack {
-                //if let imageURL = item.imageURL {
-                    Spacer()
-                        .frame(height: 50)
-                    item.getImage
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 200, height: 100, alignment: .center)
-//                    AsyncImage(url: URL(string: imageURL)) { image in
-//                        image.resizable()
-//                            .scaledToFit()
-//                    } placeholder: {
-//                        ProgressView()
-//                    }
-//                    .frame(width: 200, height: 100, alignment: .center)
- //               }
-                
-                Spacer()
-                    .frame(height: 50)
-                TextField(item.name, text: $itemName)
-                    .onSubmit {
-                        item.name = itemName
-                    }
-                    .border(Color.green, width: 1)
-                    .multilineTextAlignment(.leading)
-                    .textFieldStyle(.roundedBorder)
-                
-                
-                HStack {
-                    Text("Tags:")
-                    Text(item.getTags)
-                }
-                .padding(20)
-                
-                HStack {
-                    Text("Available Counts: ")
-                    TextField("1", text: $itemCount)
-                        .onSubmit {
-                            print("submitted")
-                        }
-                        .textFieldStyle(.roundedBorder)
-                        .frame(width: 50)
-                }
-
-                Spacer()
-                    .frame(height: 50)
-                Button("Update Item", action: {
-                    item = UBItem(name: "")
-                    presentationMode.wrappedValue.dismiss()
-                })
-            }
-            .frame(minWidth: 0, maxHeight: .infinity, alignment: .topLeading)
-            .padding(5)
-        }
-        .navigationBarTitle("Update Item", displayMode: .inline)
-        .edgesIgnoringSafeArea([.bottom])
-    }
-}
-
-
-struct UpdateItemView_Previews: PreviewProvider {
-    static var previews: some View {
-        UpdateItemView(item: UBItem(name: "some Long text describing the item as given in amazon", imageURL: "https://images-na.ssl-images-amazon.com/images/I/7115SjgfuxL.__AC_SY300_SX300_QL70_ML2_.jpg", tags: ["one", "two"]), itemName: "", itemCount: "1")
     }
 }
