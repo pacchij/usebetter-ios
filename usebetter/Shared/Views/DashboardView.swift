@@ -18,6 +18,7 @@ enum DasbhoardTabs: Hashable {
 struct DashboardView: View {
     @EnvironmentObject var viewRouter: ViewRouter
     @EnvironmentObject var userFeedData: UserFeedModel
+    @EnvironmentObject var friendsFeedData: FriendsFeedModel
     var body: some View {
         TabView {
             DashboardMyStuffView(searchText: "")
@@ -26,6 +27,7 @@ struct DashboardView: View {
                     Label("MyStuff", systemImage: "bag")
                 }
             DashboardHomeView(searchText: "")
+                .environmentObject(friendsFeedData)
                 .tabItem {
                     Label("Home", systemImage: "house")
                 }

@@ -9,12 +9,12 @@ import SwiftUI
 
 struct DashboardHomeView: View {
     @State var searchText: String
-    @State var onItemClicked: Bool = false
-    let dvm = DashboardHomeViewModel()
+    @EnvironmentObject var friendsFeedData: FriendsFeedModel
     var items: [GridItem] {
         Array(repeating: .init(.flexible()), count: 3)
     }
     var body: some View {
+        NavigationView {
         ZStack(alignment: .top) {
             HStack {
                 Image(systemName: "magnifyingglass.circle.fill")
@@ -44,23 +44,32 @@ struct DashboardHomeView: View {
             VStack(spacing: 0) {
                 ScrollView(.vertical, showsIndicators: false) {
                     Spacer()
-//                    LazyVGrid(columns: items, spacing: 10) {
-//                        ForEach(dvm.items(searchTag: searchText)) { item in
-//                            NavigationLink(destination: UpdateItemView(item: item, itemName: item.name, itemCount: "1"), isActive: $onItemClicked) {
-//                                Button {
-//                                    print("Button is tapped")
-//                                    onItemClicked = true
-//                                } label: {
-//                                    item.getImage
-//                                        .resizable()
-//                                        .frame(width: 120, height: 120,  alignment: .center)
-//                                        .padding(1)
-//                                }
-//                            }
-//                        }
-//                        Spacer()
-//                            .frame(height: 20)
-//                    }
+                    LazyVGrid(columns: items, spacing: 10) {
+                        ForEach(friendsFeedData.friendsItems) { item in
+                            NavigationLink(destination: ReadOnlyItemView(item: item), label: {
+                                if let imageURL = item.imageURL {
+                                    AsyncImage(url: URL(string: imageURL)) { image in
+                                        image.resizable()
+                                            .scaledToFit()
+                                            .frame(width: 120, height: 120,  alignment: .center)
+                                    } placeholder: {
+                                        ProgressView()
+                                    }
+                                }
+                                else {
+                                    AsyncImage(url: URL(string: "notAvailable")) { image in
+                                        image.resizable()
+                                            .scaledToFit()
+                                            .frame(width: 120, height: 120,  alignment: .center)
+                                    } placeholder: {
+                                        ProgressView()
+                                    }
+                                }
+                            })
+                        }
+                        Spacer()
+                            .frame(height: 20)
+                    }
                 }
                 .padding()
             }
@@ -68,6 +77,9 @@ struct DashboardHomeView: View {
             .padding()
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .leading)
             .offset(x:0, y:40)
+        }
+        .navigationBarHidden(true)
+        .edgesIgnoringSafeArea([.bottom])
         }
     }
     
@@ -78,6 +90,6 @@ struct DashboardHomeView: View {
 
 struct DashboardHomeView_Previews: PreviewProvider {
     static var previews: some View {
-        DashboardHomeView(searchText: "")
+        DashboardHomeView(searchText: "").environmentObject(FriendsFeedModel())
     }
 }

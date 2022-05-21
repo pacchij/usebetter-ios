@@ -73,7 +73,6 @@ struct DashboardMyStuffView: View {
                                         }
                                     }
                                 })
-                            
                         }
                     }
                 }

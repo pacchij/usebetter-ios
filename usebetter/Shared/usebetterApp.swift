@@ -11,11 +11,14 @@ import SwiftUI
 struct usebetterApp: App {
     @StateObject var viewRouter = ViewRouter()
     @StateObject var userFeedData = UserFeedModel()
+    @StateObject var friendsFeedData = FriendsFeedModel()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(viewRouter)
                 .environmentObject(userFeedData)
+                .environmentObject(friendsFeedData)
         }
     }
 }
