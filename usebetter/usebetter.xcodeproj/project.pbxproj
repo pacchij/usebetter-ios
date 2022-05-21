@@ -44,6 +44,10 @@
 		C00169EB2838A65600523EFF /* UpdateItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169E92838A65600523EFF /* UpdateItemView.swift */; };
 		C00169ED2838A69F00523EFF /* ReadOnlyItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169EC2838A69F00523EFF /* ReadOnlyItemView.swift */; };
 		C00169EE2838A69F00523EFF /* ReadOnlyItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169EC2838A69F00523EFF /* ReadOnlyItemView.swift */; };
+		C00169F028396A0700523EFF /* ContactPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169EF28396A0700523EFF /* ContactPickerView.swift */; };
+		C00169F128396A0700523EFF /* ContactPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169EF28396A0700523EFF /* ContactPickerView.swift */; };
+		C00169F328396B5B00523EFF /* ContactPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169F228396B5B00523EFF /* ContactPicker.swift */; };
+		C00169F428396B5B00523EFF /* ContactPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169F228396B5B00523EFF /* ContactPicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +93,8 @@
 		C00169E62836086400523EFF /* FriendsFeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsFeedModel.swift; sourceTree = "<group>"; };
 		C00169E92838A65600523EFF /* UpdateItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateItemView.swift; sourceTree = "<group>"; };
 		C00169EC2838A69F00523EFF /* ReadOnlyItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadOnlyItemView.swift; sourceTree = "<group>"; };
+		C00169EF28396A0700523EFF /* ContactPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactPickerView.swift; sourceTree = "<group>"; };
+		C00169F228396B5B00523EFF /* ContactPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactPicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +205,8 @@
 				C00169EC2838A69F00523EFF /* ReadOnlyItemView.swift */,
 				C0016995282CD49D00523EFF /* DashboardHomeView.swift */,
 				C001698F282CB46500523EFF /* SignUPView.swift */,
+				C00169EF28396A0700523EFF /* ContactPickerView.swift */,
+				C00169F228396B5B00523EFF /* ContactPicker.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -414,6 +422,8 @@
 				C001698D282CB23F00523EFF /* ViewRouter.swift in Sources */,
 				C0016993282CB4D000523EFF /* DashboardView.swift in Sources */,
 				C001697A282C4E1800523EFF /* ContentView.swift in Sources */,
+				C00169F028396A0700523EFF /* ContactPickerView.swift in Sources */,
+				C00169F328396B5B00523EFF /* ContactPicker.swift in Sources */,
 				C00169A1282D92D300523EFF /* UBItem.swift in Sources */,
 				C00169ED2838A69F00523EFF /* ReadOnlyItemView.swift in Sources */,
 				C00169E42836084400523EFF /* UserFeedModel.swift in Sources */,
@@ -436,6 +446,8 @@
 				C001698E282CB23F00523EFF /* ViewRouter.swift in Sources */,
 				C0016994282CB4D000523EFF /* DashboardView.swift in Sources */,
 				C001697B282C4E1800523EFF /* ContentView.swift in Sources */,
+				C00169F128396A0700523EFF /* ContactPickerView.swift in Sources */,
+				C00169F428396B5B00523EFF /* ContactPicker.swift in Sources */,
 				C00169A2282D92D300523EFF /* UBItem.swift in Sources */,
 				C00169EE2838A69F00523EFF /* ReadOnlyItemView.swift in Sources */,
 				C00169E52836084400523EFF /* UserFeedModel.swift in Sources */,

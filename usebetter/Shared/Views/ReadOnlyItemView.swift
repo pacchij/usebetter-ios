@@ -54,6 +54,20 @@ struct ReadOnlyItemView: View {
                     Text(item.itemCount)
                        .frame(width: 50)
                 }
+                Spacer().frame(height: 50)
+                HStack {
+                   
+                    Text("shared By: ")
+                    Text("David").frame(width:150)
+                        .foregroundColor(.green)
+                        .font(.callout)
+                    
+                }
+                Spacer().frame(height: 50)
+                Button("Request To Use Better", action: {
+                    print("Item requested")
+                })
+                .font(.subheadline)
             }
             .frame(minWidth: 0, maxHeight: .infinity, alignment: .topLeading)
             .padding(5)

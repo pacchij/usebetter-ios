@@ -7,13 +7,18 @@
 
 import Foundation
 import SwiftUI
+import Contacts
 
 struct UpdateItemView: View {
-    @State var itemIndex: Int
+    @State var itemIndex: Int = 0
     @State var itemName: String = ""
     @State var itemCount: String = "1"
     @EnvironmentObject var userFeedData: UserFeedModel
     @Environment(\.presentationMode) var presentationMode
+    @ObservedObject var delegate = Delegate()
+    
+//    private var sharingText = "Share To: "
+//    private var contact: CNContact? = nil
 
     var body: some View {
         ZStack(alignment: .top) {
@@ -62,6 +67,34 @@ struct UpdateItemView: View {
                         }
                         .textFieldStyle(.roundedBorder)
                         .frame(width: 50)
+                    Spacer().frame(height:50)
+                }
+
+                HStack {
+                    if let contact = delegate.contact {
+                        Text("shared To: ")
+                        Text(contact.givenName).frame(width:150)
+                            .foregroundColor(.green)
+                            .font(.callout)
+                    }
+                    else {
+                        Text("share To: ")
+                        Spacer().frame(width: 150)
+                    }
+                
+                    Button(action: {
+                        delegate.showPicker = true
+                        print("button clicked")
+                    }) {
+                        Image(systemName: "plus.bubble.fill")
+                            .renderingMode(.original)
+                            .font(.largeTitle)
+                    }
+                    .sheet(isPresented: $delegate.showPicker, onDismiss: {
+                        delegate.showPicker = false
+                    }) {
+                        ContactPicker(delegate: .constant(delegate))
+                    }
                 }
 
                 Spacer()
