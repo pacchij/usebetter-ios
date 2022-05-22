@@ -94,7 +94,7 @@ struct UpdateItemView: View {
                     .sheet(isPresented: $delegate.showPicker, onDismiss: {
                         delegate.showPicker = false
                         userFeedData.userItems[itemIndex].sharedContactNumber = getFirstNumber(delegate.contact)
-                        userFeedData.userItems[itemIndex].sharedContactName = delegate.contact?.givenName
+                        userFeedData.userItems[itemIndex].sharedContactName = getContactName(delegate.contact)
                     }) {
                         ContactPicker(delegate: .constant(delegate))
                     }
@@ -134,6 +134,35 @@ struct UpdateItemView: View {
         guard !numbers.isEmpty else { return nil }
 
         return numbers[0]
+    }
+    
+    func getContactName(_ contact: CNContact?) -> String {
+        guard let contact = contact else {
+            return ""
+        }
+        var fullName: String = ""
+        if contact.namePrefix.count > 0 {
+            fullName += contact.namePrefix
+            fullName += " "
+        }
+        if contact.givenName.count > 0 {
+            fullName += contact.givenName
+            fullName += " "
+        }
+        if contact.middleName.count > 0 {
+            fullName += contact.middleName
+            fullName += " "
+        }
+        if contact.familyName.count > 0 {
+            fullName += contact.familyName
+            fullName += " "
+        }
+        if contact.nameSuffix.count > 0 {
+            fullName += contact.nameSuffix
+            fullName += " "
+        }
+        fullName = fullName.trimmingCharacters(in: .whitespaces)
+        return fullName
     }
 }
 

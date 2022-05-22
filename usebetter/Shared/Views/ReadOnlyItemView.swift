@@ -58,7 +58,7 @@ struct ReadOnlyItemView: View {
                 HStack {
                    
                     Text("shared By: ")
-                    Text("David").frame(width:150)
+                    Text(item.sharedContactName ?? "").frame(width:150)
                         .foregroundColor(.green)
                         .font(.callout)
                     
