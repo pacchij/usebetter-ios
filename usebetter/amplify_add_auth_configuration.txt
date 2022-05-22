@@ -1,0 +1,198 @@
+prashanthjaligama@Prashanths-MacBook-Pro-2 usebetter % amplify add auth
+Using service: Cognito, provided by: awscloudformation
+ 
+ The current configured provider is Amazon Cognito. 
+ 
+ Do you want to use the default authentication and security configuration? Manual configuration
+ Select the authentication/authorization services that you want to use: I want to learn more.
+ 
+Amazon Cognito identity pools provide temporary AWS credentials for users who are guests (unauthenticated) and for users who h
+ave been authenticated and received a token. An identity pool is a store of user identity data specific to your account.
+
+If you choose to use the default configuration, this utility will set up both a Userpool and an Identity Pool.
+
+ 
+ Select the authentication/authorization services that you want to use: User Sign-Up, Sign-In, connected with AWS IAM controls
+ (Enables per-user Storage features for images or other content, Analytics, and more)
+ Provide a friendly name for your resource that will be used to label this category in the project: usebetterdev
+ Enter a name for your identity pool. (usebetter8e0a0e14_identitypool_8e0a0e14) 
+prashanthjaligama@Prashanths-MacBook-Pro-2 usebetter % amplify add auth
+Using service: Cognito, provided by: awscloudformation
+ 
+ The current configured provider is Amazon Cognito. 
+ 
+ Do you want to use the default authentication and security configuration? Default configuration
+ Warning: you will not be able to edit these selections. 
+ How do you want users to be able to sign in? Phone Number
+ Do you want to configure advanced settings? Yes, I want to make some additional changes.
+ Warning: you will not be able to edit these selections. 
+ What attributes are required for signing up? Email
+ Do you want to enable any of the following capabilities? (Press <space> to select, <a> to toggle all, <i> to invert selection
+)
+ ◯ Add Google reCaptcha Challenge
+ ◯ Email Verification Link with Redirect
+ ◯ Add User to Group
+ ◯ Email Domain Filtering (denylist)
+ ◯ Email Domain Filtering (allowlist)
+ ◯ Custom Auth Challenge Flow (basic scaffolding - not for production)
+❯◯ Override ID Token Claims
+prashanthjaligama@Prashanths-MacBook-Pro-2 usebetter % amplify add auth
+Using service: Cognito, provided by: awscloudformation
+ 
+ The current configured provider is Amazon Cognito. 
+ 
+ Do you want to use the default authentication and security configuration? Manual configuration
+ Select the authentication/authorization services that you want to use: User Sign-Up, Sign-In, connected with AWS IAM controls
+ (Enables per-user Storage features for images or other content, Analytics, and more)
+ Provide a friendly name for your resource that will be used to label this category in the project: usebetter36f51f8f36f51f8f
+ Enter a name for your identity pool. usebetter36f51f8f_identitypool_36f51f8f
+ Allow unauthenticated logins? (Provides scoped down permissions that you can control via AWS IAM) No
+ Do you want to enable 3rd party authentication providers in your identity pool? No
+ Provide a name for your user pool: usebetter36f51f8f_userpool_36f51f8f
+ Warning: you will not be able to edit these selections. 
+ How do you want users to be able to sign in? Phone Number
+ Do you want to add User Pool Groups? No
+ Do you want to add an admin queries API? Yes
+? Do you want to restrict access to the admin queries API to a specific Group Yes
+? Select the group to restrict access with: Enter a custom group
+? Provide a group name: admin
+ Multifactor authentication (MFA) user login options: OPTIONAL (Individual users can use MFA)
+ For user login, select the MFA types: Time-Based One-Time Password (TOTP)
+ Specify an SMS authentication message: Your authentication code is {####}
+ Email based user registration/forgot password: Disabled (Uses SMS/TOTP as an alternative)
+ Please specify an SMS verification message: Your verification code is {####}
+ Do you want to override the default password policy for this User Pool? No
+ Warning: you will not be able to edit these selections. 
+ What attributes are required for signing up? Email, Phone Number (This attribute is not supported by Facebook, Login With Ama
+zon, Signinwithapple.)
+ Specify the app's refresh token expiration period (in days): (30) 
+prashanthjaligama@Prashanths-MacBook-Pro-2 usebetter % amplify add auth
+Using service: Cognito, provided by: awscloudformation
+ 
+ The current configured provider is Amazon Cognito. 
+ 
+ Do you want to use the default authentication and security configuration? Manual configuration
+ Select the authentication/authorization services that you want to use: User Sign-Up, Sign-In, connected with AWS IAM controls
+ (Enables per-user Storage features for images or other content, Analytics, and more)
+ Provide a friendly name for your resource that will be used to label this category in the project: usebetterf955261bf955261b
+ Enter a name for your identity pool. usebetterf955261b_identitypool_f955261b
+ Allow unauthenticated logins? (Provides scoped down permissions that you can control via AWS IAM) No
+ Do you want to enable 3rd party authentication providers in your identity pool? No
+ Provide a name for your user pool: usebetterf955261b_userpool_f955261b
+ Warning: you will not be able to edit these selections. 
+ How do you want users to be able to sign in? Phone Number
+ Do you want to add User Pool Groups? No
+ Do you want to add an admin queries API? Yes
+? Do you want to restrict access to the admin queries API to a specific Group Yes
+? Select the group to restrict access with: Enter a custom group
+? Provide a group name: admin
+ Multifactor authentication (MFA) user login options: OPTIONAL (Individual users can use MFA)
+ For user login, select the MFA types: Time-Based One-Time Password (TOTP)
+ Specify an SMS authentication message: Your authentication code is {####}
+ Email based user registration/forgot password: Disabled (Uses SMS/TOTP as an alternative)
+ Please specify an SMS verification message: Your verification code is {####}
+ Do you want to override the default password policy for this User Pool? Yes
+ Enter the minimum password length for this User Pool: 6
+ Select the password character requirements for your userpool: Requires Numbers
+ Warning: you will not be able to edit these selections. 
+ What attributes are required for signing up? Phone Number (This attribute is not supported by Facebook, Login With Amazon, Si
+gninwithapple.)
+ Specify the app's refresh token expiration period (in days): 30
+ Do you want to specify the user attributes this app can read and write? No
+ Do you want to enable any of the following capabilities? 
+ Do you want to use an OAuth flow? I want to learn more.
+ 
+When you create a user pool in Amazon Cognito and configure a domain for it, Amazon Cognito automatically provisions a hosted 
+web UI to let you add sign-up and sign-in pages to your app. Selecting "No" will remove any existing OAuth configuration.
+
+ 
+ Do you want to use an OAuth flow? No
+? Do you want to configure Lambda Triggers for Cognito? No
+✅ Successfully added AdminQuerieseb210630 function locally
+✅ Successfully added AdminQueries API locally
+✅ Successfully added auth resource usebetterf955261bf955261b locally
+
+✅ Some next steps:
+"amplify push" will build all your local backend resources and provision it in the cloud
+"amplify publish" will build all your local backend and frontend resources (if you have hosting category added) and provision it in the cloud
+
+⚠️ You have enabled SMS based auth workflow. Verify your SNS account mode in the SNS console: https://console.aws.amazon.com/sns/v3/home#/mobile/text-messaging
+If your account is in "Sandbox" mode, you can only send SMS messages to verified recipient phone numbers.
+
+prashanthjaligama@Prashanths-MacBook-Pro-2 usebetter % amplify push
+✔ Successfully pulled backend environment dev from the cloud.
+
+    Current Environment: dev
+    
+┌──────────┬───────────────────────────┬───────────┬───────────────────┐
+│ Category │ Resource name             │ Operation │ Provider plugin   │
+├──────────┼───────────────────────────┼───────────┼───────────────────┤
+│ Function │ AdminQuerieseb210630      │ Create    │ awscloudformation │
+├──────────┼───────────────────────────┼───────────┼───────────────────┤
+│ Api      │ AdminQueries              │ Create    │ awscloudformation │
+├──────────┼───────────────────────────┼───────────┼───────────────────┤
+│ Auth     │ usebetterf955261bf955261b │ Create    │ awscloudformation │
+└──────────┴───────────────────────────┴───────────┴───────────────────┘
+? Are you sure you want to continue? Yes
+⠇ Updating resources in the cloud. This may take a few minutes...
+
+UPDATE_IN_PROGRESS amplify-usebetter-dev-225001   AWS::CloudFormation::Stack Sun May 22 2022 12:21:37 GMT-0700 (Pacific Daylight Time) User Initiated
+CREATE_IN_PROGRESS authusebetterf955261bf955261b  AWS::CloudFormation::Stack Sun May 22 2022 12:21:42 GMT-0700 (Pacific Daylight Time)               
+CREATE_IN_PROGRESS UpdateRolesWithIDPFunctionRole AWS::IAM::Role             Sun May 22 2022 12:21:42 GMT-0700 (Pacific Daylight Time)               
+⠙ Updating resources in the cloud. This may take a few minutes...
+
+CREATE_IN_PROGRESS authusebetterf955261bf955261b  AWS::CloudFormation::Stack Sun May 22 2022 12:21:42 GMT-0700 (Pacific Daylight Time) Resource creation Initiated
+CREATE_IN_PROGRESS UpdateRolesWithIDPFunctionRole AWS::IAM::Role             Sun May 22 2022 12:21:43 GMT-0700 (Pacific Daylight Time) Resource creation Initiated
+⠹ Updating resources in the cloud. This may take a few minutes...
+
+CREATE_IN_PROGRESS amplify-usebetter-dev-225001-authusebetterf955261bf955261b-GC5EWATH8NYO AWS::CloudFormation::Stack Sun May 22 2022 12:21:42 GMT-0700 (Pacific Daylight Time) User Initiated
+⠸ Updating resources in the cloud. This may take a few minutes...
+
+CREATE_IN_PROGRESS SNSRole AWS::IAM::Role Sun May 22 2022 12:21:50 GMT-0700 (Pacific Daylight Time)                            
+CREATE_IN_PROGRESS SNSRole AWS::IAM::Role Sun May 22 2022 12:21:51 GMT-0700 (Pacific Daylight Time) Resource creation Initiated
+⠴ Updating resources in the cloud. This may take a few minutes...
+
+CREATE_COMPLETE UpdateRolesWithIDPFunctionRole AWS::IAM::Role Sun May 22 2022 12:21:58 GMT-0700 (Pacific Daylight Time) 
+⠏ Updating resources in the cloud. This may take a few minutes...
+
+CREATE_COMPLETE SNSRole AWS::IAM::Role Sun May 22 2022 12:22:06 GMT-0700 (Pacific Daylight Time) 
+⠋ Updating resources in the cloud. This may take a few minutes...
+
+CREATE_IN_PROGRESS UserPool AWS::Cognito::UserPool Sun May 22 2022 12:22:10 GMT-0700 (Pacific Daylight Time) 
+⠹ Updating resources in the cloud. This may take a few minutes...
+
+CREATE_IN_PROGRESS UserPool          AWS::Cognito::UserPool       Sun May 22 2022 12:22:13 GMT-0700 (Pacific Daylight Time) Resource creation Initiated
+CREATE_COMPLETE    UserPool          AWS::Cognito::UserPool       Sun May 22 2022 12:22:13 GMT-0700 (Pacific Daylight Time)                            
+CREATE_IN_PROGRESS UserPoolClientWeb AWS::Cognito::UserPoolClient Sun May 22 2022 12:22:16 GMT-0700 (Pacific Daylight Time)                            
+CREATE_IN_PROGRESS UserPoolClient    AWS::Cognito::UserPoolClient Sun May 22 2022 12:22:16 GMT-0700 (Pacific Daylight Time)                            
+⠴ Updating resources in the cloud. This may take a few minutes...
+
+CREATE_IN_PROGRESS UserPoolClientWeb AWS::Cognito::UserPoolClient Sun May 22 2022 12:22:17 GMT-0700 (Pacific Daylight Time) Resource creation Initiated
+CREATE_COMPLETE    UserPoolClientWeb AWS::Cognito::UserPoolClient Sun May 22 2022 12:22:17 GMT-0700 (Pacific Daylight Time)                            
+⠼ Updating resources in the cloud. This may take a few minutes...
+
+CREATE_IN_PROGRESS UserPoolClient     AWS::Cognito::UserPoolClient Sun May 22 2022 12:22:18 GMT-0700 (Pacific Daylight Time) Resource creation Initiated
+CREATE_COMPLETE    UserPoolClient     AWS::Cognito::UserPoolClient Sun May 22 2022 12:22:18 GMT-0700 (Pacific Daylight Time)                            
+CREATE_IN_PROGRESS UserPoolClientRole AWS::IAM::Role               Sun May 22 2022 12:22:20 GMT-0700 (Pacific Daylight Time)                            
+CREATE_IN_PROGRESS UserPoolClientRole AWS::IAM::Role               Sun May 22 2022 12:22:21 GMT-0700 (Pacific Daylight Time) Resource creation Initiated
+⠏ Updating resources in the cloud. This may take a few minutes...
+
+CREATE_COMPLETE UserPoolClientRole AWS::IAM::Role Sun May 22 2022 12:22:35 GMT-0700 (Pacific Daylight Time) 
+⠙ Updating resources in the cloud. This may take a few minutes...
+
+CREATE_IN_PROGRESS UserPoolClientLambda AWS::Lambda::Function Sun May 22 2022 12:22:38 GMT-0700 (Pacific Daylight Time)                            
+CREATE_IN_PROGRESS UserPoolClientLambda AWS::Lambda::Function Sun May 22 2022 12:22:41 GMT-0700 (Pacific Daylight Time) Resource creation Initiated
+⠴ Updating resources in the cloud. This may take a few minutes...
+
+CREATE_COMPLETE UserPoolClientLambda AWS::Lambda::Function Sun May 22 2022 12:22:47 GMT-0700 (Pacific Daylight Time) 
+⠼ Updating resources in the cloud. This may take a few minutes...
+
+CREATE_IN_PROGRESS UserPoolClientLambdaPolicy AWS::IAM::Policy Sun May 22 2022 12:22:50 GMT-0700 (Pacific Daylight Time)                            
+CREATE_IN_PROGRESS UserPoolClientLambdaPolicy AWS::IAM::Policy Sun May 22 2022 12:22:51 GMT-0700 (Pacific Daylight Time) Resource creation Initiated
+⠋ Updating resources in the cloud. This may take a few minutes...
+
+CREATE_COMPLETE UserPoolClientLambdaPolicy AWS::IAM::Policy Sun May 22 2022 12:23:05 GMT-0700 (Pacific Daylight Time) 
+⠋ Updating resources in the cloud. This may take a few minutes...
+
+CREATE_IN_PROGRESS UserPoolClientLogPolicy AWS::IAM::Policy Sun May 22 2022 12:23:08 GMT-0700 (Pacific Daylight Time)                            
+CREATE_IN_PROGRESS UserPoolClientLogPolicy AWS::IAM::Policy Sun May 22 2022 12:23:09 GMT-0700 (Pacific Daylight Time) Resource creation Initiated

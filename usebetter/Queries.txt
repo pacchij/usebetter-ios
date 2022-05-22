@@ -1,0 +1,44 @@
+operations:
+
+Owner:
+====
+
+update query:
+=======
+1. owner will share item-A to Contact-X
+     Store: date/time, item, shared to Contact (name, number)
+
+2. owner will share item-A again to new Contact-Y
+     Store: date/time, item, shared to Contact (name, number)
+
+3. Owner will mark item-A is not shared anymore
+    Store: date/time, item, no Contact
+
+4. Owner will change Available quantity / Name of an item
+
+read query
+=======
+5. Owner want to get all items published by thier contacts
+      For every contact:
+         check if they have any published items
+         if yes, download items and show it.
+
+4. Owner want to see all active transactions
+    all Items that are borrowed by me
+    all Items that I borrowed to others
+
+5. Owner want to see friend item status (already given to others or available)
+
+Events  and Item State change
+=======
+A. Accept an incoming request to borrow : Pending_Request  -> Request_Accepted
+B. Request or Re-Request an item  : Pending_Request -> Pending_Request
+C. Request Return of an item : Request_Accepted -> Return_Requested
+D. Acknowledge receiving an item from friend: Request_Accepted -> Request_InProgress
+D. Acknowledge a return item from friend: 
+
+E. Borrow initiated by Owner itself: OwnerInitiated_Pending_Request
+
+
+
+
