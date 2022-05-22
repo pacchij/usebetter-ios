@@ -18,6 +18,8 @@ struct UBItem : Identifiable {
     var id: String { name }
     var originalItemURL: String?
     var itemCount: String = "1"
+    var sharedContactNumber: String?
+    var sharedContactName: String?
 }
 
 extension UBItem {
@@ -77,4 +79,6 @@ struct UBItemRemote : Codable {
     var tags: [String] = []
     var originalItemURL: String?
     var itemCount: String = "1"
+    var sharedContactNumber: String?
+    var sharedContactName: String?
 }

@@ -71,9 +71,10 @@ struct UpdateItemView: View {
                 }
 
                 HStack {
-                    if let contact = delegate.contact {
+                    if let contactName =  userFeedData.userItems[itemIndex].sharedContactName {
                         Text("shared To: ")
-                        Text(contact.givenName).frame(width:150)
+                        Text(contactName)
+                            .frame(width:150)
                             .foregroundColor(.green)
                             .font(.callout)
                     }
@@ -92,6 +93,8 @@ struct UpdateItemView: View {
                     }
                     .sheet(isPresented: $delegate.showPicker, onDismiss: {
                         delegate.showPicker = false
+                        userFeedData.userItems[itemIndex].sharedContactNumber = getFirstNumber(delegate.contact)
+                        userFeedData.userItems[itemIndex].sharedContactName = delegate.contact?.givenName
                     }) {
                         ContactPicker(delegate: .constant(delegate))
                     }
@@ -111,6 +114,26 @@ struct UpdateItemView: View {
         }
         .navigationBarTitle("Update Item", displayMode: .inline)
         .edgesIgnoringSafeArea([.bottom])
+    }
+    
+    func getFirstNumber(_ contact: CNContact?) -> String? {
+        guard let contact = contact else {
+            return nil
+        }
+        let validTypes = [
+            CNLabelPhoneNumberiPhone,
+            CNLabelPhoneNumberMobile,
+            CNLabelPhoneNumberMain
+        ]
+
+        let numbers = contact.phoneNumbers.compactMap { phoneNumber -> String? in
+            guard let label = phoneNumber.label, validTypes.contains(label) else { return nil }
+            return phoneNumber.value.stringValue
+        }
+
+        guard !numbers.isEmpty else { return nil }
+
+        return numbers[0]
     }
 }
 

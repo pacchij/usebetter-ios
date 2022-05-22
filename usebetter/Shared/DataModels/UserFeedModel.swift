@@ -26,17 +26,6 @@ class UserFeedModel: ObservableObject {
     
     func append(item: UBItem) {
         userItems.append(item)
-        //update remote items
-        var remoteItem = UBItemRemote(name: item.name)
-
-        remoteItem.tags = item.tags
-        remoteItem.price = item.price
-        remoteItem.originalItemURL = item.originalItemURL
-        remoteItem.imageURL = item.imageURL
-        remoteItem.description = item.description
-        remoteItem.itemCount = item.itemCount
-        userRemoteItems.append(remoteItem)
-        
         updateLocalCache()
     }
     
@@ -64,6 +53,8 @@ class UserFeedModel: ObservableObject {
                 item.description = remoteItem.description
                 item.originalItemURL = remoteItem.originalItemURL
                 item.itemCount = remoteItem.itemCount
+                item.sharedContactNumber = remoteItem.sharedContactNumber
+                item.sharedContactName = remoteItem.sharedContactName
                 
                 self.userItems.append(item)
             }
@@ -71,7 +62,25 @@ class UserFeedModel: ObservableObject {
     }
     
     private func updateLocalCache() {
-        JsonInterpreter(filePath: Constants.userFeed).write(data1: self.userRemoteItems)
+        DispatchQueue.global().async {
+            //update remote items
+            self.userRemoteItems = []
+            for item in self.userItems {
+                var remoteItem = UBItemRemote(name: item.name)
+
+                remoteItem.tags = item.tags
+                remoteItem.price = item.price
+                remoteItem.originalItemURL = item.originalItemURL
+                remoteItem.imageURL = item.imageURL
+                remoteItem.description = item.description
+                remoteItem.itemCount = item.itemCount
+                remoteItem.sharedContactNumber = item.sharedContactNumber
+                remoteItem.sharedContactName = item.sharedContactName
+                self.userRemoteItems.append(remoteItem)
+            }
+            JsonInterpreter(filePath: Constants.userFeed).write(data1: self.userRemoteItems)
+        }
+        
     }
     
     /* TODO

@@ -39,6 +39,8 @@ class FriendsFeedModel: ObservableObject {
                 item.price = remoteItem.price
                 item.description = remoteItem.description
                 item.originalItemURL = remoteItem.originalItemURL
+                item.itemCount = remoteItem.itemCount
+                item.sharedContactNumber = remoteItem.sharedContactNumber
                 
                 self.friendsItems.append(item)
             }

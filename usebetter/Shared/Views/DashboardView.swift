@@ -21,19 +21,19 @@ struct DashboardView: View {
     @EnvironmentObject var friendsFeedData: FriendsFeedModel
     var body: some View {
         TabView {
-            DashboardMyStuffView(searchText: "")
-                .environmentObject(userFeedData)
-                .tabItem {
-                    Label("MyStuff", systemImage: "bag")
-                }
             DashboardHomeView(searchText: "")
                 .environmentObject(friendsFeedData)
                 .tabItem {
                     Label("Home", systemImage: "house")
                 }
+            DashboardMyStuffView(searchText: "")
+                .environmentObject(userFeedData)
+                .tabItem {
+                    Label("MyStuff", systemImage: "bag")
+                }
             DashboardGroupsView()
                 .tabItem {
-                    Label("Groups", systemImage: "person.3.sequence.fill")
+                    Label("Events", systemImage: "person.3.sequence.fill")
                 }
             DashboardSettingsView()
                 .tabItem {
