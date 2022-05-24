@@ -65,6 +65,8 @@
 		C0016A12283AC96400523EFF /* AWSDataStorePlugin in Frameworks */ = {isa = PBXBuildFile; productRef = C0016A11283AC96400523EFF /* AWSDataStorePlugin */; };
 		C0016A14283AC96400523EFF /* AWSS3StoragePlugin in Frameworks */ = {isa = PBXBuildFile; productRef = C0016A13283AC96400523EFF /* AWSS3StoragePlugin */; };
 		C0016A16283AC96400523EFF /* Amplify in Frameworks */ = {isa = PBXBuildFile; productRef = C0016A15283AC96400523EFF /* Amplify */; };
+		C0016A19283AD45300523EFF /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0016A18283AD45300523EFF /* AccountManager.swift */; };
+		C0016A1A283AD45300523EFF /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0016A18283AD45300523EFF /* AccountManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,6 +118,7 @@
 		C0016A01283A081F00523EFF /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 		C0016A02283A081F00523EFF /* amplifyconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
 		C0016A09283A08BE00523EFF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C0016A18283AD45300523EFF /* AccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,7 +166,10 @@
 		C001694A282C4E1600523EFF = {
 			isa = PBXGroup;
 			children = (
-				C00169FF283A081100523EFF /* aws */,
+				C0016A17283AD42300523EFF /* aws */,
+				C0016A02283A081F00523EFF /* amplifyconfiguration.json */,
+				C0016A01283A081F00523EFF /* awsconfiguration.json */,
+				C0016A00283A081F00523EFF /* amplify */,
 				C001694F282C4E1600523EFF /* Shared */,
 				C001695E282C4E1800523EFF /* macOS */,
 				C0016967282C4E1800523EFF /* Tests iOS */,
@@ -283,14 +289,12 @@
 			path = DataModels;
 			sourceTree = "<group>";
 		};
-		C00169FF283A081100523EFF /* aws */ = {
+		C0016A17283AD42300523EFF /* aws */ = {
 			isa = PBXGroup;
 			children = (
-				C0016A00283A081F00523EFF /* amplify */,
-				C0016A02283A081F00523EFF /* amplifyconfiguration.json */,
-				C0016A01283A081F00523EFF /* awsconfiguration.json */,
+				C0016A18283AD45300523EFF /* AccountManager.swift */,
 			);
-			name = aws;
+			path = aws;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -488,6 +492,7 @@
 				C00169E42836084400523EFF /* UserFeedModel.swift in Sources */,
 				C0016A0A283A08BE00523EFF /* AppDelegate.swift in Sources */,
 				C001699E282D921E00523EFF /* DashboardHomeViewModel.swift in Sources */,
+				C0016A19283AD45300523EFF /* AccountManager.swift in Sources */,
 				C0016978282C4E1800523EFF /* usebetterApp.swift in Sources */,
 				C00169D7282E203800523EFF /* DashboardMyStuffView.swift in Sources */,
 				C00169DD28317C1400523EFF /* URLParser.swift in Sources */,
@@ -513,6 +518,7 @@
 				C00169E52836084400523EFF /* UserFeedModel.swift in Sources */,
 				C0016A0B283A08BE00523EFF /* AppDelegate.swift in Sources */,
 				C001699F282D921E00523EFF /* DashboardHomeViewModel.swift in Sources */,
+				C0016A1A283AD45300523EFF /* AccountManager.swift in Sources */,
 				C0016979282C4E1800523EFF /* usebetterApp.swift in Sources */,
 				C00169D8282E203800523EFF /* DashboardMyStuffView.swift in Sources */,
 				C00169DE28317C1400523EFF /* URLParser.swift in Sources */,

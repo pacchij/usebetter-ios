@@ -6,15 +6,21 @@
 //
 
 import SwiftUI
+import Combine
+import Contacts
 
 struct SignUpView: View {
     @State private var shouldHideErrorMsg: Bool = true
+    @State private var shouldHidePwdErrorMsg: Bool = true
+    @State private var password: String = ""
+    
+    @State var activeTab: DasbhoardTabs?
+    
     @FocusState private var phoneFieldIsFocused: Bool
     @ObservedObject var phoneNumber = NumbersOnly()
     @EnvironmentObject var viewRouter: ViewRouter
-
-    @State var activeTab: DasbhoardTabs?
-
+    
+    private let accountManager = AccountManager()
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -52,11 +58,24 @@ struct SignUpView: View {
                     Spacer()
                         .frame(width: 10)
                 }
+                
+                SecureField("Enter a Password", text: $password)
+                    .textFieldStyle(.roundedBorder)
+                    .focused($phoneFieldIsFocused)
+                    .onSubmit {
+                        validatePassword()
+                    }
                 Text("Enter Valid Phone Number...")
                     .font(.subheadline)
                     .foregroundColor(Color.red)
                     .padding(10)
                     .opacity(shouldHideErrorMsg ? 0 : 1)
+                Text("Enter Valid Password 6 digits...")
+                    .font(.subheadline)
+                    .foregroundColor(Color.red)
+                    .padding(10)
+                    .opacity(shouldHidePwdErrorMsg ? 0 : 1)
+                
                 
                 Button("Sign Up", action: onSingnUp)
             }
@@ -74,12 +93,24 @@ struct SignUpView: View {
             shouldHideErrorMsg = false
             print("unHide")
         }
+    }
+    func validatePassword() {
+        print(self.password)
+        print("submit called")
 
-        
+        if self.$password.wrappedValue.count == 6 {
+            shouldHidePwdErrorMsg = true
+            print("unHide")
+        }
+        else {
+            shouldHidePwdErrorMsg = false
+            print("unHide")
+        }
     }
     
+    
     func onSingnUp() {
-        viewRouter.currentPage = .dashboard
+        accountManager.signUp(phoneNumber: "+1" + $phoneNumber.value.wrappedValue, password: $password.wrappedValue)
     }
 }
 
