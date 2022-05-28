@@ -17,6 +17,12 @@ enum SingInState {
     case error
     case alreadySignedIn
     case signedUp
+    case pendingEmailConfirm
+}
+
+enum OtpConfirmState {
+    case success
+    case failure
 }
 
 class AccountManager {
@@ -26,7 +32,7 @@ class AccountManager {
         let signInSubject = PassthroughSubject <SingInState, Never>()
         //Try signIn First, if user does not exist, signUp
         guard Amplify.Auth.getCurrentUser() == nil else {
-            print("already signed In \(Amplify.Auth.getCurrentUser()?.username ?? "")")
+            print("AccountManager: signIn: already signed In \(Amplify.Auth.getCurrentUser()?.username ?? "")")
             signInSubject.send(.alreadySignedIn)
             return signInSubject
         }
@@ -34,7 +40,7 @@ class AccountManager {
             .resultPublisher
             .sink {
                 if case let .failure(authError) = $0 {
-                        print("SignIn Failed \(authError)")
+                        print("AccountManager: signIn: SignIn Failed \(authError)")
                     signInSubject.send(.signedUp)
                     self.signUp(email: email, username: username, password: password, listener: signInSubject)
                 }
@@ -42,9 +48,16 @@ class AccountManager {
                     signInSubject.send(.signInSuccess)
                 }
             }
-            receiveValue: { _ in
-                print("Sign IN succeeded")
-                signInSubject.send(.signInSuccess)
+            receiveValue: { result in
+                switch result.nextStep {
+                case .confirmSignUp(let info):
+                    print("AccountManager: signIn confirmSignup \(info?.description ?? "")")
+                case .done:
+                    print("AccountManager: signIn: Sign IN succeeded")
+                    signInSubject.send(.signInSuccess)
+                default:
+                    print("AccountManager: signIn \(result.nextStep)")
+                }
             }
             .store(in: &bag)
         return signInSubject
@@ -57,19 +70,37 @@ class AccountManager {
             .resultPublisher
             .sink {
                 if case let .failure(authError) = $0 {
-                    print("An error occurred while registering a user \(authError)")
+                    print("AccountManager: signUp: An error occurred while registering a user \(authError)")
                     listener.send(.error)
                 }
             }
             receiveValue: { signUpResult in
                 if case let .confirmUser(deliveryDetails, _) = signUpResult.nextStep {
                     print("Delivery details \(String(describing: deliveryDetails))")
+                    listener.send(.pendingEmailConfirm)
                 } else {
-                    print("SignUp Complete")
+                    print("AccountManager: signUp: SignUp Complete")
+                    listener.send(.signInSuccess)
                 }
-                //Amplify.Auth.confirm(userAttribute: <#T##AuthUserAttributeKey#>, confirmationCode: <#T##String#>)
-                listener.send(.signInSuccess)
             }
             .store(in: &bag)
+    }
+    
+    func confirmSignUp(username: String, confirmationCode: String) -> PassthroughSubject<OtpConfirmState, Never> {
+        let otpState = PassthroughSubject <OtpConfirmState, Never>()
+        let _ = Amplify.Auth.confirmSignUp(for: username, confirmationCode: confirmationCode)
+            .resultPublisher
+            .sink {
+                if case let .failure(authError) = $0 {
+                    print("AccountManager: confirm: confirm failed \(authError)")
+                    otpState.send(.failure)
+                }
+            }
+            receiveValue: { _ in
+                print("AccountManager: confirm: confirm sucess")
+                otpState.send(.success)
+            }
+            .store(in: &bag)
+        return otpState
     }
 }

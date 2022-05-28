@@ -10,22 +10,26 @@ import Combine
 import Contacts
 
 struct SignUpView: View {
-    @State private var shouldHideErrorMsg: Bool = true
-    @State private var shouldHidePwdErrorMsg: Bool = true
-    @State private var password: String = "Test@123"
+    
     
     @State var activeTab: DasbhoardTabs?
     
     @FocusState private var phoneFieldIsFocused: Bool
-    @State private var phoneNumber = "7142615481"
-    @State private var email = "pacchij@yahoo.com"
+    
     @EnvironmentObject var viewRouter: ViewRouter
     @EnvironmentObject var userFeedData: UserFeedModel
     @EnvironmentObject var friendsFeedData: FriendsFeedModel
     
     private let accountManager = AccountManager()
     @State private var bag = Set<AnyCancellable>()
+    @State private var phoneNumber = "7142615481"
+    @State private var email = "pacchij@yahoo.com"
+    @State private var otp = ""
     @State private var userSignedIn = false
+    @State private var shouldShowErrorMsg: Bool = false
+    @State private var errorMessage: String = "Error Message..."
+    @State private var shouldHideOTP: Bool = true
+    @State private var password: String = "Test@123"
     var body: some View {
         ZStack(alignment: .top) {
             VStack {
@@ -77,7 +81,7 @@ struct SignUpView: View {
                     TextField("email", text: $email)
                         .textFieldStyle(.roundedBorder)
                         .onSubmit {
-                            validatePhoneNumber()
+                            validateEmail()
                         }
                     Spacer()
                         .frame(width: 10)
@@ -86,12 +90,12 @@ struct SignUpView: View {
                 HStack(spacing: 10) {
                     Spacer()
                         .frame(width: 10)
-                    Text("Email")
+                    Text("Password")
                         .font(.body)
                         .foregroundColor(.green)
                         .padding(10)
                 
-                    SecureField("Enter email", text: $email)
+                    SecureField("Enter Password", text: $email)
                         .textFieldStyle(.roundedBorder)
                         .focused($phoneFieldIsFocused)
                         .onSubmit {
@@ -100,18 +104,31 @@ struct SignUpView: View {
                     Spacer()
                         .frame(width: 10)
                 }
-                Text("Enter Valid Phone Number...")
-                    .font(.subheadline)
-                    .foregroundColor(Color.red)
-                    .padding(10)
-                    .opacity(shouldHideErrorMsg ? 0 : 1)
-                Text("Enter Valid Password 6 digits...")
-                    .font(.subheadline)
-                    .foregroundColor(Color.red)
-                    .padding(10)
-                    .opacity(shouldHidePwdErrorMsg ? 0 : 1)
                 
-                
+                    
+                HStack(spacing: 10) {
+                    Spacer()
+                        .frame(width: 10)
+                    Text("OTP from your email")
+                        .font(.body)
+                        .foregroundColor(.green)
+                        .padding(10)
+                    TextField("OTP", text: $otp)
+                        .textFieldStyle(.roundedBorder)
+                        .onSubmit {
+                            validateOtp()
+                        }
+                    Spacer()
+                        .frame(width: 10)
+                }
+                .opacity(shouldHideOTP ? 0 : 1)
+                    
+                Text($errorMessage.wrappedValue)
+                .font(.subheadline)
+                .foregroundColor(Color.red)
+                .padding(10)
+                .opacity(shouldShowErrorMsg ? 1 : 0)
+          
                 Button("Sign up / Login", action: onSingnUp)
                 }
             }
@@ -124,11 +141,12 @@ struct SignUpView: View {
 
     func validatePhoneNumber() {
         if self.$phoneNumber.wrappedValue.count == 10 {
-            shouldHideErrorMsg = true
+            errorMessage = "Enter Valid Phone Number..."
+            shouldShowErrorMsg = true
             print("unHide")
         }
         else {
-            shouldHideErrorMsg = false
+            shouldShowErrorMsg = false
             print("unHide")
         }
     }
@@ -138,15 +156,32 @@ struct SignUpView: View {
         print("submit called")
 
         if self.$password.wrappedValue.count == 6 {
-            shouldHidePwdErrorMsg = true
+            errorMessage = "Enter Valid Password 6 digits..."
+            shouldShowErrorMsg = true
             print("unHide")
         }
         else {
-            shouldHidePwdErrorMsg = false
+            shouldShowErrorMsg = false
             print("unHide")
         }
     }
     
+    private func validateOtp() {
+        let _ = accountManager.confirmSignUp(username: "+1" + $phoneNumber.wrappedValue, confirmationCode: $otp.wrappedValue)
+            .sink ( receiveValue: { result in
+                switch result {
+                case .success:
+                    self.shouldHideOTP = true
+                    self.shouldShowErrorMsg = false
+                    self.onSingnUp()
+                case .failure:
+                    shouldHideOTP = false
+                    errorMessage = "Enter Valid OTP sent to your email"
+                    shouldShowErrorMsg = true
+                }
+            })
+            .store(in: &bag)
+    }
     
     func onSingnUp() {
         let _ = accountManager.signIn(email: $email.wrappedValue, username: "+1" + $phoneNumber.wrappedValue, password: $password.wrappedValue)
@@ -162,6 +197,10 @@ struct SignUpView: View {
                     self.userSignedIn = false
                 case .error:
                     self.userSignedIn = false
+                case .pendingEmailConfirm:
+                    self.shouldHideOTP = false
+                    self.shouldShowErrorMsg = true
+                    self.errorMessage = "Enter Valid OTP sent to your email"
                 }
             })
             .store(in: &bag)
