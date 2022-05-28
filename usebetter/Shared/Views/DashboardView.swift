@@ -56,15 +56,3 @@ struct DashboardGroupsView: View {
         Text("Welcome to Groups view")
     }
 }
-
-//struct DashboardMyStuffView: View {
-//    var body: some View {
-//        Text("Welcome to My Stuff view")
-//    }
-//}
-
-struct DashboardSettingsView: View {
-    var body: some View {
-        Text("Welcome to Settings view")
-    }
-}

@@ -12,19 +12,30 @@ import Contacts
 struct SignUpView: View {
     @State private var shouldHideErrorMsg: Bool = true
     @State private var shouldHidePwdErrorMsg: Bool = true
-    @State private var password: String = ""
+    @State private var password: String = "Test@123"
     
     @State var activeTab: DasbhoardTabs?
     
     @FocusState private var phoneFieldIsFocused: Bool
-    @ObservedObject var phoneNumber = NumbersOnly()
+    @State private var phoneNumber = "7142615481"
+    @State private var email = "pacchij@yahoo.com"
     @EnvironmentObject var viewRouter: ViewRouter
+    @EnvironmentObject var userFeedData: UserFeedModel
+    @EnvironmentObject var friendsFeedData: FriendsFeedModel
     
     private let accountManager = AccountManager()
-    
+    @State private var bag = Set<AnyCancellable>()
+    @State private var userSignedIn = false
     var body: some View {
         ZStack(alignment: .top) {
             VStack {
+                if userSignedIn {
+                    DashboardView()
+                        .environmentObject(viewRouter)
+                        .environmentObject(userFeedData)
+                        .environmentObject(friendsFeedData)
+                }
+                else {
                 Text("Use Better")
                     .font(.title)
                     .fontWeight(.medium)
@@ -34,9 +45,6 @@ struct SignUpView: View {
                 
                 Image("AppIcon")
                     
-                    
-                    
-            
                 HStack(spacing: 10) {
                     Spacer()
                         .frame(width: 10)
@@ -48,7 +56,7 @@ struct SignUpView: View {
                         .font(.body)
                         .foregroundColor(.green)
                         .padding(2)
-                    TextField("Phone Number", text: $phoneNumber.value)
+                    TextField("Phone Number", text: $phoneNumber)
                         .textFieldStyle(.roundedBorder)
                         .focused($phoneFieldIsFocused)
                         .onSubmit {
@@ -59,12 +67,39 @@ struct SignUpView: View {
                         .frame(width: 10)
                 }
                 
-                SecureField("Enter a Password", text: $password)
-                    .textFieldStyle(.roundedBorder)
-                    .focused($phoneFieldIsFocused)
-                    .onSubmit {
-                        validatePassword()
-                    }
+                HStack(spacing: 10) {
+                    Spacer()
+                        .frame(width: 10)
+                    Text("Email")
+                        .font(.body)
+                        .foregroundColor(.green)
+                        .padding(10)
+                    TextField("email", text: $email)
+                        .textFieldStyle(.roundedBorder)
+                        .onSubmit {
+                            validatePhoneNumber()
+                        }
+                    Spacer()
+                        .frame(width: 10)
+                }
+                
+                HStack(spacing: 10) {
+                    Spacer()
+                        .frame(width: 10)
+                    Text("Email")
+                        .font(.body)
+                        .foregroundColor(.green)
+                        .padding(10)
+                
+                    SecureField("Enter email", text: $email)
+                        .textFieldStyle(.roundedBorder)
+                        .focused($phoneFieldIsFocused)
+                        .onSubmit {
+                            validateEmail()
+                        }
+                    Spacer()
+                        .frame(width: 10)
+                }
                 Text("Enter Valid Phone Number...")
                     .font(.subheadline)
                     .foregroundColor(Color.red)
@@ -77,15 +112,18 @@ struct SignUpView: View {
                     .opacity(shouldHidePwdErrorMsg ? 0 : 1)
                 
                 
-                Button("Sign Up", action: onSingnUp)
+                Button("Sign up / Login", action: onSingnUp)
+                }
             }
         }
     }
-    func validatePhoneNumber() {
-        print(self.$phoneNumber.value)
-        print("submit called")
+    
+    func validateEmail() {
+        
+    }
 
-        if self.$phoneNumber.value.wrappedValue.count == 10 {
+    func validatePhoneNumber() {
+        if self.$phoneNumber.wrappedValue.count == 10 {
             shouldHideErrorMsg = true
             print("unHide")
         }
@@ -94,6 +132,7 @@ struct SignUpView: View {
             print("unHide")
         }
     }
+    
     func validatePassword() {
         print(self.password)
         print("submit called")
@@ -110,7 +149,22 @@ struct SignUpView: View {
     
     
     func onSingnUp() {
-        accountManager.signUp(phoneNumber: "+1" + $phoneNumber.value.wrappedValue, password: $password.wrappedValue)
+        let _ = accountManager.signIn(email: $email.wrappedValue, username: "+1" + $phoneNumber.wrappedValue, password: $password.wrappedValue)
+            .sink (
+            receiveValue: { signInState in
+                print("signedup view: reeived value \(signInState)")
+                switch signInState {
+                case .signInSuccess:
+                    self.userSignedIn = true
+                case .alreadySignedIn:
+                    self.userSignedIn = true
+                case .signedUp:
+                    self.userSignedIn = false
+                case .error:
+                    self.userSignedIn = false
+                }
+            })
+            .store(in: &bag)
     }
 }
 

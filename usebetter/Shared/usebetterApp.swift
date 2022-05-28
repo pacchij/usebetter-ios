@@ -16,10 +16,11 @@ struct usebetterApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SplashView()
                 .environmentObject(viewRouter)
                 .environmentObject(userFeedData)
                 .environmentObject(friendsFeedData)
+           
         }
     }
 }

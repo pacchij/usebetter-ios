@@ -1,70 +1,26 @@
 {
-  "function": {
-    "AdminQuerieseb210630": {
-      "service": "Lambda",
-      "providerPlugin": "awscloudformation",
-      "build": true,
-      "dependsOn": [
-        {
-          "category": "auth",
-          "resourceName": "usebetterf955261bf955261b",
-          "attributes": [
-            "UserPoolId"
-          ]
-        }
-      ]
-    }
-  },
-  "api": {
-    "AdminQueries": {
-      "service": "API Gateway",
-      "providerPlugin": "awscloudformation",
-      "authorizationType": "AMAZON_COGNITO_USER_POOLS",
-      "dependsOn": [
-        {
-          "category": "auth",
-          "resourceName": "usebetterf955261bf955261b",
-          "attributes": [
-            "UserPoolId"
-          ]
-        },
-        {
-          "category": "function",
-          "resourceName": "AdminQuerieseb210630",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
-        }
-      ]
-    }
-  },
   "auth": {
-    "usebetterf955261bf955261b": {
+    "usebetter6cc6b009": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
       "customAuth": false,
       "frontendAuthConfig": {
         "socialProviders": [],
-        "usernameAttributes": [
-          "PHONE_NUMBER"
-        ],
+        "usernameAttributes": [],
         "signupAttributes": [
-          "PHONE_NUMBER"
+          "EMAIL"
         ],
         "passwordProtectionSettings": {
-          "passwordPolicyMinLength": "6",
-          "passwordPolicyCharacters": [
-            "REQUIRES_NUMBERS"
-          ]
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
         },
-        "mfaConfiguration": "OPTIONAL",
+        "mfaConfiguration": "OFF",
         "mfaTypes": [
-          "TOTP"
+          "SMS"
         ],
         "verificationMechanisms": [
-          "PHONE_NUMBER"
+          "EMAIL"
         ]
       }
     }

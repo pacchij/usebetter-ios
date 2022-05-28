@@ -67,6 +67,10 @@
 		C0016A16283AC96400523EFF /* Amplify in Frameworks */ = {isa = PBXBuildFile; productRef = C0016A15283AC96400523EFF /* Amplify */; };
 		C0016A19283AD45300523EFF /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0016A18283AD45300523EFF /* AccountManager.swift */; };
 		C0016A1A283AD45300523EFF /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0016A18283AD45300523EFF /* AccountManager.swift */; };
+		C0016A1C2842864A00523EFF /* DashboardSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0016A1B2842864A00523EFF /* DashboardSettingsView.swift */; };
+		C0016A1D2842864A00523EFF /* DashboardSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0016A1B2842864A00523EFF /* DashboardSettingsView.swift */; };
+		C0E4ED2728429EEE002C29AA /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E4ED2628429EEE002C29AA /* SplashView.swift */; };
+		C0E4ED2828429EEE002C29AA /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E4ED2628429EEE002C29AA /* SplashView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +123,8 @@
 		C0016A02283A081F00523EFF /* amplifyconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
 		C0016A09283A08BE00523EFF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0016A18283AD45300523EFF /* AccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
+		C0016A1B2842864A00523EFF /* DashboardSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardSettingsView.swift; sourceTree = "<group>"; };
+		C0E4ED2628429EEE002C29AA /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -237,6 +243,7 @@
 			children = (
 				C0016951282C4E1600523EFF /* ContentView.swift */,
 				C0016992282CB4D000523EFF /* DashboardView.swift */,
+				C0016A1B2842864A00523EFF /* DashboardSettingsView.swift */,
 				C00169D6282E203800523EFF /* DashboardMyStuffView.swift */,
 				C00169D9282E225900523EFF /* AddItemView.swift */,
 				C00169E92838A65600523EFF /* UpdateItemView.swift */,
@@ -245,6 +252,7 @@
 				C001698F282CB46500523EFF /* SignUPView.swift */,
 				C00169EF28396A0700523EFF /* ContactPickerView.swift */,
 				C00169F228396B5B00523EFF /* ContactPicker.swift */,
+				C0E4ED2628429EEE002C29AA /* SplashView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -484,10 +492,12 @@
 				C0016990282CB46500523EFF /* SignUPView.swift in Sources */,
 				C001698D282CB23F00523EFF /* ViewRouter.swift in Sources */,
 				C0016993282CB4D000523EFF /* DashboardView.swift in Sources */,
+				C0E4ED2728429EEE002C29AA /* SplashView.swift in Sources */,
 				C001697A282C4E1800523EFF /* ContentView.swift in Sources */,
 				C00169F028396A0700523EFF /* ContactPickerView.swift in Sources */,
 				C00169F328396B5B00523EFF /* ContactPicker.swift in Sources */,
 				C00169A1282D92D300523EFF /* UBItem.swift in Sources */,
+				C0016A1C2842864A00523EFF /* DashboardSettingsView.swift in Sources */,
 				C00169ED2838A69F00523EFF /* ReadOnlyItemView.swift in Sources */,
 				C00169E42836084400523EFF /* UserFeedModel.swift in Sources */,
 				C0016A0A283A08BE00523EFF /* AppDelegate.swift in Sources */,
@@ -510,10 +520,12 @@
 				C0016991282CB46500523EFF /* SignUPView.swift in Sources */,
 				C001698E282CB23F00523EFF /* ViewRouter.swift in Sources */,
 				C0016994282CB4D000523EFF /* DashboardView.swift in Sources */,
+				C0E4ED2828429EEE002C29AA /* SplashView.swift in Sources */,
 				C001697B282C4E1800523EFF /* ContentView.swift in Sources */,
 				C00169F128396A0700523EFF /* ContactPickerView.swift in Sources */,
 				C00169F428396B5B00523EFF /* ContactPicker.swift in Sources */,
 				C00169A2282D92D300523EFF /* UBItem.swift in Sources */,
+				C0016A1D2842864A00523EFF /* DashboardSettingsView.swift in Sources */,
 				C00169EE2838A69F00523EFF /* ReadOnlyItemView.swift in Sources */,
 				C00169E52836084400523EFF /* UserFeedModel.swift in Sources */,
 				C0016A0B283A08BE00523EFF /* AppDelegate.swift in Sources */,
@@ -674,8 +686,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SJ2PT8DF82;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -691,6 +705,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.share.usebetter;
 				PRODUCT_NAME = usebetter;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -703,8 +718,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SJ2PT8DF82;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -720,6 +737,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.share.usebetter;
 				PRODUCT_NAME = usebetter;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
