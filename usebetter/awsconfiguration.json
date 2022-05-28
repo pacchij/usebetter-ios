@@ -39,5 +39,11 @@
                 "EMAIL"
             ]
         }
+    },
+    "S3TransferUtility": {
+        "Default": {
+            "Bucket": "usebettercontent84304-devn",
+            "Region": "us-west-1"
+        }
     }
 }

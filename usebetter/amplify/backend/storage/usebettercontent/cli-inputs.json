@@ -1,0 +1,14 @@
+{
+  "resourceName": "usebettercontent",
+  "policyUUID": "54e4289a",
+  "bucketName": "usebettercontent",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}

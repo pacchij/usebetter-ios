@@ -6,15 +6,20 @@
 //
 
 import Foundation
+import Combine
+
+import Amplify
+import AWSS3
 
 class UserFeedModel: ObservableObject {
     
     struct Constants {
-        static var userFeed = "userfeed.json"
+        static var userFeed = "items.json"
     }
     
     @Published var userItems: [UBItem] = []
     private var userRemoteItems: [UBItemRemote] = []
+    private var bag = Set<AnyCancellable>()
     
     init() {
         readCache()
@@ -79,16 +84,51 @@ class UserFeedModel: ObservableObject {
                 self.userRemoteItems.append(remoteItem)
             }
             JsonInterpreter(filePath: Constants.userFeed).write(data1: self.userRemoteItems)
+            self.updateRemote()
         }
         
     }
     
-    /* TODO
-    private func readRemote() {}
+    private func readRemote() {
+    }
     
-    private func updateRemote() {}
-     */
+    private func updateRemote() {
+        guard let localURL = userFeedFile() else {
+            print("UserFeedModel: No local file exists")
+            return
+        }
+        
+        guard let username = Amplify.Auth.getCurrentUser()?.username else {
+            print("UserFeedModel: No local file exists")
+            return
+        }
+        
+        let storageOperation = Amplify.Storage.uploadFile(key: username+"/"+Constants.userFeed, local: localURL)
+        let _ = storageOperation.progressPublisher.sink { progress in
+            print("UserFeedModel: Progress: \(progress)")
+        }
+        .store(in: &bag)
+        
+        let _ = storageOperation.resultPublisher.sink {
+            if case let .failure(storageError) = $0 {
+                print("Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
+            }
+        }
+        receiveValue: { data in
+            print("UserFeedModel: Upload Completed: \(data)")
+        }
+        .store(in: &bag)
+        
+    }
     
+    private func userFeedFile() -> URL? {
+        if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let pathWithFilename = documentDirectory.appendingPathComponent(Constants.userFeed)
+            return pathWithFilename
+        }
+        return nil
+    }
+ 
 }
 
 class JsonInterpreter {
@@ -110,7 +150,6 @@ class JsonInterpreter {
                 
                 let decoder = JSONDecoder()
                 let model = try decoder.decode([UBItemRemote].self, from: dataString)
-                print(model)
                 return model
             } catch {
                 print("JsonInterpreter: write: Exception \(error)")
@@ -123,6 +162,7 @@ class JsonInterpreter {
         if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             let pathWithFilename = documentDirectory.appendingPathComponent(filePath)
             do {
+                print("UserFeedModel: Writing to local file \(pathWithFilename.path)")
                 try jsonString.write(to: pathWithFilename,
                                      atomically: true,
                                      encoding: .utf8)

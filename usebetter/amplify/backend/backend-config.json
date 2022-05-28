@@ -24,5 +24,12 @@
         ]
       }
     }
+  },
+  "storage": {
+    "usebettercontent": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": []
+    }
   }
 }

@@ -10,6 +10,7 @@ import Amplify
 import AWSCognitoAuthPlugin
 import SwiftUI
 import AWSAPIPlugin
+import AWSS3StoragePlugin
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -17,6 +18,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         do {
             Amplify.Logging.logLevel = .verbose
             try Amplify.add(plugin: AWSCognitoAuthPlugin())
+            try Amplify.add(plugin: AWSS3StoragePlugin()	)
            // try Amplify.add(plugin: AWSAPIPlugin())
             try Amplify.configure()
             print("Amplify configured with auth plugin")
