@@ -25,7 +25,7 @@ struct UpdateItemView: View {
             VStack {
                 Spacer()
                     .frame(height: 50)
-                if let imageURL = userFeedData.userItems[itemIndex].imageURL {//} item.imageURL {
+                if let imageURL = userFeedData.userItems[itemIndex].imageURL {
                     AsyncImage(url: URL(string: imageURL)) { image1 in
                         image1.resizable()
                             .scaledToFit()

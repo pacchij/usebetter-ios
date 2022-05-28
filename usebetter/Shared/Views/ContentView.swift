@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Amplify
 
 class NavigationController: ObservableObject {
     @Published var activeTab: DasbhoardTabs? = DasbhoardTabs.none
@@ -34,7 +35,15 @@ struct ContentView: View {
     var body: some View {
         switch viewRouter.currentPage {
         case .signUp:
-            SignUpView().environmentObject(viewRouter)
+            if Amplify.Auth.getCurrentUser() == nil {
+                SignUpView().environmentObject(viewRouter)
+            }
+            else {
+                DashboardView()
+                    .environmentObject(viewRouter)
+                    .environmentObject(userFeedData)
+                    .environmentObject(friendsFeedData)
+            }
         case .dashboard:
             DashboardView()
                 .environmentObject(viewRouter)
@@ -42,6 +51,7 @@ struct ContentView: View {
                 .environmentObject(friendsFeedData)
         }
     }
+
 }
 
 struct ContentView_Previews: PreviewProvider {
