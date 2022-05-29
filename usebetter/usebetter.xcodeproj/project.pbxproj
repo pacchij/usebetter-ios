@@ -71,6 +71,10 @@
 		C0016A1D2842864A00523EFF /* DashboardSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0016A1B2842864A00523EFF /* DashboardSettingsView.swift */; };
 		C0E4ED2728429EEE002C29AA /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E4ED2628429EEE002C29AA /* SplashView.swift */; };
 		C0E4ED2828429EEE002C29AA /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E4ED2628429EEE002C29AA /* SplashView.swift */; };
+		C0E4ED2A284314C6002C29AA /* S3FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E4ED29284314C6002C29AA /* S3FileManager.swift */; };
+		C0E4ED2B284314C6002C29AA /* S3FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E4ED29284314C6002C29AA /* S3FileManager.swift */; };
+		C0E4ED2D28431C42002C29AA /* JSONInterpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E4ED2C28431C42002C29AA /* JSONInterpreter.swift */; };
+		C0E4ED2E28431C42002C29AA /* JSONInterpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E4ED2C28431C42002C29AA /* JSONInterpreter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +129,8 @@
 		C0016A18283AD45300523EFF /* AccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		C0016A1B2842864A00523EFF /* DashboardSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardSettingsView.swift; sourceTree = "<group>"; };
 		C0E4ED2628429EEE002C29AA /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		C0E4ED29284314C6002C29AA /* S3FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3FileManager.swift; sourceTree = "<group>"; };
+		C0E4ED2C28431C42002C29AA /* JSONInterpreter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONInterpreter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -292,6 +298,7 @@
 			isa = PBXGroup;
 			children = (
 				C00169E32836084400523EFF /* UserFeedModel.swift */,
+				C0E4ED2C28431C42002C29AA /* JSONInterpreter.swift */,
 				C00169E62836086400523EFF /* FriendsFeedModel.swift */,
 			);
 			path = DataModels;
@@ -301,6 +308,7 @@
 			isa = PBXGroup;
 			children = (
 				C0016A18283AD45300523EFF /* AccountManager.swift */,
+				C0E4ED29284314C6002C29AA /* S3FileManager.swift */,
 			);
 			path = aws;
 			sourceTree = "<group>";
@@ -498,6 +506,7 @@
 				C00169F328396B5B00523EFF /* ContactPicker.swift in Sources */,
 				C00169A1282D92D300523EFF /* UBItem.swift in Sources */,
 				C0016A1C2842864A00523EFF /* DashboardSettingsView.swift in Sources */,
+				C0E4ED2D28431C42002C29AA /* JSONInterpreter.swift in Sources */,
 				C00169ED2838A69F00523EFF /* ReadOnlyItemView.swift in Sources */,
 				C00169E42836084400523EFF /* UserFeedModel.swift in Sources */,
 				C0016A0A283A08BE00523EFF /* AppDelegate.swift in Sources */,
@@ -507,6 +516,7 @@
 				C00169D7282E203800523EFF /* DashboardMyStuffView.swift in Sources */,
 				C00169DD28317C1400523EFF /* URLParser.swift in Sources */,
 				C00169DA282E225900523EFF /* AddItemView.swift in Sources */,
+				C0E4ED2A284314C6002C29AA /* S3FileManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -526,6 +536,7 @@
 				C00169F428396B5B00523EFF /* ContactPicker.swift in Sources */,
 				C00169A2282D92D300523EFF /* UBItem.swift in Sources */,
 				C0016A1D2842864A00523EFF /* DashboardSettingsView.swift in Sources */,
+				C0E4ED2E28431C42002C29AA /* JSONInterpreter.swift in Sources */,
 				C00169EE2838A69F00523EFF /* ReadOnlyItemView.swift in Sources */,
 				C00169E52836084400523EFF /* UserFeedModel.swift in Sources */,
 				C0016A0B283A08BE00523EFF /* AppDelegate.swift in Sources */,
@@ -535,6 +546,7 @@
 				C00169D8282E203800523EFF /* DashboardMyStuffView.swift in Sources */,
 				C00169DE28317C1400523EFF /* URLParser.swift in Sources */,
 				C00169DB282E225900523EFF /* AddItemView.swift in Sources */,
+				C0E4ED2B284314C6002C29AA /* S3FileManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

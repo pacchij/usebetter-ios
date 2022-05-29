@@ -20,6 +20,7 @@ class UserFeedModel: ObservableObject {
     @Published var userItems: [UBItem] = []
     private var userRemoteItems: [UBItemRemote] = []
     private var bag = Set<AnyCancellable>()
+    private var s3FileManager = S3FileManager()
     
     init() {
         readCache()
@@ -34,13 +35,20 @@ class UserFeedModel: ObservableObject {
         updateLocalCache()
     }
     
+    func sync() {
+        readRemote() { _ in
+        }
+    }
+    
     private func readCache() {
         DispatchQueue.global().async {
             self.userRemoteItems = JsonInterpreter(filePath: Constants.userFeed).read()
             if self.userRemoteItems.isEmpty {
-                if JsonInterpreter(filePath: Constants.userFeed).write(jsonString: DummyData.Constants.exampleUserData) {
-                    self.readCache()
-                }
+                  self.readRemote() { result in
+                      if result == true {
+                          self.readCache()
+                      }
+                 }
             }
             else {
                 self.convertRemoteData()
@@ -89,36 +97,37 @@ class UserFeedModel: ObservableObject {
         
     }
     
-    private func readRemote() {
-    }
-    
-    private func updateRemote() {
+    private func readRemote(completion: @escaping (Bool)->Void) {
         guard let localURL = userFeedFile() else {
-            print("UserFeedModel: No local file exists")
+            print("UserFeedModel: readRemote: No local file exists")
             return
         }
         
         guard let username = Amplify.Auth.getCurrentUser()?.username else {
-            print("UserFeedModel: No local file exists")
+            print("UserFeedModel: readRemote: No local file exists")
             return
         }
         
-        let storageOperation = Amplify.Storage.uploadFile(key: username+"/"+Constants.userFeed, local: localURL)
-        let _ = storageOperation.progressPublisher.sink { progress in
-            print("UserFeedModel: Progress: \(progress)")
+        s3FileManager.downloadRemote(key: username+"/"+Constants.userFeed, localURL: localURL) { result in
+            print("UserFeedModel: readRemote: Completed: \(result)")
+            completion(result)
         }
-        .store(in: &bag)
+    }
+    
+    private func updateRemote() {
+        guard let localURL = userFeedFile() else {
+            print("UserFeedModel: updateRemote: No local file exists")
+            return
+        }
         
-        let _ = storageOperation.resultPublisher.sink {
-            if case let .failure(storageError) = $0 {
-                print("Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
-            }
+        guard let username = Amplify.Auth.getCurrentUser()?.username else {
+            print("UserFeedModel: updateRemote: No local file exists")
+            return
         }
-        receiveValue: { data in
-            print("UserFeedModel: Upload Completed: \(data)")
-        }
-        .store(in: &bag)
         
+        S3FileManager().updateRemote(key: username+"/"+Constants.userFeed, localURL: localURL) { result in
+            print("UserFeedModel: updateRemote: Completed: \(result)")
+        }
     }
     
     private func userFeedFile() -> URL? {
@@ -131,65 +140,6 @@ class UserFeedModel: ObservableObject {
  
 }
 
-class JsonInterpreter {
-    private let filePath: String
-    
-    init(filePath: String) {
-        self.filePath = filePath
-    }
-    
-    func read() -> [UBItemRemote] {
-        if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            let pathWithFilename = documentDirectory.appendingPathComponent(filePath)
-            do {
-                if !FileManager.default.fileExists(atPath: pathWithFilename.path) {
-                    return []
-                }
-                let jsonString = try String(contentsOfFile: pathWithFilename.path, encoding: String.Encoding.utf8)
-                let dataString = Data(jsonString.utf8)
-                
-                let decoder = JSONDecoder()
-                let model = try decoder.decode([UBItemRemote].self, from: dataString)
-                return model
-            } catch {
-                print("JsonInterpreter: write: Exception \(error)")
-            }
-        }
-        return []
-    }
-    
-    func write(jsonString: String) -> Bool {
-        if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            let pathWithFilename = documentDirectory.appendingPathComponent(filePath)
-            do {
-                print("UserFeedModel: Writing to local file \(pathWithFilename.path)")
-                try jsonString.write(to: pathWithFilename,
-                                     atomically: true,
-                                     encoding: .utf8)
-                return true
-            } catch {
-                print("JsonInterpreter: write: Exception \(error)")
-            }
-        }
-        return false
-    }
-    
-    func write(data1: [UBItemRemote]) {
-        do {
-            let jsonData = try JSONEncoder().encode(data1)
-            guard let jsonString = String(data: jsonData, encoding: .utf8) else {
-                return
-            }
-            
-            if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-                let pathWithFilename = documentDirectory.appendingPathComponent(filePath)
-                try jsonString.write(to: pathWithFilename, atomically: true, encoding: .utf8)
-            }
-        } catch {
-            print("JsonInterpreter: write: data Exception \(error)")
-        }
-    }
-}
 
 class DummyData {
     struct Constants {
