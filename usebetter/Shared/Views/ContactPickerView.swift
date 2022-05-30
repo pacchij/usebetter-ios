@@ -9,13 +9,12 @@ import Foundation
 import SwiftUI
 import ContactsUI
 import Contacts
-
+/*
 struct ContactPickerView: View {
     @ObservedObject var delegate = Delegate()
     
     var body: some View {
         VStack {
-//            ContactPicker(delegate: .constant(delegate))
             Text("Hi")
 
             Button(action: {
@@ -34,18 +33,6 @@ struct ContactPickerView: View {
             }
         }
     }
-    
-//    /// Provides `CNContactPickerDelegate` functionality tailored to this view's requirements.
-//    class Delegate: ContactPickerDelegate {
-//        @Published var contact: CNContact? = nil
-//        
-//        func contactPicker(_ picker: CNContactPickerViewController, didSelect contact: CNContact) {
-//            print(contact.givenName)
-//            self.contact = contact
-//            //print(self.contact?.phoneNumbers)
-//            self.showPicker = false
-//        }
-//    }
 }
 
 struct ContactPickerView_Previews: PreviewProvider {
@@ -53,3 +40,4 @@ struct ContactPickerView_Previews: PreviewProvider {
         ContactPickerView()
     }
 }
+*/

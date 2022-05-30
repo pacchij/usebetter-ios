@@ -44,8 +44,6 @@
 		C00169EB2838A65600523EFF /* UpdateItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169E92838A65600523EFF /* UpdateItemView.swift */; };
 		C00169ED2838A69F00523EFF /* ReadOnlyItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169EC2838A69F00523EFF /* ReadOnlyItemView.swift */; };
 		C00169EE2838A69F00523EFF /* ReadOnlyItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169EC2838A69F00523EFF /* ReadOnlyItemView.swift */; };
-		C00169F028396A0700523EFF /* ContactPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169EF28396A0700523EFF /* ContactPickerView.swift */; };
-		C00169F128396A0700523EFF /* ContactPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169EF28396A0700523EFF /* ContactPickerView.swift */; };
 		C00169F328396B5B00523EFF /* ContactPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169F228396B5B00523EFF /* ContactPicker.swift */; };
 		C00169F428396B5B00523EFF /* ContactPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00169F228396B5B00523EFF /* ContactPicker.swift */; };
 		C00169F7283A05FA00523EFF /* AWSCognitoAuthPlugin in Frameworks */ = {isa = PBXBuildFile; productRef = C00169F6283A05FA00523EFF /* AWSCognitoAuthPlugin */; };
@@ -75,6 +73,8 @@
 		C0E4ED2B284314C6002C29AA /* S3FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E4ED29284314C6002C29AA /* S3FileManager.swift */; };
 		C0E4ED2D28431C42002C29AA /* JSONInterpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E4ED2C28431C42002C29AA /* JSONInterpreter.swift */; };
 		C0E4ED2E28431C42002C29AA /* JSONInterpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E4ED2C28431C42002C29AA /* JSONInterpreter.swift */; };
+		C0E4ED3028457926002C29AA /* ContactHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E4ED2F28457926002C29AA /* ContactHelper.swift */; };
+		C0E4ED3128457926002C29AA /* ContactHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E4ED2F28457926002C29AA /* ContactHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,7 +120,6 @@
 		C00169E62836086400523EFF /* FriendsFeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsFeedModel.swift; sourceTree = "<group>"; };
 		C00169E92838A65600523EFF /* UpdateItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateItemView.swift; sourceTree = "<group>"; };
 		C00169EC2838A69F00523EFF /* ReadOnlyItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadOnlyItemView.swift; sourceTree = "<group>"; };
-		C00169EF28396A0700523EFF /* ContactPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactPickerView.swift; sourceTree = "<group>"; };
 		C00169F228396B5B00523EFF /* ContactPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactPicker.swift; sourceTree = "<group>"; };
 		C0016A00283A081F00523EFF /* amplify */ = {isa = PBXFileReference; lastKnownFileType = folder; path = amplify; sourceTree = "<group>"; };
 		C0016A01283A081F00523EFF /* awsconfiguration.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
@@ -131,6 +130,8 @@
 		C0E4ED2628429EEE002C29AA /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		C0E4ED29284314C6002C29AA /* S3FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3FileManager.swift; sourceTree = "<group>"; };
 		C0E4ED2C28431C42002C29AA /* JSONInterpreter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONInterpreter.swift; sourceTree = "<group>"; };
+		C0E4ED2F28457926002C29AA /* ContactHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactHelper.swift; sourceTree = "<group>"; };
+		C0E4ED32284585A2002C29AA /* usebetter--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "usebetter--iOS--Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +179,7 @@
 		C001694A282C4E1600523EFF = {
 			isa = PBXGroup;
 			children = (
+				C0E4ED32284585A2002C29AA /* usebetter--iOS--Info.plist */,
 				C0016A17283AD42300523EFF /* aws */,
 				C0016A02283A081F00523EFF /* amplifyconfiguration.json */,
 				C0016A01283A081F00523EFF /* awsconfiguration.json */,
@@ -256,7 +258,6 @@
 				C00169EC2838A69F00523EFF /* ReadOnlyItemView.swift */,
 				C0016995282CD49D00523EFF /* DashboardHomeView.swift */,
 				C001698F282CB46500523EFF /* SignUPView.swift */,
-				C00169EF28396A0700523EFF /* ContactPickerView.swift */,
 				C00169F228396B5B00523EFF /* ContactPicker.swift */,
 				C0E4ED2628429EEE002C29AA /* SplashView.swift */,
 			);
@@ -267,6 +268,7 @@
 			isa = PBXGroup;
 			children = (
 				C001699D282D921E00523EFF /* DashboardHomeViewModel.swift */,
+				C0E4ED2F28457926002C29AA /* ContactHelper.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -502,7 +504,6 @@
 				C0016993282CB4D000523EFF /* DashboardView.swift in Sources */,
 				C0E4ED2728429EEE002C29AA /* SplashView.swift in Sources */,
 				C001697A282C4E1800523EFF /* ContentView.swift in Sources */,
-				C00169F028396A0700523EFF /* ContactPickerView.swift in Sources */,
 				C00169F328396B5B00523EFF /* ContactPicker.swift in Sources */,
 				C00169A1282D92D300523EFF /* UBItem.swift in Sources */,
 				C0016A1C2842864A00523EFF /* DashboardSettingsView.swift in Sources */,
@@ -517,6 +518,7 @@
 				C00169DD28317C1400523EFF /* URLParser.swift in Sources */,
 				C00169DA282E225900523EFF /* AddItemView.swift in Sources */,
 				C0E4ED2A284314C6002C29AA /* S3FileManager.swift in Sources */,
+				C0E4ED3028457926002C29AA /* ContactHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -532,7 +534,6 @@
 				C0016994282CB4D000523EFF /* DashboardView.swift in Sources */,
 				C0E4ED2828429EEE002C29AA /* SplashView.swift in Sources */,
 				C001697B282C4E1800523EFF /* ContentView.swift in Sources */,
-				C00169F128396A0700523EFF /* ContactPickerView.swift in Sources */,
 				C00169F428396B5B00523EFF /* ContactPicker.swift in Sources */,
 				C00169A2282D92D300523EFF /* UBItem.swift in Sources */,
 				C0016A1D2842864A00523EFF /* DashboardSettingsView.swift in Sources */,
@@ -547,6 +548,7 @@
 				C00169DE28317C1400523EFF /* URLParser.swift in Sources */,
 				C00169DB282E225900523EFF /* AddItemView.swift in Sources */,
 				C0E4ED2B284314C6002C29AA /* S3FileManager.swift in Sources */,
+				C0E4ED3128457926002C29AA /* ContactHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -704,6 +706,8 @@
 				DEVELOPMENT_TEAM = SJ2PT8DF82;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "usebetter--iOS--Info.plist";
+				INFOPLIST_KEY_NSContactsUsageDescription = "Contacts will be used to determine friends and pull their shared items";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -736,6 +740,8 @@
 				DEVELOPMENT_TEAM = SJ2PT8DF82;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "usebetter--iOS--Info.plist";
+				INFOPLIST_KEY_NSContactsUsageDescription = "Contacts will be used to determine friends and pull their shared items";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

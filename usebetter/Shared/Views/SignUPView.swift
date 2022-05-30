@@ -167,7 +167,7 @@ struct SignUpView: View {
     }
     
     private func validateOtp() {
-        let _ = accountManager.confirmSignUp(username: "+1" + $phoneNumber.wrappedValue, confirmationCode: $otp.wrappedValue)
+        let _ = accountManager.confirmSignUp(username: "1" + $phoneNumber.wrappedValue, confirmationCode: $otp.wrappedValue)
             .sink ( receiveValue: { result in
                 switch result {
                 case .success:
@@ -184,7 +184,7 @@ struct SignUpView: View {
     }
     
     func onSingnUp() {
-        let _ = accountManager.signIn(email: $email.wrappedValue, username: "+1" + $phoneNumber.wrappedValue, password: $password.wrappedValue)
+        let _ = accountManager.signIn(email: $email.wrappedValue, username: "1" + $phoneNumber.wrappedValue, password: $password.wrappedValue)
             .sink (
             receiveValue: { signInState in
                 print("signedup view: reeived value \(signInState)")

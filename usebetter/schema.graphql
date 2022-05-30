@@ -1,0 +1,29 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Query {
+    getAllOwnerTransactions(owner: String!): trans
+    getAllReceiverTransactions(receiver: String!): trans
+    getTransaction(transid: ID!)
+}
+
+type Mutation {
+    updateTransactionState(transactionid: ID!, state: String!): trans
+    createTransaction(owner:ID!, receiver: ID!, itemid: ID!, state: String!): trans
+}
+
+type trans @model 
+@key(fields:["owner", "datetime", "state"])
+@key(name: "ByReceiver", fields: ["receiver"])
+{  
+    owner: String!
+    itemid: ID!
+    receiver: String!
+    state: Int!
+    datetime: AWSTimestamp!
+}
+
+
+getAllOwnerTransactions(owner: String!, datetime: AWSTimestamp!): mytrans

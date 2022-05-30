@@ -57,3 +57,4 @@ class Delegate: ContactPickerDelegate {
         self.showPicker = false
     }
 }
+

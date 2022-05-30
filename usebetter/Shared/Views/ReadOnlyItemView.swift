@@ -12,7 +12,10 @@ struct ReadOnlyItemView: View {
     @State var item: UBItem
     @State private var itemName: String = ""
     @State private var itemCount: String = "1"
+    @State private var contactName: String = "determining...."
     @EnvironmentObject var userFeedData: UserFeedModel
+    
+    let contactHelper = ContactHelper()
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -58,7 +61,7 @@ struct ReadOnlyItemView: View {
                 HStack {
                    
                     Text("shared By: ")
-                    Text(item.sharedContactName ?? "").frame(width:150)
+                    Text(self.contactName).frame(width:150)
                         .foregroundColor(.green)
                         .font(.callout)
                     
@@ -74,6 +77,23 @@ struct ReadOnlyItemView: View {
         }
         .navigationBarTitle("View Item", displayMode: .inline)
         .edgesIgnoringSafeArea([.bottom])
+        .onAppear() {
+            guard let number = item.sharedContactNumber else {
+                return
+            }
+            contactFullname(for: number)
+        }
+    }
+    
+    private func contactFullname(for number: String) {
+        let name = "Not found in your contact"
+        contactHelper.fullName(for: number) { succeeded, value in
+            guard succeeded && value != nil else {
+                self.contactName = name
+                return
+            }
+            self.contactName = value ?? name
+        }
     }
 }
 

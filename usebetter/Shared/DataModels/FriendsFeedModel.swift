@@ -44,30 +44,27 @@ class FriendsFeedModel: ObservableObject {
                             //3. load each file
                             let friendItems = JsonInterpreter(filePath: item.key).read()
                             //4. update each file content in user thread
-                            self.convertRemoteData(remoteFriendsItems: friendItems)
+                            self.convertRemoteData(friendUsername: self.friendUserId(key: item.key) ?? "", remoteFriendsItems: friendItems)
                         }
                     }
                 }
             }
-//            self.friendsRemoteItems = JsonInterpreter(filePath: "friendsfeed.json").read()
-//            if self.friendsRemoteItems.isEmpty {
-//                if JsonInterpreter(filePath: "friendsfeed.json").write(jsonString: DummyData.Constants.exampleUserData) {
-//                    self.readCache()
-//                }
-//            }
-//            else {
-//                self.convertRemoteData()
-//            }
         }
+    }
+    
+    private func friendUserId(key: String) -> String? {
+        guard let index = key.firstIndex(of: "/") else {
+            return nil
+        }
+        return String(key.prefix(upTo: index))
     }
     
     private func downloadFile(key: String, completion: @escaping (Bool)->Void) {
         
         if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            guard let index = key.firstIndex(of: "/") else {
+            guard let friendUsername = friendUserId(key: key) else {
                 return completion(false)
             }
-            let friendUsername = String(key.prefix(upTo: index))
             let friendPath = documentDirectory.appendingPathComponent(friendUsername)
             if !FileManager.default.fileExists(atPath: friendPath.path) {
                 try! FileManager.default.createDirectory(at: friendPath, withIntermediateDirectories: true)
@@ -97,7 +94,7 @@ class FriendsFeedModel: ObservableObject {
         }
     }
     
-    private func convertRemoteData(remoteFriendsItems: [UBItemRemote]) {
+    private func convertRemoteData(friendUsername: String, remoteFriendsItems: [UBItemRemote]) {
         DispatchQueue.main.async {
             for remoteItem in remoteFriendsItems {
                 var item = UBItem(name: remoteItem.name)
@@ -107,18 +104,12 @@ class FriendsFeedModel: ObservableObject {
                 item.description = remoteItem.description
                 item.originalItemURL = remoteItem.originalItemURL
                 item.itemCount = remoteItem.itemCount
-                item.sharedContactNumber = remoteItem.sharedContactNumber
+                item.sharedContactNumber = friendUsername
+                item.sharedContactName = remoteItem.sharedContactName
                 
                 self.friendsItems.append(item)
             }
         }
     }
-    
-    /* TODO
-    private func readRemote() {}
-    
-    private func updateRemote() {}
-     */
-    
 }
 
