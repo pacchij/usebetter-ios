@@ -51,7 +51,7 @@ class AmazonURLParser {
             let title = try titleElement.first()?.text() ?? ""
             print("title: ", title )
             
-            var item = UBItem(name: title)
+            var item = UBItem(name: title, itemid: UUID())
             item.description = title
             
             let price: Elements = try document.select("#mbc-price-1")

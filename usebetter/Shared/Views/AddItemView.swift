@@ -13,16 +13,12 @@ struct AddItemView: View {
         case starting
         case complete
     }
-    @State private var itemURL: String
-    @State private var isURLParsing: ItemParsingState
-    @State private var item: UBItem = UBItem(name: "")
-    @State private var itemName: String
+    @State private var itemURL: String = ""
+    @State private var isURLParsing: ItemParsingState = .notStarted
+    @State private var item: UBItem = UBItem(name: "", itemid: UUID())
+    @State private var itemName: String = ""
     @EnvironmentObject var userFeedData: UserFeedModel
-    init() {
-        itemURL = ""
-        isURLParsing = .notStarted
-        itemName = ""
-    }
+
     var body: some View {
         ZStack(alignment: .center) {
             VStack {

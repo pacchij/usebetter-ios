@@ -10,6 +10,7 @@ import CoreData
 
 struct UBItem : Identifiable {
     var name: String
+    var itemid: UUID
     var image: Image?
     var imageURL: String?
     var description: String?
@@ -73,6 +74,7 @@ extension UBItem {
 
 struct UBItemRemote : Codable {
     var name: String
+    var itemid: UUID?
     var imageURL: String?
     var description: String?
     var price: String?

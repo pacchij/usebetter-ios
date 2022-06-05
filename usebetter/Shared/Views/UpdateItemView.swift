@@ -99,6 +99,10 @@ struct UpdateItemView: View {
                         ContactPicker(delegate: .constant(delegate))
                     }
                 }
+                
+                NavigationLink(destination: WebContentView(url: userFeedData.userItems[itemIndex].originalItemURL ?? "https://amazon.com")) {
+                    Label("Open item Link", systemImage: "icloud").font(.title2)
+                }.padding([.top], 20)
 
                 Spacer()
                     .frame(height: 50)

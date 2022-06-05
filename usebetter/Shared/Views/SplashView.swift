@@ -12,6 +12,7 @@ struct SplashView: View {
     @EnvironmentObject var viewRouter: ViewRouter
     @EnvironmentObject var userFeedData: UserFeedModel
     @EnvironmentObject var friendsFeedData: FriendsFeedModel
+    @EnvironmentObject var transactions: TransactionsModel
     @State private var isReady = false
     var body: some View {
         if isReady {
@@ -19,6 +20,7 @@ struct SplashView: View {
                 .environmentObject(viewRouter)
                 .environmentObject(userFeedData)
                 .environmentObject(friendsFeedData)
+                .environmentObject(transactions)
         }
         else {
             ZStack {

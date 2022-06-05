@@ -80,7 +80,7 @@ class FriendsFeedModel: ObservableObject {
     private func convertRemoteData() {
         DispatchQueue.main.async {
             for remoteItem in self.friendsRemoteItems {
-                var item = UBItem(name: remoteItem.name)
+                var item = UBItem(name: remoteItem.name, itemid: remoteItem.itemid ?? UUID())
                 item.imageURL = remoteItem.imageURL
                 item.tags = remoteItem.tags
                 item.price = remoteItem.price
@@ -97,7 +97,7 @@ class FriendsFeedModel: ObservableObject {
     private func convertRemoteData(friendUsername: String, remoteFriendsItems: [UBItemRemote]) {
         DispatchQueue.main.async {
             for remoteItem in remoteFriendsItems {
-                var item = UBItem(name: remoteItem.name)
+                var item = UBItem(name: remoteItem.name, itemid: remoteItem.itemid ?? UUID())
                 item.imageURL = remoteItem.imageURL
                 item.tags = remoteItem.tags
                 item.price = remoteItem.price

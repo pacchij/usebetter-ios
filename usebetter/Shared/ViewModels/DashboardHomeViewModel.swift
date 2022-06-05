@@ -39,7 +39,7 @@ class DashboardHomeViewModel {
 
         var i = 0
         for name in names {
-            var item = UBItem(name: name)
+            var item = UBItem(name: name, itemid: UUID())
             item.description = descriptions[i]
             item.tags = tags[i]
             item.image = Image(name)

@@ -64,13 +64,10 @@ struct DashboardMyStuffView: View {
                                         }
                                     }
                                     else {
-                                        AsyncImage(url: URL(string: "notAvailable")) { image1 in
-                                            image1.resizable()
-                                                .scaledToFit()
-                                                .frame(width: 120, height: 120,  alignment: .center)
-                                        } placeholder: {
-                                            ProgressView()
-                                        }
+                                        Image("notAvailable")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 120, height: 120,  alignment: .center)
                                     }
                                 })
                         }

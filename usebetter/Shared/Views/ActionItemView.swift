@@ -1,28 +1,28 @@
 //
-//  UpdateItemView.swift
+//  ActionItemView.swift
 //  usebetter
 //
-//  Created by Prashanth Jaligama on 5/20/22.
+//  Created by Prashanth Jaligama on 5/30/22.
 //
 
 import Foundation
 import SwiftUI
 
-struct ReadOnlyItemView: View {
-    @State var item: UBItem
-    @State private var itemName: String = ""
-    @State private var itemCount: String = "1"
+struct ActionItemView: View {
+    @State var index = 0
+    @State var isPreview = false
     @State private var contactName: String = "determining...."
-    @State var onItemLinkSelected: Bool = false
-    @EnvironmentObject var userFeedData: UserFeedModel
+    
+    private let dashboardEventsViewModel = DashboardEventsViewModel()
+    @EnvironmentObject var transactions: TransactionsModel
     
     let contactHelper = ContactHelper()
-    
     var body: some View {
         ZStack(alignment: .top) {
             VStack {
                 Spacer()
                     .frame(height: 50)
+                if let item = transactions.transactions[index].item  {
                 if let imageURL = item.imageURL {
                     AsyncImage(url: URL(string: imageURL)) { image1 in
                         image1.resizable()
@@ -67,34 +67,62 @@ struct ReadOnlyItemView: View {
                         .font(.callout)
                     
                 }
-                
+                Spacer().frame(height: 50)
+                    
                 NavigationLink(destination: WebContentView(url: item.originalItemURL ?? "https://amazon.com")) {
                     Label("Open item Link", systemImage: "icloud").font(.title2)
                 }.padding([.top], 20)
-
-                Button("Request To Use Better", action: {
-                    print("Item requested")
-                })
-                .font(.subheadline)
+                    
+                VStack {
+                    let uiState = dashboardEventsViewModel.getUIState(for: transactions.transactions[index], isPreview)
+                    
+                    Text(uiState.label)
+                        .frame(alignment: .topLeading)
+                        
+                    Spacer()
+                    Text("Prashanth Jaligama")
+                        .foregroundColor(Color.red.opacity(0.7))
+                        .font(.title2)
+                    Spacer()
+                    HStack {
+                        if let pbText = uiState.primaryButtonText {
+                            Button(pbText, action: {
+                                transactions.transactions[index].state = uiState.primaryButtonActionState ?? .archived
+                            })
+                            .padding(10)
+                        }
+                        
+                        if let sbText = uiState.secondaryButtonText {
+                            Button(sbText, action: {
+                                transactions.transactions[index].state = uiState.secondaryButtonActionState ?? .archived
+                            })
+                            .padding(10)
+                        }
+                    }
+                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .center)
+                }
+                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 120, alignment: .trailing)
+                
+            }
             }
             .frame(minWidth: 0, maxHeight: .infinity, alignment: .topLeading)
             .padding(5)
+           
         }
         .navigationBarTitle("View Item", displayMode: .inline)
         .edgesIgnoringSafeArea([.bottom])
         .onAppear() {
-            guard let number = item.sharedContactNumber else {
-                return
-            }
-            contactHelper.contactFullname(for: number) { name in
+            contactHelper.contactFullname(for: transactions.transactions[index].receiver) { name in
                 self.contactName = name
             }
         }
     }
 }
 
-struct ReadOnlyItemView_Previews: PreviewProvider {
+struct ActionItemView_Previews: PreviewProvider {
     static var previews: some View {
-        ReadOnlyItemView(item: UBItem(name: "Some long name to see", itemid: UUID()))
+        ActionItemView(index: 0, isPreview: true)
     }
 }
+
+

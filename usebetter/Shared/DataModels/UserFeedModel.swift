@@ -59,7 +59,7 @@ class UserFeedModel: ObservableObject {
     private func convertRemoteData() {
         DispatchQueue.main.async {
             for remoteItem in self.userRemoteItems {
-                var item = UBItem(name: remoteItem.name)
+                var item = UBItem(name: remoteItem.name, itemid: remoteItem.itemid ?? UUID())
                 item.imageURL = remoteItem.imageURL
                 item.tags = remoteItem.tags
                 item.price = remoteItem.price
@@ -79,8 +79,7 @@ class UserFeedModel: ObservableObject {
             //update remote items
             self.userRemoteItems = []
             for item in self.userItems {
-                var remoteItem = UBItemRemote(name: item.name)
-
+                var remoteItem = UBItemRemote(name: item.name, itemid: item.itemid)
                 remoteItem.tags = item.tags
                 remoteItem.price = item.price
                 remoteItem.originalItemURL = item.originalItemURL
@@ -140,7 +139,7 @@ class UserFeedModel: ObservableObject {
  
 }
 
-
+/*
 class DummyData {
     struct Constants {
         static let exampleUserData = """
@@ -181,3 +180,4 @@ class DummyData {
         """
     }
 }
+ */

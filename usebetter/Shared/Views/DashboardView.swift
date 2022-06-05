@@ -19,6 +19,7 @@ struct DashboardView: View {
     @EnvironmentObject var viewRouter: ViewRouter
     @EnvironmentObject var userFeedData: UserFeedModel
     @EnvironmentObject var friendsFeedData: FriendsFeedModel
+    @EnvironmentObject var transactions: TransactionsModel
     var body: some View {
         TabView {
             DashboardHomeView(searchText: "")
@@ -31,7 +32,8 @@ struct DashboardView: View {
                 .tabItem {
                     Label("MyStuff", systemImage: "bag")
                 }
-            DashboardGroupsView()
+            DashboardEventsView()
+                .environmentObject(transactions)
                 .tabItem {
                     Label("Events", systemImage: "person.3.sequence.fill")
                 }
@@ -51,8 +53,3 @@ struct DashboardView_Previews: PreviewProvider {
     }
 }
 
-struct DashboardGroupsView: View {
-    var body: some View {
-        Text("Welcome to Groups view")
-    }
-}

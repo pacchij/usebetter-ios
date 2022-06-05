@@ -26,7 +26,7 @@ class ContactHelper {
             let toFetch = [CNContactFormatter.descriptorForRequiredKeys(for: .fullName)]
             
             do {
-                //let store = CNContactStore()
+
                 let contacts = try self.store.unifiedContacts(matching: predicate, keysToFetch: toFetch)
                 
                 for contact in contacts {
@@ -53,16 +53,11 @@ class ContactHelper {
                     completionHandler(true, error)
                     return
                 }
-                DispatchQueue.main.async {
-                    self.showSettingsAlert() { _ in}
-                }
+
                 completionHandler(true, nil)
                 
             }
         case .restricted:
-            DispatchQueue.main.async {
-                self.showSettingsAlert() { _ in}
-            }
             completionHandler(false,nil)
             
         default:
@@ -70,19 +65,15 @@ class ContactHelper {
         }
     }
     
-    private func showSettingsAlert(_ completionHandler: @escaping (_ accessGranted: Bool) -> Void) {
-//        let alert = UIAlertController(title: nil, message: "This app requires access to Contacts to proceed. Go to Settings to grant access.", preferredStyle: .alert)
-//        if
-//            let settings = URL(string: UIApplication.openSettingsURLString),
-//            UIApplication.shared.canOpenURL(settings) {
-//                alert.addAction(UIAlertAction(title: "Open Settings", style: .default) { action in
-//                    completionHandler(false)
-//                    UIApplication.shared.open(settings)
-//                })
-//        }
-//        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { action in
-//            completionHandler(false)
-//        })
-//        present(alert, animated: true)
+    func contactFullname(for number: String, completionHandler: @escaping (String) -> Void) {
+        let name = "Not found in your contact"
+        fullName(for: number) { succeeded, value in
+            guard succeeded && value != nil else {
+                completionHandler(name)
+                return
+            }
+            completionHandler(value ?? name)
+        }
     }
+
 }

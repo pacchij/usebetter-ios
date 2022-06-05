@@ -29,7 +29,7 @@ class JsonInterpreter {
                 let model = try decoder.decode([UBItemRemote].self, from: dataString)
                 return model
             } catch {
-                print("JsonInterpreter: write: Exception \(error)")
+                print("JsonInterpreter: read: Exception \(error)")
             }
         }
         return []
