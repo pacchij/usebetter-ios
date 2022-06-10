@@ -28,7 +28,11 @@ enum OtpConfirmState {
 class AccountManager {
     var bag = Set<AnyCancellable>()
     
-    func signIn(email: String, username: String, password: String) -> PassthroughSubject <SingInState, Never> {
+    var currentUsername: String? {
+        Amplify.Auth.getCurrentUser()?.username 
+    }
+    
+    func signIn(email: String, password: String) -> PassthroughSubject <SingInState, Never> {
         let signInSubject = PassthroughSubject <SingInState, Never>()
         //Try signIn First, if user does not exist, signUp
         guard Amplify.Auth.getCurrentUser() == nil else {
@@ -36,13 +40,13 @@ class AccountManager {
             signInSubject.send(.alreadySignedIn)
             return signInSubject
         }
-        let _ = Amplify.Auth.signIn(username: username, password: password)
+        let _ = Amplify.Auth.signIn(username: email, password: password)
             .resultPublisher
             .sink {
                 if case let .failure(authError) = $0 {
                         print("AccountManager: signIn: SignIn Failed \(authError)")
                     signInSubject.send(.signedUp)
-                    self.signUp(email: email, username: username, password: password, listener: signInSubject)
+                    self.signUp(email: email, password: password, listener: signInSubject)
                 }
                 else {
                     signInSubject.send(.signInSuccess)
@@ -63,10 +67,10 @@ class AccountManager {
         return signInSubject
     }
     
-    func signUp(email: String, username: String, password: String, listener: PassthroughSubject <SingInState, Never>) {
+    func signUp(email: String, password: String, listener: PassthroughSubject <SingInState, Never>) {
         let userAttributes = [AuthUserAttribute(.email, value: email)]
         let options = AuthSignUpRequest.Options(userAttributes: userAttributes)
-        let _ = Amplify.Auth.signUp(username: username, password: password, options: options)
+        let _ = Amplify.Auth.signUp(username: email, password: password, options: options)
             .resultPublisher
             .sink {
                 if case let .failure(authError) = $0 {

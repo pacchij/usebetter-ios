@@ -7,11 +7,28 @@
 
 import SwiftUI
 
+struct OverlayTextView: View {
+    @State var overlayText: String
+    var body: some View {
+        ZStack {
+           
+            Text(overlayText)
+                .frame(width: 200, height: 100, alignment: .top)
+                
+            Color(white: 0, opacity: 0.3)
+            Spacer()
+            ProgressView().tint(.white)
+        }
+        .frame(width: 200, height: 100, alignment: .center)
+    }
+}
+
 struct AddItemView: View {
     enum ItemParsingState {
         case notStarted
         case starting
         case complete
+        case error
     }
     @State private var itemURL: String = ""
     @State private var isURLParsing: ItemParsingState = .notStarted
@@ -22,7 +39,12 @@ struct AddItemView: View {
     var body: some View {
         ZStack(alignment: .center) {
             VStack {
-                if isURLParsing == .notStarted {
+                if isURLParsing == .error {
+                    Text("Failed to add item. Try Again...")
+                        .foregroundColor(Color.red)
+                    Spacer().frame(height: 50)
+                }
+                if isURLParsing == .notStarted || isURLParsing == .error {
                     Text("Paste Amazon Link")
                     HStack{
                         Spacer()
@@ -50,16 +72,7 @@ struct AddItemView: View {
             .padding(5)
             .overlay {
                 if isURLParsing == .starting {
-                    ZStack {
-                       
-                        Text("Analyzing Link...")
-                            .frame(width: 200, height: 100, alignment: .top)
-                            
-                        Color(white: 0, opacity: 0.3)
-                        Spacer()
-                        ProgressView().tint(.white)
-                    }
-                    .frame(width: 200, height: 100, alignment: .center)
+                    OverlayTextView(overlayText: "Analyzing Link...")
                 }
             }
         }
@@ -71,8 +84,8 @@ struct AddItemView: View {
         isURLParsing = .starting
         URLParser(url: itemURL).parse() { item in
             DispatchQueue.main.async {
-                isURLParsing = .complete
                 guard let item = item else {
+                    isURLParsing = .error
                     print("AddItemView: parse callback return nil")
                     return
                 }
@@ -85,6 +98,7 @@ struct AddItemView: View {
                  
                 userFeedData.append(item: self.item)
                 print("callback returned with item: ", item)
+                isURLParsing = .complete
             }
         }
     }

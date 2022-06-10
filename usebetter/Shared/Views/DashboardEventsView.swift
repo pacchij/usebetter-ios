@@ -59,10 +59,11 @@ struct DashboardEventsView: View {
                         }
                         else {
                             ForEach(transactions.transactions.indices, id:\.self) { index in
+                                if let item = transactions.item(by: transactions.transactions[index].itemid) {
                                 HStack {
-                                    
+                                   
                                     NavigationLink(destination: ActionItemView(index: index).environmentObject(transactions), label: {
-                                        if let imageURL = transactions.transactions[index].item.imageURL {
+                                        if let imageURL = item.imageURL {
                                             AsyncImage(url: URL(string: imageURL)) { image1 in
                                                 image1.resizable()
                                                     .scaledToFit()
@@ -115,6 +116,7 @@ struct DashboardEventsView: View {
                                 } //HSTck for each Row
                                 .padding(5)
                                 .frame(width: .infinity, height: .infinity, alignment: .top)
+                                }
                             } //end of forEach
                             .background(Color.green.opacity(0.2))
                             .frame(height: 130,  alignment: .center)

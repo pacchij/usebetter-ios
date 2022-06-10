@@ -6,11 +6,7 @@
 //
 import Foundation
 import SwiftSoup
-//
-//protocol URLParserProtocol {
-//    func parse()
-//    func item() -> UBItem?
-//}
+
 class URLParser {
     
     private let url: String
@@ -21,61 +17,85 @@ class URLParser {
     }
     
     func parse( callback: @escaping (_ item: UBItem?)->Void)  {
+        print("URLParser: parse: Entered")
         DispatchQueue.global().async {
-        print("parse entered")
-        guard let url = URL(string: self.url) else {
-            print("error")
-            callback(nil)
-            return
-        }
-        print("parse URL done")
-        let htmlContent = try! String(contentsOf: url)
-        print("parse String done")
-        AmazonURLParser().parse(html: htmlContent, callback: callback)
-        print("parse amazonurl parse done")
+            guard let url = URL(string: self.url) else {
+                print("URLParser: parse: error in url")
+                callback(nil)
+                return
+            }
+            let htmlContent = try! String(contentsOf: url)
+            print("URLParser: parse: parsing amazon url")
+            AmazonURLParser().parse(html: htmlContent, callback: callback)
         }
     }
 }
 
 class AmazonURLParser {
     
+    private func getTitle() -> String? {
+        do {
+            var titleElement = try document.select("#productTitle")
+            var title = try titleElement.first()?.text()
+            
+            if title == nil {
+                titleElement = try document.select("#title")
+                title = try titleElement.first()?.text()
+            }
+            print("AmazonURLParser: getTitle: ", title ?? "" )
+            return title
+        }
+        catch {
+            print("AmazonURLParser: getTitle: Exception \(error) ")
+        }
+        return nil
+    }
+    
     func parse(html: String, callback: @escaping (_ item: UBItem?)->Void){
        
         do {
-            print("parse before swiftSoup")
+            print("AmazonURLParser: parse: entered")
             let document: Document = try SwiftSoup.parse(html)
+            print("AmazonURLParser: parse: title: ", document )
             
-            print("parse after swiftSoup")
+            guard let title = getTitle() else {
+                callback(nil)
+                return
+            }
+                  
+            let price: Elements = try document.select("#mbc-price-1")
+            let priceVal = try price.first()?.text()
+            print("AmazonURLParser: parse: Price: ", priceVal ?? "")
             
-            let titleElement: Elements = try document.select("#productTitle")
-            let title = try titleElement.first()?.text() ?? ""
-            print("title: ", title )
+            let imageURL = self.imageURL(document: document)
+            print("AmazonURLParser: parse: Image URL is ", imageURL ?? "empty")
+            
+            let tags = self.categories(document: document)
+            print("AmazonURLParser: parse: categories ", tags)
+            
+            if priceVal == nil, imageURL ==  nil, tags.isEmpty {
+                print("AmazonURLParser: parse: empty price, title or tags")
+                callback(nil)
+                return
+            }
             
             var item = UBItem(name: title, itemid: UUID())
             item.description = title
-            
-            let price: Elements = try document.select("#mbc-price-1")
-            let priceVal = try price.first()?.text()  ?? ""
-            print("Price: ", priceVal)
             item.price = priceVal
-           
-            
-            item.imageURL = self.imageURL(document: document)
-            print("Image URL is ", item.imageURL ?? "empty")
-            
-            item.tags = self.categories(document: document)
-            print("categories ", item.tags)
+            item.tags = tags
+            item.imageURL = imageURL
             
             callback(item)
+            return
         }
         catch Exception.Error(let type, let message) {
-            print("URLParser: Excepiton: ", type, message)
+            print("AmazonURLParser: parse: : Excepiton: ", type, message)
         }
         catch {
-            print("URLParser: Unknown Excepiton")
+            print("AmazonURLParser: parse: : Unknown Excepiton")
         }
     
-        print("parse calling cbk")
+        print("AmazonURLParser: parse: parse calling nil")
         callback(nil)
 
     }

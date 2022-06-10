@@ -11,16 +11,14 @@ import CoreData
 struct UBItem : Identifiable {
     var name: String
     var itemid: UUID
-    var image: Image?
+    var ownerid: String = AccountManager().currentUsername!
+    var itemCount: Int = 1
+    var tags: [String] = []
     var imageURL: String?
     var description: String?
     var price: String?
-    var tags: [String] = []
-    var id: String { name }
     var originalItemURL: String?
-    var itemCount: String = "1"
-    var sharedContactNumber: String?
-    var sharedContactName: String?
+    var id: String { name }
 }
 
 extension UBItem {
@@ -56,13 +54,6 @@ extension UBItem {
         return tagsWithComma
     }
     
-    var getImage: Image {
-        guard let image = self.image else {
-            return Image("notAvailable")
-        }
-        return image
-    }
-    
     var getAsyncImage: AsyncImage<Image> {
         guard let imageURL = self.imageURL else {
             return AsyncImage(url: URL(string: "notAvailable"))
@@ -71,16 +62,14 @@ extension UBItem {
     }
 }
 
-
 struct UBItemRemote : Codable {
     var name: String
-    var itemid: UUID?
+    var itemid: UUID
+    var ownerid: String
+    var itemCount: Int = 1
+    var tags: [String] = []
     var imageURL: String?
     var description: String?
     var price: String?
-    var tags: [String] = []
     var originalItemURL: String?
-    var itemCount: String = "1"
-    var sharedContactNumber: String?
-    var sharedContactName: String?
 }

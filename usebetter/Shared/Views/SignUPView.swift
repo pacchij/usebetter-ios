@@ -30,6 +30,7 @@ struct SignUpView: View {
     @State private var errorMessage: String = "Error Message..."
     @State private var shouldHideOTP: Bool = true
     @State private var password: String = "Test@123"
+    @State private var signUpText: String = "Sign up / Login"
     var body: some View {
         ZStack(alignment: .top) {
             VStack {
@@ -49,27 +50,27 @@ struct SignUpView: View {
                 
                 Image("AppIcon")
                     
-                HStack(spacing: 10) {
-                    Spacer()
-                        .frame(width: 10)
-                    Text("Phone Number")
-                        .font(.body)
-                        .foregroundColor(.green)
-                        .padding(10)
-                    Text("+1 USA")
-                        .font(.body)
-                        .foregroundColor(.green)
-                        .padding(2)
-                    TextField("Phone Number", text: $phoneNumber)
-                        .textFieldStyle(.roundedBorder)
-                        .focused($phoneFieldIsFocused)
-                        .onSubmit {
-                            validatePhoneNumber()
-                        }
-                        .keyboardType(.decimalPad)
-                    Spacer()
-                        .frame(width: 10)
-                }
+//                HStack(spacing: 10) {
+//                    Spacer()
+//                        .frame(width: 10)
+//                    Text("Phone Number")
+//                        .font(.body)
+//                        .foregroundColor(.green)
+//                        .padding(10)
+//                    Text("+1 USA")
+//                        .font(.body)
+//                        .foregroundColor(.green)
+//                        .padding(2)
+//                    TextField("Phone Number", text: $phoneNumber)
+//                        .textFieldStyle(.roundedBorder)
+//                        .focused($phoneFieldIsFocused)
+//                        .onSubmit {
+//                            validatePhoneNumber()
+//                        }
+//                        .keyboardType(.decimalPad)
+//                    Spacer()
+//                        .frame(width: 10)
+//                }
                 
                 HStack(spacing: 10) {
                     Spacer()
@@ -129,7 +130,14 @@ struct SignUpView: View {
                 .padding(10)
                 .opacity(shouldShowErrorMsg ? 1 : 0)
           
-                Button("Sign up / Login", action: onSingnUp)
+                    Button(signUpText, action: {
+                        if shouldHideOTP {
+                            onSingnUp()
+                        }
+                        else {
+                            validateOtp()
+                        }
+                    })
                 }
             }
         }
@@ -167,16 +175,18 @@ struct SignUpView: View {
     }
     
     private func validateOtp() {
-        let _ = accountManager.confirmSignUp(username: "1" + $phoneNumber.wrappedValue, confirmationCode: $otp.wrappedValue)
+        let _ = accountManager.confirmSignUp(username: $email.wrappedValue, confirmationCode: $otp.wrappedValue)
             .sink ( receiveValue: { result in
                 switch result {
                 case .success:
                     self.shouldHideOTP = true
                     self.shouldShowErrorMsg = false
+                    self.signUpText = "Sign up / Login"
                     self.onSingnUp()
                 case .failure:
                     shouldHideOTP = false
                     errorMessage = "Enter Valid OTP sent to your email"
+                    signUpText = "Validate"
                     shouldShowErrorMsg = true
                 }
             })
@@ -184,26 +194,27 @@ struct SignUpView: View {
     }
     
     func onSingnUp() {
-        let _ = accountManager.signIn(email: $email.wrappedValue, username: "1" + $phoneNumber.wrappedValue, password: $password.wrappedValue)
-            .sink (
-            receiveValue: { signInState in
-                print("signedup view: reeived value \(signInState)")
-                switch signInState {
-                case .signInSuccess:
-                    self.userSignedIn = true
-                case .alreadySignedIn:
-                    self.userSignedIn = true
-                case .signedUp:
-                    self.userSignedIn = false
-                case .error:
-                    self.userSignedIn = false
-                case .pendingEmailConfirm:
-                    self.shouldHideOTP = false
-                    self.shouldShowErrorMsg = true
-                    self.errorMessage = "Enter Valid OTP sent to your email"
-                }
-            })
-            .store(in: &bag)
+        let _ = accountManager.signIn(email: $email.wrappedValue, password: $password.wrappedValue)
+        .sink (
+        receiveValue: { signInState in
+            print("signedup view: reeived value \(signInState)")
+            switch signInState {
+            case .signInSuccess:
+                self.userSignedIn = true
+            case .alreadySignedIn:
+                self.userSignedIn = true
+            case .signedUp:
+                self.userSignedIn = false
+            case .error:
+                self.userSignedIn = false
+            case .pendingEmailConfirm:
+                self.shouldHideOTP = false
+                self.shouldShowErrorMsg = true
+                self.errorMessage = "Enter Valid OTP sent to your email"
+                self.signUpText = "Validate"
+            }
+        })
+        .store(in: &bag)
     }
 }
 

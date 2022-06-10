@@ -14,11 +14,9 @@ struct UpdateItemView: View {
     @State var itemName: String = ""
     @State var itemCount: String = "1"
     @EnvironmentObject var userFeedData: UserFeedModel
+    @EnvironmentObject var transactions: TransactionsModel
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var delegate = Delegate()
-    
-//    private var sharingText = "Share To: "
-//    private var contact: CNContact? = nil
 
     var body: some View {
         ZStack(alignment: .top) {
@@ -61,9 +59,9 @@ struct UpdateItemView: View {
                 
                 HStack {
                     Text("Available Counts: ")
-                    TextField(userFeedData.userItems[itemIndex].itemCount, text: $itemCount)
+                    TextField(String(userFeedData.userItems[itemIndex].itemCount), text: $itemCount)
                         .onSubmit {
-                            userFeedData.userItems[itemIndex].itemCount = itemCount
+                            userFeedData.userItems[itemIndex].itemCount = Int(itemCount) ?? 0
                         }
                         .textFieldStyle(.roundedBorder)
                         .frame(width: 50)
@@ -71,7 +69,7 @@ struct UpdateItemView: View {
                 }
 
                 HStack {
-                    if let contactName =  userFeedData.userItems[itemIndex].sharedContactName {
+                    if let contactName =  userFeedData.userItems[itemIndex].ownerid {
                         Text("shared To: ")
                         Text(contactName)
                             .frame(width:150)
@@ -93,8 +91,7 @@ struct UpdateItemView: View {
                     }
                     .sheet(isPresented: $delegate.showPicker, onDismiss: {
                         delegate.showPicker = false
-                        userFeedData.userItems[itemIndex].sharedContactNumber = getFirstNumber(delegate.contact)
-                        userFeedData.userItems[itemIndex].sharedContactName = getContactName(delegate.contact)
+                        transactions.sendRequest(for: userFeedData.userItems[itemIndex], byOwner: true)
                     }) {
                         ContactPicker(delegate: .constant(delegate))
                     }
@@ -108,7 +105,7 @@ struct UpdateItemView: View {
                     .frame(height: 50)
                 Button("Update Item", action: {
                     userFeedData.userItems[itemIndex].name = itemName
-                    userFeedData.userItems[itemIndex].itemCount = itemCount
+                    userFeedData.userItems[itemIndex].itemCount = Int(itemCount) ?? 0
                     userFeedData.update()
                     presentationMode.wrappedValue.dismiss()
                 })
