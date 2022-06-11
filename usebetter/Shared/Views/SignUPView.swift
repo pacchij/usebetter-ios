@@ -23,13 +23,13 @@ struct SignUpView: View {
     private let accountManager = AccountManager()
     @State private var bag = Set<AnyCancellable>()
     @State private var phoneNumber = "7142615481"
-    @State private var email = "pacchij@yahoo.com"
+    @State private var email = ""
     @State private var otp = ""
     @State private var userSignedIn = false
     @State private var shouldShowErrorMsg: Bool = false
     @State private var errorMessage: String = "Error Message..."
     @State private var shouldHideOTP: Bool = true
-    @State private var password: String = "Test@123"
+    @State private var password: String = ""
     @State private var signUpText: String = "Sign up / Login"
     var body: some View {
         ZStack(alignment: .top) {
@@ -49,28 +49,6 @@ struct SignUpView: View {
                     .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100)
                 
                 Image("AppIcon")
-                    
-//                HStack(spacing: 10) {
-//                    Spacer()
-//                        .frame(width: 10)
-//                    Text("Phone Number")
-//                        .font(.body)
-//                        .foregroundColor(.green)
-//                        .padding(10)
-//                    Text("+1 USA")
-//                        .font(.body)
-//                        .foregroundColor(.green)
-//                        .padding(2)
-//                    TextField("Phone Number", text: $phoneNumber)
-//                        .textFieldStyle(.roundedBorder)
-//                        .focused($phoneFieldIsFocused)
-//                        .onSubmit {
-//                            validatePhoneNumber()
-//                        }
-//                        .keyboardType(.decimalPad)
-//                    Spacer()
-//                        .frame(width: 10)
-//                }
                 
                 HStack(spacing: 10) {
                     Spacer()
@@ -79,7 +57,7 @@ struct SignUpView: View {
                         .font(.body)
                         .foregroundColor(.green)
                         .padding(10)
-                    TextField("email", text: $email)
+                    TextField("Enter Email", text: $email)
                         .textFieldStyle(.roundedBorder)
                         .onSubmit {
                             validateEmail()
@@ -96,7 +74,7 @@ struct SignUpView: View {
                         .foregroundColor(.green)
                         .padding(10)
                 
-                    SecureField("Enter Password", text: $email)
+                    SecureField("Enter Password", text: $password)
                         .textFieldStyle(.roundedBorder)
                         .focused($phoneFieldIsFocused)
                         .onSubmit {
