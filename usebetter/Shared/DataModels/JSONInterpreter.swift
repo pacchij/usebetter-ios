@@ -22,6 +22,8 @@ class JsonInterpreter {
                 if !FileManager.default.fileExists(atPath: pathWithFilename.path) {
                     return []
                 }
+                
+                print("JsonInterpreter: read: file path \(pathWithFilename.path)")
                 let jsonString = try String(contentsOfFile: pathWithFilename.path, encoding: String.Encoding.utf8)
                 let dataString = Data(jsonString.utf8)
                 
@@ -60,6 +62,8 @@ class JsonInterpreter {
             
             if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
                 let pathWithFilename = documentDirectory.appendingPathComponent(filePath)
+                
+                print("JsonInterpreter: write: file path \(pathWithFilename.path)")
                 try jsonString.write(to: pathWithFilename, atomically: true, encoding: .utf8)
             }
         } catch {

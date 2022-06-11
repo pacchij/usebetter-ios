@@ -22,7 +22,7 @@ struct ActionItemView: View {
             VStack {
                 Spacer()
                     .frame(height: 50)
-                if let item = transactions.transactions[index].item  {
+                if let item = transactions.item(by: transactions.transactions[index].itemid)  {
                 if let imageURL = item.imageURL {
                     AsyncImage(url: URL(string: imageURL)) { image1 in
                         image1.resizable()
@@ -55,7 +55,7 @@ struct ActionItemView: View {
                 
                 HStack {
                     Text("Available Counts: ")
-                    Text(item.itemCount)
+                    Text(String(item.itemCount))
                        .frame(width: 50)
                 }
                 Spacer().frame(height: 50)

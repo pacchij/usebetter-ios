@@ -13,7 +13,7 @@ struct usebetterApp: App {
     @StateObject var viewRouter = ViewRouter()
     @StateObject var userFeedData = UserFeedModel()
     @StateObject var friendsFeedData = FriendsFeedModel()
-    @StateObject var transactions = TransactionsModel()
+    @StateObject var transactions = TransactionsModel()//userfeed: userFeedData, friendsFeed: friendsFeedData)
     
     var body: some Scene {
         WindowGroup {

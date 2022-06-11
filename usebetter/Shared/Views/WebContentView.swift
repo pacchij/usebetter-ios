@@ -24,7 +24,7 @@ struct WebView: UIViewRepresentable {
 struct WebContentView: View {
     @State var url = "https://www.amazon.com"
     var body: some View {
-        WebView(url: "https://www.amazon.com")
+        WebView(url: url)
     }
 }
 

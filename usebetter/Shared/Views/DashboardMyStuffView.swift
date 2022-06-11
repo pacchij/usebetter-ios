@@ -53,7 +53,7 @@ struct DashboardMyStuffView: View {
                     Spacer()
                     LazyVGrid(columns: items, spacing: 10) {
                         ForEach(userFeedData.userItems.indices, id:\.self) { index in
-                            NavigationLink(destination: UpdateItemView(itemIndex: index, itemName: userFeedData.userItems[index].name, itemCount: userFeedData.userItems[index].itemCount ).environmentObject(userFeedData), label: {
+                            NavigationLink(destination: UpdateItemView(itemIndex: index, itemName: userFeedData.userItems[index].name, itemCount: String(userFeedData.userItems[index].itemCount) ).environmentObject(userFeedData), label: {
                                     if let imageURL = userFeedData.userItems[index].imageURL {
                                         AsyncImage(url: URL(string: imageURL)) { image1 in
                                             image1.resizable()

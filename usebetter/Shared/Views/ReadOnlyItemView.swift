@@ -15,6 +15,7 @@ struct ReadOnlyItemView: View {
     @State private var contactName: String = "determining...."
     @State var onItemLinkSelected: Bool = false
     @EnvironmentObject var userFeedData: UserFeedModel
+    @EnvironmentObject var transactions: TransactionsModel
     
     let contactHelper = ContactHelper()
     
@@ -55,7 +56,7 @@ struct ReadOnlyItemView: View {
                 
                 HStack {
                     Text("Available Counts: ")
-                    Text(item.itemCount)
+                    Text(String(item.itemCount))
                        .frame(width: 50)
                 }
                 Spacer().frame(height: 50)
@@ -73,7 +74,7 @@ struct ReadOnlyItemView: View {
                 }.padding([.top], 20)
 
                 Button("Request To Use Better", action: {
-                    print("Item requested")
+                    transactions.sendRequest(for: item)
                 })
                 .font(.subheadline)
             }
@@ -83,10 +84,7 @@ struct ReadOnlyItemView: View {
         .navigationBarTitle("View Item", displayMode: .inline)
         .edgesIgnoringSafeArea([.bottom])
         .onAppear() {
-            guard let number = item.sharedContactNumber else {
-                return
-            }
-            contactHelper.contactFullname(for: number) { name in
+            contactHelper.contactFullname(for: item.ownerid) { name in
                 self.contactName = name
             }
         }
@@ -95,6 +93,6 @@ struct ReadOnlyItemView: View {
 
 struct ReadOnlyItemView_Previews: PreviewProvider {
     static var previews: some View {
-        ReadOnlyItemView(item: UBItem(name: "Some long name to see", itemid: UUID()))
+        ReadOnlyItemView(item: UBItem(name: "Some long name to see", itemid: UUID(), ownerid: "17142615481"))
     }
 }

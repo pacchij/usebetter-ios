@@ -37,6 +37,7 @@ struct SplashView: View {
                     }
                     else {
                         self.isReady = true
+                        self.transactions.initialize(userfeed: userFeedData, friendsFeed: friendsFeedData)
                     }
                 } //Dispatch
             } //onAppear

@@ -6,11 +6,7 @@
 //
 import Foundation
 import SwiftSoup
-//
-//protocol URLParserProtocol {
-//    func parse()
-//    func item() -> UBItem?
-//}
+
 class URLParser {
     
     private let url: String
@@ -21,91 +17,146 @@ class URLParser {
     }
     
     func parse( callback: @escaping (_ item: UBItem?)->Void)  {
+        print("URLParser: parse: Entered")
         DispatchQueue.global().async {
-        print("parse entered")
-        guard let url = URL(string: self.url) else {
-            print("error")
-            callback(nil)
-            return
-        }
-        print("parse URL done")
-        let htmlContent = try! String(contentsOf: url)
-        print("parse String done")
-        AmazonURLParser().parse(html: htmlContent, callback: callback)
-        print("parse amazonurl parse done")
+            guard let url = URL(string: self.url) else {
+                print("URLParser: parse: error in url")
+                callback(nil)
+                return
+            }
+            let htmlContent = try! String(contentsOf: url)
+            print("URLParser: parse: parsing amazon url")
+            AmazonURLParser().parse(html: htmlContent, callback: callback)
         }
     }
 }
 
 class AmazonURLParser {
     
-    func parse(html: String, callback: @escaping (_ item: UBItem?)->Void){
-       
+    private func getTitle(for document: Document) -> String? {
         do {
-            print("parse before swiftSoup")
-            let document: Document = try SwiftSoup.parse(html)
+            var titleElement = try document.select("#title")
+            var title = try titleElement.first()?.text()
             
-            print("parse after swiftSoup")
-            
-            let titleElement: Elements = try document.select("#productTitle")
-            let title = try titleElement.first()?.text() ?? ""
-            print("title: ", title )
-            
-            var item = UBItem(name: title, itemid: UUID())
-            item.description = title
-            
-            let price: Elements = try document.select("#mbc-price-1")
-            let priceVal = try price.first()?.text()  ?? ""
-            print("Price: ", priceVal)
-            item.price = priceVal
-           
-            
-            item.imageURL = self.imageURL(document: document)
-            print("Image URL is ", item.imageURL ?? "empty")
-            
-            item.tags = self.categories(document: document)
-            print("categories ", item.tags)
-            
-            callback(item)
-        }
-        catch Exception.Error(let type, let message) {
-            print("URLParser: Excepiton: ", type, message)
-        }
-        catch {
-            print("URLParser: Unknown Excepiton")
-        }
-    
-        print("parse calling cbk")
-        callback(nil)
-
-    }
-    
-    func imageURL(document: Document) -> String? {
-        do {
-            let imageBlock: Element? = try document.select("#imageBlock").first()
-            let imageBlockHtml: String? = try imageBlock?.outerHtml()
-            guard let imageBlockHtml = imageBlockHtml else {
-                return nil
+            if title == nil {
+                titleElement = try document.select("#productTitle")
+                title = try titleElement.first()?.text()
             }
-
-            let imageDocument = try SwiftSoup.parse(imageBlockHtml)
-            let images: Elements = try imageDocument.select("img[src]")
-            let imagesStringArray: [String?] = images.array().map { try? $0.attr("src").description }
-            
-            print("images: ", imagesStringArray)
-            
-            return imagesStringArray[0]
-        }
-        catch Exception.Error(let type, let message) {
-            print("URLParser: Excepiton: ", type, message)
+            print("AmazonURLParser: getTitle: ", title ?? "" )
+            return title
         }
         catch {
-            print("URLParser: Unknown Excepiton")
+            print("AmazonURLParser: getTitle: Exception \(error) ")
         }
         return nil
     }
     
-    func categories(document: Document) -> [String] {
+    private func getPrice(for document: Document) -> String? {
+        do {
+            var priceElement = try document.select("#bundle-v2-btf-price")
+            var price = try priceElement.first()?.text()
+            
+            if price == nil {
+                priceElement = try document.select("#mbc-price-1")
+                price = try priceElement.first()?.text()
+            }
+            
+            if price == nil {
+                priceElement = try document.select("#twister-plus-price-data-price")
+                price = try priceElement.first()?.attr("value")
+            }
+            print("AmazonURLParser: getPrice: ", price ?? "" )
+            return price
+        }
+        catch {
+            print("AmazonURLParser: getPrice: Exception \(error) ")
+        }
+        return nil
+    }
+    
+    func getImage(for document: Document) -> String? {
+        do {
+            var imageBlock: Element? = try document.select("#image-block").first()
+            var imageBlockHtml: String? = try imageBlock?.outerHtml()
+            if imageBlockHtml == nil {
+                imageBlock = try document.select("#imageBlock").first()
+                imageBlockHtml = try imageBlock?.outerHtml()
+            }
+            
+            if imageBlockHtml == nil {
+                print("AmazonURLParser: getImage: image block not found")
+                return nil
+            }
+
+            let imageDocument = try SwiftSoup.parse(imageBlockHtml!)
+            let images: Elements = try imageDocument.select("img[src]")
+            let imagesStringArray: [String?] = images.array().map { try? $0.attr("src").description }
+            
+            print("AmazonURLParser: getImage: images: ", imagesStringArray)
+            
+            if imagesStringArray.isEmpty {
+                print("AmazonURLParser: getImage: no images found")
+                return nil
+            }
+            
+            return imagesStringArray[0]
+        }
+        catch Exception.Error(let type, let message) {
+            print("AmazonURLParser: getImage: : Excepiton: ", type, message)
+        }
+        catch {
+            print("AmazonURLParser: getImage: : Unknown Excepiton")
+        }
+        return nil
+    }
+    
+    func parse(html: String, callback: @escaping (_ item: UBItem?)->Void){
+       
+        do {
+            print("AmazonURLParser: parse: entered")
+            let document: Document = try SwiftSoup.parse(html)
+            print("AmazonURLParser: parse: title: ", document )
+            
+            guard let title = getTitle(for: document) else {
+                callback(nil)
+                return
+            }
+                  
+            guard let price = getPrice(for: document) else {
+                callback(nil)
+                return
+            }
+            
+            guard let imageURL = getImage(for: document) else {
+                callback(nil)
+                return
+            }
+            
+            let tags = getCategories(document: document)
+            print("AmazonURLParser: parse: categories ", tags)
+            
+            var item = UBItem(name: title, itemid: UUID())
+            item.description = title
+            item.price = price
+            item.tags = tags
+            item.imageURL = imageURL
+            
+            callback(item)
+            return
+        }
+        catch Exception.Error(let type, let message) {
+            print("AmazonURLParser: parse: : Excepiton: ", type, message)
+        }
+        catch {
+            print("AmazonURLParser: parse: : Unknown Excepiton")
+        }
+    
+        print("AmazonURLParser: parse: parse calling nil")
+        callback(nil)
+
+    }
+    
+    func getCategories(document: Document) -> [String] {
         do {
             let categoriesBlock: Element? = try document.select("#wayfinding-breadcrumbs_feature_div").first()
             let categoriesBlockHtml: String? = try categoriesBlock?.outerHtml()
@@ -122,10 +173,10 @@ class AmazonURLParser {
             return cats
         }
         catch Exception.Error(let type, let message) {
-            print("URLParser: Excepiton: ", type, message)
+            print("AmazonURLParser: getCategories: Excepiton: ", type, message)
         }
         catch {
-            print("URLParser: Unknown Excepiton")
+            print("AmazonURLParser: getCategories: Unknown Excepiton")
         }
         return []
     }

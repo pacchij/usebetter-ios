@@ -14,12 +14,18 @@ class FriendsFeedModel: ObservableObject {
     }
     
     @Published var friendsItems: [UBItem] = []
+    var mappedItems: [UUID: UBItem] = [:]
     private var friendsRemoteItems: [UBItemRemote] = []
     private var s3FileManager = S3FileManager()
     
     init() {
         readCache()
     }
+    
+    func item(by id: UUID) -> UBItem? {
+        mappedItems[id]
+    }
+    
     private var currentUserKey: String {
         guard let username = Amplify.Auth.getCurrentUser()?.username else {
             print("UserFeedModel: updateRemote: No local file exists")
@@ -80,35 +86,42 @@ class FriendsFeedModel: ObservableObject {
     private func convertRemoteData() {
         DispatchQueue.main.async {
             for remoteItem in self.friendsRemoteItems {
-                var item = UBItem(name: remoteItem.name, itemid: remoteItem.itemid ?? UUID())
+                var item = UBItem(name: remoteItem.name, itemid: remoteItem.itemid)
                 item.imageURL = remoteItem.imageURL
                 item.tags = remoteItem.tags
                 item.price = remoteItem.price
                 item.description = remoteItem.description
                 item.originalItemURL = remoteItem.originalItemURL
                 item.itemCount = remoteItem.itemCount
-                item.sharedContactNumber = remoteItem.sharedContactNumber
+                item.ownerid = remoteItem.ownerid
                 
                 self.friendsItems.append(item)
             }
+            self.updateMappedItems()
         }
     }
     
     private func convertRemoteData(friendUsername: String, remoteFriendsItems: [UBItemRemote]) {
         DispatchQueue.main.async {
             for remoteItem in remoteFriendsItems {
-                var item = UBItem(name: remoteItem.name, itemid: remoteItem.itemid ?? UUID())
+                var item = UBItem(name: remoteItem.name, itemid: remoteItem.itemid)
                 item.imageURL = remoteItem.imageURL
                 item.tags = remoteItem.tags
                 item.price = remoteItem.price
                 item.description = remoteItem.description
                 item.originalItemURL = remoteItem.originalItemURL
                 item.itemCount = remoteItem.itemCount
-                item.sharedContactNumber = friendUsername
-                item.sharedContactName = remoteItem.sharedContactName
+                item.ownerid = remoteItem.ownerid
                 
                 self.friendsItems.append(item)
             }
+            self.updateMappedItems()
+        }
+    }
+    
+    private func updateMappedItems() {
+        self.mappedItems = self.friendsItems.reduce(into: [UUID: UBItem]() ) {
+            $0[$1.itemid] = $1
         }
     }
 }
