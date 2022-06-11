@@ -94,7 +94,7 @@ struct AddItemView: View {
                 self.item.imageURL = item.imageURL
                 self.item.price = item.price
                 self.item.tags = item.tags
-                self.item.originalItemURL = itemURL
+                self.item.originalItemURL = $itemURL.wrappedValue
                  
                 userFeedData.append(item: self.item)
                 print("callback returned with item: ", item)
