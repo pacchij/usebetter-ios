@@ -1,0 +1,43 @@
+# this is an auto generated file. This will be overwritten
+mutation CreateTransactions(
+  $input: CreateTransactionsInput!
+  $condition: ModelTransactionsConditionInput
+) {
+  createTransactions(input: $input, condition: $condition) {
+    id
+    itemid
+    ownerid
+    receiverid
+    state
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateTransactions(
+  $input: UpdateTransactionsInput!
+  $condition: ModelTransactionsConditionInput
+) {
+  updateTransactions(input: $input, condition: $condition) {
+    id
+    itemid
+    ownerid
+    receiverid
+    state
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteTransactions(
+  $input: DeleteTransactionsInput!
+  $condition: ModelTransactionsConditionInput
+) {
+  deleteTransactions(input: $input, condition: $condition) {
+    id
+    itemid
+    ownerid
+    receiverid
+    state
+    createdAt
+    updatedAt
+  }
+}

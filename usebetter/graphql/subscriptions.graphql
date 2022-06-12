@@ -1,0 +1,34 @@
+# this is an auto generated file. This will be overwritten
+subscription OnCreateTransactions {
+  onCreateTransactions {
+    id
+    itemid
+    ownerid
+    receiverid
+    state
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateTransactions {
+  onUpdateTransactions {
+    id
+    itemid
+    ownerid
+    receiverid
+    state
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteTransactions {
+  onDeleteTransactions {
+    id
+    itemid
+    ownerid
+    receiverid
+    state
+    createdAt
+    updatedAt
+  }
+}

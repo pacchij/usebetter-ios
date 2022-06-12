@@ -1,0 +1,92 @@
+# this is an auto generated file. This will be overwritten
+query GetTransactions($id: ID!, $state: Int!) {
+  getTransactions(id: $id, state: $state) {
+    id
+    itemid
+    ownerid
+    receiverid
+    state
+    createdAt
+    updatedAt
+  }
+}
+query ListTransactions(
+  $id: ID
+  $state: ModelIntKeyConditionInput
+  $filter: ModelTransactionsFilterInput
+  $limit: Int
+  $nextToken: String
+  $sortDirection: ModelSortDirection
+) {
+  listTransactions(
+    id: $id
+    state: $state
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      id
+      itemid
+      ownerid
+      receiverid
+      state
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query TransactionsByOwner(
+  $ownerid: String!
+  $sortDirection: ModelSortDirection
+  $filter: ModeltransactionsFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  transactionsByOwner(
+    ownerid: $ownerid
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      itemid
+      ownerid
+      receiverid
+      state
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query TransactionsByReceiver(
+  $receiverid: String!
+  $sortDirection: ModelSortDirection
+  $filter: ModeltransactionsFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  transactionsByReceiver(
+    receiverid: $receiverid
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      itemid
+      ownerid
+      receiverid
+      state
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}

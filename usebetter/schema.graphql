@@ -14,16 +14,37 @@ type Mutation {
     createTransaction(owner:ID!, receiver: ID!, itemid: ID!, state: String!): trans
 }
 
-type trans @model 
-@key(fields:["owner", "datetime", "state"])
-@key(name: "ByReceiver", fields: ["receiver"])
+@key(fields: ["id", "state"])
+@key(name: "ByOwner", fields:["ownerid"])
+@key(name: "ByReceiver", fields: ["receiverid"])
+
+
+type transactions @model 
+ @auth(rules: [
+  { allow: private },
+  { allow: admins }
+ ])
 {  
-    owner: String!
+    id: ID! @primaryKey(sortyKeyFields: ["state"])
     itemid: ID!
-    receiver: String!
+    ownerid: String! @index(name: "byOwner", queryFields: "transactionsByOwner")
+    receiverid: String! @index(name: "byOwner", queryFields: "transactionsByOwner")
+    state: Int!
+}
+
+type items @model 
+@key(fields: "ownerid", "itemid", "datetime") 
+{
+    itemid: ID!
+    ownerid: ID!
+    asseturl: String!
     state: Int!
     datetime: AWSTimestamp!
 }
 
+getTransaction(by id and state)
+updateTransaction(by id and state)
 
+listTransactionsByOwner(ownerid, state)
+listTransactionsByReceiver(receiverid, state)
 getAllOwnerTransactions(owner: String!, datetime: AWSTimestamp!): mytrans

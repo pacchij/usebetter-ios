@@ -45,5 +45,13 @@
             "Bucket": "usebettercontent84304-devn",
             "Region": "us-west-1"
         }
+    },
+    "AppSync": {
+        "Default": {
+            "ApiUrl": "https://rhxilczxujgstfqkt7o37b4fgy.appsync-api.us-west-1.amazonaws.com/graphql",
+            "Region": "us-west-1",
+            "AuthMode": "AMAZON_COGNITO_USER_POOLS",
+            "ClientDatabasePrefix": "usebetter_AMAZON_COGNITO_USER_POOLS"
+        }
     }
 }
