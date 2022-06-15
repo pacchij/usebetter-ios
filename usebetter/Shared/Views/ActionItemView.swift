@@ -14,7 +14,7 @@ struct ActionItemView: View {
     @State private var contactName: String = "determining...."
     
     private let dashboardEventsViewModel = DashboardEventsViewModel()
-    @EnvironmentObject var transactions: TransactionsModel
+    @EnvironmentObject var transactionsModel: TransactionsModel
     
     let contactHelper = ContactHelper()
     var body: some View {
@@ -22,7 +22,7 @@ struct ActionItemView: View {
             VStack {
                 Spacer()
                     .frame(height: 50)
-                if let item = transactions.item(by: transactions.transactions[index].itemid)  {
+                if let item = transactionsModel.item(by: transactionsModel.events[index].itemid)  {
                 if let imageURL = item.imageURL {
                     AsyncImage(url: URL(string: imageURL)) { image1 in
                         image1.resizable()
@@ -74,7 +74,7 @@ struct ActionItemView: View {
                 }.padding([.top], 20)
                     
                 VStack {
-                    let uiState = dashboardEventsViewModel.getUIState(for: transactions.transactions[index], isPreview)
+                    let uiState = dashboardEventsViewModel.getUIState(for: transactionsModel.events[index], isPreview)
                     
                     Text(uiState.label)
                         .frame(alignment: .topLeading)
@@ -87,14 +87,14 @@ struct ActionItemView: View {
                     HStack {
                         if let pbText = uiState.primaryButtonText {
                             Button(pbText, action: {
-                                transactions.transactions[index].state = uiState.primaryButtonActionState ?? .archived
+                                transactionsModel.events[index].state = uiState.primaryButtonActionState ?? .archived
                             })
                             .padding(10)
                         }
                         
                         if let sbText = uiState.secondaryButtonText {
                             Button(sbText, action: {
-                                transactions.transactions[index].state = uiState.secondaryButtonActionState ?? .archived
+                                transactionsModel.events[index].state = uiState.secondaryButtonActionState ?? .archived
                             })
                             .padding(10)
                         }
@@ -112,7 +112,7 @@ struct ActionItemView: View {
         .navigationBarTitle("View Item", displayMode: .inline)
         .edgesIgnoringSafeArea([.bottom])
         .onAppear() {
-            contactHelper.contactFullname(for: transactions.transactions[index].receiver) { name in
+            contactHelper.contactFullname(for: transactionsModel.events[index].receiver) { name in
                 self.contactName = name
             }
         }

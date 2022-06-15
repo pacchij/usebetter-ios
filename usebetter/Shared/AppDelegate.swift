@@ -19,7 +19,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             Amplify.Logging.logLevel = .verbose
             try Amplify.add(plugin: AWSCognitoAuthPlugin())
             try Amplify.add(plugin: AWSS3StoragePlugin()	)
-           // try Amplify.add(plugin: AWSAPIPlugin())
+            try Amplify.add(plugin: AWSAPIPlugin(modelRegistration: AmplifyModels()))
             try Amplify.configure()
             print("Amplify configured with auth plugin")
         } catch {

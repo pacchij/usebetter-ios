@@ -18,7 +18,7 @@ struct DashboardEventsView: View {
     
     private let dashboardEventsViewModel = DashboardEventsViewModel()
     
-    @EnvironmentObject var transactions: TransactionsModel
+    @EnvironmentObject var transactionsModel: TransactionsModel
     var items: [GridItem] {
         Array(repeating: .init(.flexible()), count: 2)
     }
@@ -54,15 +54,16 @@ struct DashboardEventsView: View {
                     
                    
                     ScrollView(.vertical, showsIndicators: false) {
-                        if transactions.transactions.count == 0 {
+                        if transactionsModel.events.count == 0 {
                             Text("No Events found")
                         }
                         else {
-                            ForEach(transactions.transactions.indices, id:\.self) { index in
-                                if let item = transactions.item(by: transactions.transactions[index].itemid) {
+                            ForEach(transactionsModel.events.indices, id:\.self) { index in
+                                if let item = transactionsModel.item(by: transactionsModel.events[index].itemid)
+                                {
                                 HStack {
                                    
-                                    NavigationLink(destination: ActionItemView(index: index).environmentObject(transactions), label: {
+                                    NavigationLink(destination: ActionItemView(index: index).environmentObject(transactionsModel), label: {
                                         if let imageURL = item.imageURL {
                                             AsyncImage(url: URL(string: imageURL)) { image1 in
                                                 image1.resizable()
@@ -81,7 +82,7 @@ struct DashboardEventsView: View {
                                     
                                     
                                     VStack {
-                                        let uiState = dashboardEventsViewModel.getUIState(for: transactions.transactions[index], isPreview)
+                                        let uiState = dashboardEventsViewModel.getUIState(for: transactionsModel.events[index], isPreview)
                                         
                                         Text(uiState.label)
                                             .frame(alignment: .topLeading)
@@ -95,7 +96,7 @@ struct DashboardEventsView: View {
                                         HStack {
                                             if let pbText = uiState.primaryButtonText {
                                                 Button(pbText, action: {
-                                                    transactions.transactions[index].state = uiState.primaryButtonActionState ?? .archived
+                                                    transactionsModel.events[index].state = uiState.primaryButtonActionState ?? .archived
                                                 })
                                                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .leading)
                                                 .padding(10)
@@ -103,7 +104,7 @@ struct DashboardEventsView: View {
                                             
                                             if let sbText = uiState.secondaryButtonText {
                                                 Button(sbText, action: {
-                                                    transactions.transactions[index].state = uiState.secondaryButtonActionState ?? .archived
+                                                    transactionsModel.events[index].state = uiState.secondaryButtonActionState ?? .archived
                                                 })
                                                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .trailing)
                                                 .padding(10)
