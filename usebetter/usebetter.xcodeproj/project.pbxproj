@@ -76,8 +76,6 @@
 		C0AD650228556AE700DF9400 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AD650128556AE700DF9400 /* API.swift */; };
 		C0AD650528556EE500DF9400 /* AWSAppSync in Frameworks */ = {isa = PBXBuildFile; productRef = C0AD650428556EE500DF9400 /* AWSAppSync */; };
 		C0C1EDFA2859622E00EB6AD5 /* graphql in Resources */ = {isa = PBXBuildFile; fileRef = C0C1EDF92859622E00EB6AD5 /* graphql */; };
-		C0C1EE07285963E500EB6AD5 /* schema.graphql in Resources */ = {isa = PBXBuildFile; fileRef = C0C1EE06285963E500EB6AD5 /* schema.graphql */; };
-		C0C1EE08285963E500EB6AD5 /* schema.graphql in Resources */ = {isa = PBXBuildFile; fileRef = C0C1EE06285963E500EB6AD5 /* schema.graphql */; };
 		C0C1EE09285966AD00EB6AD5 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AD650128556AE700DF9400 /* API.swift */; };
 		C0E4ED2728429EEE002C29AA /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E4ED2628429EEE002C29AA /* SplashView.swift */; };
 		C0E4ED2828429EEE002C29AA /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E4ED2628429EEE002C29AA /* SplashView.swift */; };
@@ -154,7 +152,6 @@
 		C02D40E428568CBD00C28825 /* AmplifyModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AmplifyModels.swift; path = amplify/generated/models/AmplifyModels.swift; sourceTree = "<group>"; };
 		C0AD650128556AE700DF9400 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		C0C1EDF92859622E00EB6AD5 /* graphql */ = {isa = PBXFileReference; lastKnownFileType = folder; path = graphql; sourceTree = "<group>"; };
-		C0C1EE06285963E500EB6AD5 /* schema.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = schema.graphql; path = amplify/backend/api/usebetter/schema.graphql; sourceTree = "<group>"; };
 		C0E4ED2628429EEE002C29AA /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		C0E4ED29284314C6002C29AA /* S3FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3FileManager.swift; sourceTree = "<group>"; };
 		C0E4ED2C28431C42002C29AA /* JSONInterpreter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONInterpreter.swift; sourceTree = "<group>"; };
@@ -213,7 +210,6 @@
 		C001694A282C4E1600523EFF = {
 			isa = PBXGroup;
 			children = (
-				C0C1EE06285963E500EB6AD5 /* schema.graphql */,
 				C0C1EDF92859622E00EB6AD5 /* graphql */,
 				C02D40E428568CBD00C28825 /* AmplifyModels.swift */,
 				C02D40E228568CBD00C28825 /* transactions.swift */,
@@ -508,7 +504,6 @@
 				C0016A03283A081F00523EFF /* amplify in Resources */,
 				C0C1EDFA2859622E00EB6AD5 /* graphql in Resources */,
 				C0016A05283A081F00523EFF /* awsconfiguration.json in Resources */,
-				C0C1EE07285963E500EB6AD5 /* schema.graphql in Resources */,
 				C0016A07283A081F00523EFF /* amplifyconfiguration.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -520,7 +515,6 @@
 				C001697D282C4E1800523EFF /* Assets.xcassets in Resources */,
 				C0016A04283A081F00523EFF /* amplify in Resources */,
 				C0016A06283A081F00523EFF /* awsconfiguration.json in Resources */,
-				C0C1EE08285963E500EB6AD5 /* schema.graphql in Resources */,
 				C0016A08283A081F00523EFF /* amplifyconfiguration.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

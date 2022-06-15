@@ -58,8 +58,8 @@ public struct CreateTransactionsInput: GraphQLMapConvertible {
 public struct ModelTransactionsConditionInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
-  public init(itemid: ModelIDInput? = nil, ownerid: ModelStringInput? = nil, receiverid: ModelStringInput? = nil, state: ModelIntInput? = nil, and: [ModelTransactionsConditionInput?]? = nil, or: [ModelTransactionsConditionInput?]? = nil, not: ModelTransactionsConditionInput? = nil) {
-    graphQLMap = ["itemid": itemid, "ownerid": ownerid, "receiverid": receiverid, "state": state, "and": and, "or": or, "not": not]
+  public init(itemid: ModelIDInput? = nil, ownerid: ModelStringInput? = nil, receiverid: ModelStringInput? = nil, and: [ModelTransactionsConditionInput?]? = nil, or: [ModelTransactionsConditionInput?]? = nil, not: ModelTransactionsConditionInput? = nil) {
+    graphQLMap = ["itemid": itemid, "ownerid": ownerid, "receiverid": receiverid, "and": and, "or": or, "not": not]
   }
 
   public var itemid: ModelIDInput? {
@@ -86,15 +86,6 @@ public struct ModelTransactionsConditionInput: GraphQLMapConvertible {
     }
     set {
       graphQLMap.updateValue(newValue, forKey: "receiverid")
-    }
-  }
-
-  public var state: ModelIntInput? {
-    get {
-      return graphQLMap["state"] as! ModelIntInput?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "state")
     }
   }
 
@@ -512,95 +503,6 @@ public struct ModelStringInput: GraphQLMapConvertible {
   }
 }
 
-public struct ModelIntInput: GraphQLMapConvertible {
-  public var graphQLMap: GraphQLMap
-
-  public init(ne: Int? = nil, eq: Int? = nil, le: Int? = nil, lt: Int? = nil, ge: Int? = nil, gt: Int? = nil, between: [Int?]? = nil, attributeExists: Bool? = nil, attributeType: ModelAttributeTypes? = nil) {
-    graphQLMap = ["ne": ne, "eq": eq, "le": le, "lt": lt, "ge": ge, "gt": gt, "between": between, "attributeExists": attributeExists, "attributeType": attributeType]
-  }
-
-  public var ne: Int? {
-    get {
-      return graphQLMap["ne"] as! Int?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "ne")
-    }
-  }
-
-  public var eq: Int? {
-    get {
-      return graphQLMap["eq"] as! Int?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "eq")
-    }
-  }
-
-  public var le: Int? {
-    get {
-      return graphQLMap["le"] as! Int?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "le")
-    }
-  }
-
-  public var lt: Int? {
-    get {
-      return graphQLMap["lt"] as! Int?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "lt")
-    }
-  }
-
-  public var ge: Int? {
-    get {
-      return graphQLMap["ge"] as! Int?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "ge")
-    }
-  }
-
-  public var gt: Int? {
-    get {
-      return graphQLMap["gt"] as! Int?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "gt")
-    }
-  }
-
-  public var between: [Int?]? {
-    get {
-      return graphQLMap["between"] as! [Int?]?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "between")
-    }
-  }
-
-  public var attributeExists: Bool? {
-    get {
-      return graphQLMap["attributeExists"] as! Bool?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "attributeExists")
-    }
-  }
-
-  public var attributeType: ModelAttributeTypes? {
-    get {
-      return graphQLMap["attributeType"] as! ModelAttributeTypes?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "attributeType")
-    }
-  }
-}
-
 public struct UpdateTransactionsInput: GraphQLMapConvertible {
   public var graphQLMap: GraphQLMap
 
@@ -822,6 +724,95 @@ public struct ModelTransactionsFilterInput: GraphQLMapConvertible {
   }
 }
 
+public struct ModelIntInput: GraphQLMapConvertible {
+  public var graphQLMap: GraphQLMap
+
+  public init(ne: Int? = nil, eq: Int? = nil, le: Int? = nil, lt: Int? = nil, ge: Int? = nil, gt: Int? = nil, between: [Int?]? = nil, attributeExists: Bool? = nil, attributeType: ModelAttributeTypes? = nil) {
+    graphQLMap = ["ne": ne, "eq": eq, "le": le, "lt": lt, "ge": ge, "gt": gt, "between": between, "attributeExists": attributeExists, "attributeType": attributeType]
+  }
+
+  public var ne: Int? {
+    get {
+      return graphQLMap["ne"] as! Int?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "ne")
+    }
+  }
+
+  public var eq: Int? {
+    get {
+      return graphQLMap["eq"] as! Int?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "eq")
+    }
+  }
+
+  public var le: Int? {
+    get {
+      return graphQLMap["le"] as! Int?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "le")
+    }
+  }
+
+  public var lt: Int? {
+    get {
+      return graphQLMap["lt"] as! Int?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "lt")
+    }
+  }
+
+  public var ge: Int? {
+    get {
+      return graphQLMap["ge"] as! Int?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "ge")
+    }
+  }
+
+  public var gt: Int? {
+    get {
+      return graphQLMap["gt"] as! Int?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "gt")
+    }
+  }
+
+  public var between: [Int?]? {
+    get {
+      return graphQLMap["between"] as! [Int?]?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "between")
+    }
+  }
+
+  public var attributeExists: Bool? {
+    get {
+      return graphQLMap["attributeExists"] as! Bool?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "attributeExists")
+    }
+  }
+
+  public var attributeType: ModelAttributeTypes? {
+    get {
+      return graphQLMap["attributeType"] as! ModelAttributeTypes?
+    }
+    set {
+      graphQLMap.updateValue(newValue, forKey: "attributeType")
+    }
+  }
+}
+
 public enum ModelSortDirection: RawRepresentable, Equatable, JSONDecodable, JSONEncodable {
   public typealias RawValue = String
   case asc
@@ -851,86 +842,6 @@ public enum ModelSortDirection: RawRepresentable, Equatable, JSONDecodable, JSON
       case (.desc, .desc): return true
       case (.unknown(let lhsValue), .unknown(let rhsValue)): return lhsValue == rhsValue
       default: return false
-    }
-  }
-}
-
-public struct ModeltransactionsFilterInput: GraphQLMapConvertible {
-  public var graphQLMap: GraphQLMap
-
-  public init(id: ModelIDInput? = nil, itemid: ModelIDInput? = nil, ownerid: ModelStringInput? = nil, receiverid: ModelStringInput? = nil, state: ModelIntInput? = nil, and: [ModeltransactionsFilterInput?]? = nil, or: [ModeltransactionsFilterInput?]? = nil, not: ModeltransactionsFilterInput? = nil) {
-    graphQLMap = ["id": id, "itemid": itemid, "ownerid": ownerid, "receiverid": receiverid, "state": state, "and": and, "or": or, "not": not]
-  }
-
-  public var id: ModelIDInput? {
-    get {
-      return graphQLMap["id"] as! ModelIDInput?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "id")
-    }
-  }
-
-  public var itemid: ModelIDInput? {
-    get {
-      return graphQLMap["itemid"] as! ModelIDInput?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "itemid")
-    }
-  }
-
-  public var ownerid: ModelStringInput? {
-    get {
-      return graphQLMap["ownerid"] as! ModelStringInput?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "ownerid")
-    }
-  }
-
-  public var receiverid: ModelStringInput? {
-    get {
-      return graphQLMap["receiverid"] as! ModelStringInput?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "receiverid")
-    }
-  }
-
-  public var state: ModelIntInput? {
-    get {
-      return graphQLMap["state"] as! ModelIntInput?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "state")
-    }
-  }
-
-  public var and: [ModeltransactionsFilterInput?]? {
-    get {
-      return graphQLMap["and"] as! [ModeltransactionsFilterInput?]?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "and")
-    }
-  }
-
-  public var or: [ModeltransactionsFilterInput?]? {
-    get {
-      return graphQLMap["or"] as! [ModeltransactionsFilterInput?]?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "or")
-    }
-  }
-
-  public var not: ModeltransactionsFilterInput? {
-    get {
-      return graphQLMap["not"] as! ModeltransactionsFilterInput?
-    }
-    set {
-      graphQLMap.updateValue(newValue, forKey: "not")
     }
   }
 }
@@ -978,7 +889,7 @@ public final class CreateTransactionsMutation: GraphQLMutation {
     }
 
     public struct CreateTransaction: GraphQLSelectionSet {
-      public static let possibleTypes = ["transactions"]
+      public static let possibleTypes = ["Transactions"]
 
       public static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -998,7 +909,7 @@ public final class CreateTransactionsMutation: GraphQLMutation {
       }
 
       public init(id: GraphQLID, itemid: GraphQLID, ownerid: String, receiverid: String, state: Int, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "transactions", "id": id, "itemid": itemid, "ownerid": ownerid, "receiverid": receiverid, "state": state, "createdAt": createdAt, "updatedAt": updatedAt])
+        self.init(snapshot: ["__typename": "Transactions", "id": id, "itemid": itemid, "ownerid": ownerid, "receiverid": receiverid, "state": state, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -1119,7 +1030,7 @@ public final class UpdateTransactionsMutation: GraphQLMutation {
     }
 
     public struct UpdateTransaction: GraphQLSelectionSet {
-      public static let possibleTypes = ["transactions"]
+      public static let possibleTypes = ["Transactions"]
 
       public static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -1139,7 +1050,7 @@ public final class UpdateTransactionsMutation: GraphQLMutation {
       }
 
       public init(id: GraphQLID, itemid: GraphQLID, ownerid: String, receiverid: String, state: Int, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "transactions", "id": id, "itemid": itemid, "ownerid": ownerid, "receiverid": receiverid, "state": state, "createdAt": createdAt, "updatedAt": updatedAt])
+        self.init(snapshot: ["__typename": "Transactions", "id": id, "itemid": itemid, "ownerid": ownerid, "receiverid": receiverid, "state": state, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -1260,7 +1171,7 @@ public final class DeleteTransactionsMutation: GraphQLMutation {
     }
 
     public struct DeleteTransaction: GraphQLSelectionSet {
-      public static let possibleTypes = ["transactions"]
+      public static let possibleTypes = ["Transactions"]
 
       public static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -1280,7 +1191,7 @@ public final class DeleteTransactionsMutation: GraphQLMutation {
       }
 
       public init(id: GraphQLID, itemid: GraphQLID, ownerid: String, receiverid: String, state: Int, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "transactions", "id": id, "itemid": itemid, "ownerid": ownerid, "receiverid": receiverid, "state": state, "createdAt": createdAt, "updatedAt": updatedAt])
+        self.init(snapshot: ["__typename": "Transactions", "id": id, "itemid": itemid, "ownerid": ownerid, "receiverid": receiverid, "state": state, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -1401,7 +1312,7 @@ public final class GetTransactionsQuery: GraphQLQuery {
     }
 
     public struct GetTransaction: GraphQLSelectionSet {
-      public static let possibleTypes = ["transactions"]
+      public static let possibleTypes = ["Transactions"]
 
       public static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -1421,7 +1332,7 @@ public final class GetTransactionsQuery: GraphQLQuery {
       }
 
       public init(id: GraphQLID, itemid: GraphQLID, ownerid: String, receiverid: String, state: Int, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "transactions", "id": id, "itemid": itemid, "ownerid": ownerid, "receiverid": receiverid, "state": state, "createdAt": createdAt, "updatedAt": updatedAt])
+        self.init(snapshot: ["__typename": "Transactions", "id": id, "itemid": itemid, "ownerid": ownerid, "receiverid": receiverid, "state": state, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -1596,7 +1507,7 @@ public final class ListTransactionsQuery: GraphQLQuery {
       }
 
       public struct Item: GraphQLSelectionSet {
-        public static let possibleTypes = ["transactions"]
+        public static let possibleTypes = ["Transactions"]
 
         public static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -1616,7 +1527,7 @@ public final class ListTransactionsQuery: GraphQLQuery {
         }
 
         public init(id: GraphQLID, itemid: GraphQLID, ownerid: String, receiverid: String, state: Int, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "transactions", "id": id, "itemid": itemid, "ownerid": ownerid, "receiverid": receiverid, "state": state, "createdAt": createdAt, "updatedAt": updatedAt])
+          self.init(snapshot: ["__typename": "Transactions", "id": id, "itemid": itemid, "ownerid": ownerid, "receiverid": receiverid, "state": state, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -1697,15 +1608,15 @@ public final class ListTransactionsQuery: GraphQLQuery {
 
 public final class TransactionsByOwnerQuery: GraphQLQuery {
   public static let operationString =
-    "query TransactionsByOwner($ownerid: String!, $sortDirection: ModelSortDirection, $filter: ModeltransactionsFilterInput, $limit: Int, $nextToken: String) {\n  transactionsByOwner(ownerid: $ownerid, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      itemid\n      ownerid\n      receiverid\n      state\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
+    "query TransactionsByOwner($ownerid: String!, $sortDirection: ModelSortDirection, $filter: ModelTransactionsFilterInput, $limit: Int, $nextToken: String) {\n  transactionsByOwner(ownerid: $ownerid, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      itemid\n      ownerid\n      receiverid\n      state\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
 
   public var ownerid: String
   public var sortDirection: ModelSortDirection?
-  public var filter: ModeltransactionsFilterInput?
+  public var filter: ModelTransactionsFilterInput?
   public var limit: Int?
   public var nextToken: String?
 
-  public init(ownerid: String, sortDirection: ModelSortDirection? = nil, filter: ModeltransactionsFilterInput? = nil, limit: Int? = nil, nextToken: String? = nil) {
+  public init(ownerid: String, sortDirection: ModelSortDirection? = nil, filter: ModelTransactionsFilterInput? = nil, limit: Int? = nil, nextToken: String? = nil) {
     self.ownerid = ownerid
     self.sortDirection = sortDirection
     self.filter = filter
@@ -1744,7 +1655,7 @@ public final class TransactionsByOwnerQuery: GraphQLQuery {
     }
 
     public struct TransactionsByOwner: GraphQLSelectionSet {
-      public static let possibleTypes = ["ModeltransactionsConnection"]
+      public static let possibleTypes = ["ModelTransactionsConnection"]
 
       public static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -1759,7 +1670,7 @@ public final class TransactionsByOwnerQuery: GraphQLQuery {
       }
 
       public init(items: [Item?], nextToken: String? = nil) {
-        self.init(snapshot: ["__typename": "ModeltransactionsConnection", "items": items.map { $0.flatMap { $0.snapshot } }, "nextToken": nextToken])
+        self.init(snapshot: ["__typename": "ModelTransactionsConnection", "items": items.map { $0.flatMap { $0.snapshot } }, "nextToken": nextToken])
       }
 
       public var __typename: String {
@@ -1790,7 +1701,7 @@ public final class TransactionsByOwnerQuery: GraphQLQuery {
       }
 
       public struct Item: GraphQLSelectionSet {
-        public static let possibleTypes = ["transactions"]
+        public static let possibleTypes = ["Transactions"]
 
         public static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -1810,7 +1721,7 @@ public final class TransactionsByOwnerQuery: GraphQLQuery {
         }
 
         public init(id: GraphQLID, itemid: GraphQLID, ownerid: String, receiverid: String, state: Int, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "transactions", "id": id, "itemid": itemid, "ownerid": ownerid, "receiverid": receiverid, "state": state, "createdAt": createdAt, "updatedAt": updatedAt])
+          self.init(snapshot: ["__typename": "Transactions", "id": id, "itemid": itemid, "ownerid": ownerid, "receiverid": receiverid, "state": state, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -1891,15 +1802,15 @@ public final class TransactionsByOwnerQuery: GraphQLQuery {
 
 public final class TransactionsByReceiverQuery: GraphQLQuery {
   public static let operationString =
-    "query TransactionsByReceiver($receiverid: String!, $sortDirection: ModelSortDirection, $filter: ModeltransactionsFilterInput, $limit: Int, $nextToken: String) {\n  transactionsByReceiver(receiverid: $receiverid, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      itemid\n      ownerid\n      receiverid\n      state\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
+    "query TransactionsByReceiver($receiverid: String!, $sortDirection: ModelSortDirection, $filter: ModelTransactionsFilterInput, $limit: Int, $nextToken: String) {\n  transactionsByReceiver(receiverid: $receiverid, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {\n    __typename\n    items {\n      __typename\n      id\n      itemid\n      ownerid\n      receiverid\n      state\n      createdAt\n      updatedAt\n    }\n    nextToken\n  }\n}"
 
   public var receiverid: String
   public var sortDirection: ModelSortDirection?
-  public var filter: ModeltransactionsFilterInput?
+  public var filter: ModelTransactionsFilterInput?
   public var limit: Int?
   public var nextToken: String?
 
-  public init(receiverid: String, sortDirection: ModelSortDirection? = nil, filter: ModeltransactionsFilterInput? = nil, limit: Int? = nil, nextToken: String? = nil) {
+  public init(receiverid: String, sortDirection: ModelSortDirection? = nil, filter: ModelTransactionsFilterInput? = nil, limit: Int? = nil, nextToken: String? = nil) {
     self.receiverid = receiverid
     self.sortDirection = sortDirection
     self.filter = filter
@@ -1938,7 +1849,7 @@ public final class TransactionsByReceiverQuery: GraphQLQuery {
     }
 
     public struct TransactionsByReceiver: GraphQLSelectionSet {
-      public static let possibleTypes = ["ModeltransactionsConnection"]
+      public static let possibleTypes = ["ModelTransactionsConnection"]
 
       public static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -1953,7 +1864,7 @@ public final class TransactionsByReceiverQuery: GraphQLQuery {
       }
 
       public init(items: [Item?], nextToken: String? = nil) {
-        self.init(snapshot: ["__typename": "ModeltransactionsConnection", "items": items.map { $0.flatMap { $0.snapshot } }, "nextToken": nextToken])
+        self.init(snapshot: ["__typename": "ModelTransactionsConnection", "items": items.map { $0.flatMap { $0.snapshot } }, "nextToken": nextToken])
       }
 
       public var __typename: String {
@@ -1984,7 +1895,7 @@ public final class TransactionsByReceiverQuery: GraphQLQuery {
       }
 
       public struct Item: GraphQLSelectionSet {
-        public static let possibleTypes = ["transactions"]
+        public static let possibleTypes = ["Transactions"]
 
         public static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -2004,7 +1915,7 @@ public final class TransactionsByReceiverQuery: GraphQLQuery {
         }
 
         public init(id: GraphQLID, itemid: GraphQLID, ownerid: String, receiverid: String, state: Int, createdAt: String, updatedAt: String) {
-          self.init(snapshot: ["__typename": "transactions", "id": id, "itemid": itemid, "ownerid": ownerid, "receiverid": receiverid, "state": state, "createdAt": createdAt, "updatedAt": updatedAt])
+          self.init(snapshot: ["__typename": "Transactions", "id": id, "itemid": itemid, "ownerid": ownerid, "receiverid": receiverid, "state": state, "createdAt": createdAt, "updatedAt": updatedAt])
         }
 
         public var __typename: String {
@@ -2117,7 +2028,7 @@ public final class OnCreateTransactionsSubscription: GraphQLSubscription {
     }
 
     public struct OnCreateTransaction: GraphQLSelectionSet {
-      public static let possibleTypes = ["transactions"]
+      public static let possibleTypes = ["Transactions"]
 
       public static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -2137,7 +2048,7 @@ public final class OnCreateTransactionsSubscription: GraphQLSubscription {
       }
 
       public init(id: GraphQLID, itemid: GraphQLID, ownerid: String, receiverid: String, state: Int, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "transactions", "id": id, "itemid": itemid, "ownerid": ownerid, "receiverid": receiverid, "state": state, "createdAt": createdAt, "updatedAt": updatedAt])
+        self.init(snapshot: ["__typename": "Transactions", "id": id, "itemid": itemid, "ownerid": ownerid, "receiverid": receiverid, "state": state, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -2249,7 +2160,7 @@ public final class OnUpdateTransactionsSubscription: GraphQLSubscription {
     }
 
     public struct OnUpdateTransaction: GraphQLSelectionSet {
-      public static let possibleTypes = ["transactions"]
+      public static let possibleTypes = ["Transactions"]
 
       public static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -2269,7 +2180,7 @@ public final class OnUpdateTransactionsSubscription: GraphQLSubscription {
       }
 
       public init(id: GraphQLID, itemid: GraphQLID, ownerid: String, receiverid: String, state: Int, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "transactions", "id": id, "itemid": itemid, "ownerid": ownerid, "receiverid": receiverid, "state": state, "createdAt": createdAt, "updatedAt": updatedAt])
+        self.init(snapshot: ["__typename": "Transactions", "id": id, "itemid": itemid, "ownerid": ownerid, "receiverid": receiverid, "state": state, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {
@@ -2381,7 +2292,7 @@ public final class OnDeleteTransactionsSubscription: GraphQLSubscription {
     }
 
     public struct OnDeleteTransaction: GraphQLSelectionSet {
-      public static let possibleTypes = ["transactions"]
+      public static let possibleTypes = ["Transactions"]
 
       public static let selections: [GraphQLSelection] = [
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
@@ -2401,7 +2312,7 @@ public final class OnDeleteTransactionsSubscription: GraphQLSubscription {
       }
 
       public init(id: GraphQLID, itemid: GraphQLID, ownerid: String, receiverid: String, state: Int, createdAt: String, updatedAt: String) {
-        self.init(snapshot: ["__typename": "transactions", "id": id, "itemid": itemid, "ownerid": ownerid, "receiverid": receiverid, "state": state, "createdAt": createdAt, "updatedAt": updatedAt])
+        self.init(snapshot: ["__typename": "Transactions", "id": id, "itemid": itemid, "ownerid": ownerid, "receiverid": receiverid, "state": state, "createdAt": createdAt, "updatedAt": updatedAt])
       }
 
       public var __typename: String {

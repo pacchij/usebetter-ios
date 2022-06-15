@@ -2,7 +2,7 @@
 import Amplify
 import Foundation
 
-extension transactions {
+extension Transactions {
   // MARK: - CodingKeys 
    public enum CodingKeys: String, ModelKey {
     case id
@@ -18,14 +18,14 @@ extension transactions {
   //  MARK: - ModelSchema 
   
   public static let schema = defineSchema { model in
-    let transactions = transactions.keys
+    let transactions = Transactions.keys
     
     model.authRules = [
       rule(allow: .private, operations: [.create, .update, .delete, .read]),
       rule(allow: .groups, groupClaim: "cognito:groups", groups: ["Admins"], provider: .userPools, operations: [.create, .update, .delete, .read])
     ]
     
-    model.pluralName = "transactions"
+    model.pluralName = "Transactions"
     
     model.attributes(
       .index(fields: ["id", "state"], name: nil),

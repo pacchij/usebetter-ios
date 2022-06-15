@@ -41,7 +41,7 @@ query ListTransactions(
 query TransactionsByOwner(
   $ownerid: String!
   $sortDirection: ModelSortDirection
-  $filter: ModeltransactionsFilterInput
+  $filter: ModelTransactionsFilterInput
   $limit: Int
   $nextToken: String
 ) {
@@ -67,7 +67,7 @@ query TransactionsByOwner(
 query TransactionsByReceiver(
   $receiverid: String!
   $sortDirection: ModelSortDirection
-  $filter: ModeltransactionsFilterInput
+  $filter: ModelTransactionsFilterInput
   $limit: Int
   $nextToken: String
 ) {

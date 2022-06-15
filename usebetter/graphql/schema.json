@@ -46,7 +46,7 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "transactions",
+            "name" : "Transactions",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -146,7 +146,7 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModeltransactionsFilterInput",
+              "name" : "ModelTransactionsFilterInput",
               "ofType" : null
             },
             "defaultValue" : null
@@ -171,7 +171,7 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "ModeltransactionsConnection",
+            "name" : "ModelTransactionsConnection",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -206,7 +206,7 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModeltransactionsFilterInput",
+              "name" : "ModelTransactionsFilterInput",
               "ofType" : null
             },
             "defaultValue" : null
@@ -231,7 +231,7 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "ModeltransactionsConnection",
+            "name" : "ModelTransactionsConnection",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -243,7 +243,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "OBJECT",
-        "name" : "transactions",
+        "name" : "Transactions",
         "description" : null,
         "fields" : [ {
           "name" : "id",
@@ -407,7 +407,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "OBJECT",
-                "name" : "transactions",
+                "name" : "Transactions",
                 "ofType" : null
               }
             }
@@ -1105,134 +1105,6 @@
         "possibleTypes" : null
       }, {
         "kind" : "OBJECT",
-        "name" : "ModeltransactionsConnection",
-        "description" : null,
-        "fields" : [ {
-          "name" : "items",
-          "description" : null,
-          "args" : [ ],
-          "type" : {
-            "kind" : "NON_NULL",
-            "name" : null,
-            "ofType" : {
-              "kind" : "LIST",
-              "name" : null,
-              "ofType" : {
-                "kind" : "OBJECT",
-                "name" : "transactions",
-                "ofType" : null
-              }
-            }
-          },
-          "isDeprecated" : false,
-          "deprecationReason" : null
-        }, {
-          "name" : "nextToken",
-          "description" : null,
-          "args" : [ ],
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "String",
-            "ofType" : null
-          },
-          "isDeprecated" : false,
-          "deprecationReason" : null
-        } ],
-        "inputFields" : null,
-        "interfaces" : [ ],
-        "enumValues" : null,
-        "possibleTypes" : null
-      }, {
-        "kind" : "INPUT_OBJECT",
-        "name" : "ModeltransactionsFilterInput",
-        "description" : null,
-        "fields" : null,
-        "inputFields" : [ {
-          "name" : "id",
-          "description" : null,
-          "type" : {
-            "kind" : "INPUT_OBJECT",
-            "name" : "ModelIDInput",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "itemid",
-          "description" : null,
-          "type" : {
-            "kind" : "INPUT_OBJECT",
-            "name" : "ModelIDInput",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "ownerid",
-          "description" : null,
-          "type" : {
-            "kind" : "INPUT_OBJECT",
-            "name" : "ModelStringInput",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "receiverid",
-          "description" : null,
-          "type" : {
-            "kind" : "INPUT_OBJECT",
-            "name" : "ModelStringInput",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "state",
-          "description" : null,
-          "type" : {
-            "kind" : "INPUT_OBJECT",
-            "name" : "ModelIntInput",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "and",
-          "description" : null,
-          "type" : {
-            "kind" : "LIST",
-            "name" : null,
-            "ofType" : {
-              "kind" : "INPUT_OBJECT",
-              "name" : "ModeltransactionsFilterInput",
-              "ofType" : null
-            }
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "or",
-          "description" : null,
-          "type" : {
-            "kind" : "LIST",
-            "name" : null,
-            "ofType" : {
-              "kind" : "INPUT_OBJECT",
-              "name" : "ModeltransactionsFilterInput",
-              "ofType" : null
-            }
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "not",
-          "description" : null,
-          "type" : {
-            "kind" : "INPUT_OBJECT",
-            "name" : "ModeltransactionsFilterInput",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        } ],
-        "interfaces" : null,
-        "enumValues" : null,
-        "possibleTypes" : null
-      }, {
-        "kind" : "OBJECT",
         "name" : "Mutation",
         "description" : null,
         "fields" : [ {
@@ -1263,7 +1135,7 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "transactions",
+            "name" : "Transactions",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -1296,7 +1168,7 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "transactions",
+            "name" : "Transactions",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -1329,7 +1201,7 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "transactions",
+            "name" : "Transactions",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -1438,15 +1310,6 @@
           "type" : {
             "kind" : "INPUT_OBJECT",
             "name" : "ModelStringInput",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "state",
-          "description" : null,
-          "type" : {
-            "kind" : "INPUT_OBJECT",
-            "name" : "ModelIntInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -1596,7 +1459,7 @@
           "args" : [ ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "transactions",
+            "name" : "Transactions",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -1607,7 +1470,7 @@
           "args" : [ ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "transactions",
+            "name" : "Transactions",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -1618,7 +1481,7 @@
           "args" : [ ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "transactions",
+            "name" : "Transactions",
             "ofType" : null
           },
           "isDeprecated" : false,

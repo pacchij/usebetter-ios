@@ -95,7 +95,7 @@ class DashboardEventsViewModel {
                                 )
     }
     
-    func getUIState(for transaction: Transactions, _ isPreview: Bool = false) -> EventUIStates {
+    func getUIState(for transaction: Events, _ isPreview: Bool = false) -> EventUIStates {
         
         guard !isPreview else {
             return previewUIState

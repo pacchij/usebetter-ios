@@ -27,7 +27,7 @@ enum TransactionState: Int {
     case archived = 500
 }
 
-struct Transactions: Identifiable {
+struct Events: Identifiable {
     var transid: UUID
     var itemid: UUID
     var owner: String
@@ -47,7 +47,7 @@ struct RemoteTransactions: Codable {
 }
 
 class TransactionsModel: ObservableObject {
-    @Published var events: [Transactions] = []
+    @Published var events: [Events] = []
     private var userfeed: UserFeedModel?
     private var friendsFeed: FriendsFeedModel?
     private var subscriptions = Set<AnyCancellable>()
@@ -70,26 +70,26 @@ class TransactionsModel: ObservableObject {
     }
     
     private func loadRemote() {
-        let t1 = Transactions(transid: UUID(), itemid: UUID(), owner: "17142615481", receiver: "17142615482", datetime: 1234567890, state: TransactionState(rawValue: 100)!)//, item: UBItem(name: "some item name", itemid: UUID(), imageURL: "https://m.media-amazon.com/images/I/41t1e3ZeMYS._AC_US40_.jpg"))
+        let t1 = Events(transid: UUID(), itemid: UUID(), owner: "17142615481", receiver: "17142615482", datetime: 1234567890, state: TransactionState(rawValue: 100)!)//, item: UBItem(name: "some item name", itemid: UUID(), imageURL: "https://m.media-amazon.com/images/I/41t1e3ZeMYS._AC_US40_.jpg"))
         events.append(t1)
         
-        let t2 = Transactions(transid: UUID(), itemid: UUID(), owner: "17142615481", receiver: "17142615482", datetime: 1234567890, state: TransactionState(rawValue: 101)!)//, item: UBItem(name: "some item name", itemid: UUID(), imageURL: "https://m.media-amazon.com/images/I/41DEXHM8zLL._AC_US40_.jpg"))
+        let t2 = Events(transid: UUID(), itemid: UUID(), owner: "17142615481", receiver: "17142615482", datetime: 1234567890, state: TransactionState(rawValue: 101)!)//, item: UBItem(name: "some item name", itemid: UUID(), imageURL: "https://m.media-amazon.com/images/I/41DEXHM8zLL._AC_US40_.jpg"))
         events.append(t2)
         
-        let t3 = Transactions(transid: UUID(), itemid: UUID(), owner: "17142615481", receiver: "17142615482", datetime: 1234567890, state: TransactionState(rawValue: 102)!)//, item: UBItem(name: "some item name", itemid: UUID(), imageURL: "https://m.media-amazon.com/images/I/51kixorXZ6L._AC_US40_.jpg"))
+        let t3 = Events(transid: UUID(), itemid: UUID(), owner: "17142615481", receiver: "17142615482", datetime: 1234567890, state: TransactionState(rawValue: 102)!)//, item: UBItem(name: "some item name", itemid: UUID(), imageURL: "https://m.media-amazon.com/images/I/51kixorXZ6L._AC_US40_.jpg"))
         events.append(t3)
         
-        let t4 = Transactions(transid: UUID(), itemid: UUID(), owner: "17142615481", receiver: "17142615482", datetime: 1234567890, state: TransactionState(rawValue: 103)!)//, item: UBItem(name: "some item name", itemid: UUID(), imageURL: "https://images-na.ssl-images-amazon.com/images/I/41nwF-OVmFS.__AC_SX300_SY300_QL70_ML2_.jpg"))
+        let t4 = Events(transid: UUID(), itemid: UUID(), owner: "17142615481", receiver: "17142615482", datetime: 1234567890, state: TransactionState(rawValue: 103)!)//, item: UBItem(name: "some item name", itemid: UUID(), imageURL: "https://images-na.ssl-images-amazon.com/images/I/41nwF-OVmFS.__AC_SX300_SY300_QL70_ML2_.jpg"))
         events.append(t4)
     }
     
     func sendRequest(for item: UBItem, byOwner: Bool = false) {
         let currentDateTime = UInt64(NSDate().timeIntervalSince1970)
-        let t1 = Transactions(transid: UUID(), itemid: item.itemid, owner: item.ownerid, receiver: AccountManager().currentUsername!, datetime: currentDateTime, state: byOwner ? .requestCancelByOwner : .requestInitiatedByReceiver)
+        let t1 = Events(transid: UUID(), itemid: item.itemid, owner: item.ownerid, receiver: AccountManager().currentUsername!, datetime: currentDateTime, state: byOwner ? .requestCancelByOwner : .requestInitiatedByReceiver)
         events.append(t1)
         
 //        let stateVal: Int = byOwner ? TransactionState.requestCancelByOwner.rawValue : TransactionState.requestInitiatedByReceiver.rawValue
-        let tr = transactions(itemid:  "some guide", //item.itemid.uuidString,
+        let tr = Transactions(itemid:  "some guide", //item.itemid.uuidString,
                               ownerid: "pj2", //item.ownerid,
                               receiverid: "rj2", //AccountManager().currentUsername!,
                               state: 200) //stateVal)
