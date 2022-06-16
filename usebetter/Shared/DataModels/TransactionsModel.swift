@@ -81,6 +81,50 @@ class TransactionsModel: ObservableObject {
         
         let t4 = Events(transid: UUID(), itemid: UUID(), owner: "17142615481", receiver: "17142615482", datetime: 1234567890, state: TransactionState(rawValue: 103)!)//, item: UBItem(name: "some item name", itemid: UUID(), imageURL: "https://images-na.ssl-images-amazon.com/images/I/41nwF-OVmFS.__AC_SX300_SY300_QL70_ML2_.jpg"))
         events.append(t4)
+        let keys = UBEvent.keys
+        let predicateByOwner = keys.ownerid == AccountManager().currentUsername!
+        
+        Amplify.API.query(request: .paginatedList(UBEvent.self, where: predicateByOwner, limit: 100 ))
+            .resultPublisher
+            .sink {
+                if case let .failure(error) = $0 {
+                    print("TransactionModel: loadRemote: failed to query transactions by owner id \(error)")
+                }
+            }
+            receiveValue: { result in
+                switch result {
+                case .success(let transactions):
+                    if transactions.isEmpty {
+                        print("TransactionModel: loadRemote: no by owner id transactions found")
+                    }
+                    print("TransactionModel: loadRemote:  by owner idtransactions read")
+                case .failure(let error):
+                    print("TransactionModel: loadRemote: by owner id failed \(error)")
+                }
+            }
+            .store(in: &subscriptions)
+        
+        let predicateByReceiver = keys.receiverid == AccountManager().currentUsername!
+        
+        Amplify.API.query(request: .paginatedList(UBEvent.self, where: predicateByReceiver, limit: 100 ))
+            .resultPublisher
+            .sink {
+                if case let .failure(error) = $0 {
+                    print("TransactionModel: loadRemote: failed to  failed to query transactions by receiver id \(error)")
+                }
+            }
+            receiveValue: { result in
+                switch result {
+                case .success(let transactions):
+                    if transactions.isEmpty {
+                        print("TransactionModel: loadRemote: no transactions found by receiver id")
+                    }
+                    print("TransactionModel: loadRemote: transactions read  by receiver id")
+                case .failure(let error):
+                    print("TransactionModel: loadRemote: failed to query transactions by receiver id  \(error)")
+                }
+            }
+            .store(in: &subscriptions)
     }
     
     func sendRequest(for item: UBItem, byOwner: Bool = false) {
@@ -88,14 +132,13 @@ class TransactionsModel: ObservableObject {
         let t1 = Events(transid: UUID(), itemid: item.itemid, owner: item.ownerid, receiver: AccountManager().currentUsername!, datetime: currentDateTime, state: byOwner ? .requestCancelByOwner : .requestInitiatedByReceiver)
         events.append(t1)
         
-//        let stateVal: Int = byOwner ? TransactionState.requestCancelByOwner.rawValue : TransactionState.requestInitiatedByReceiver.rawValue
-        let tr = Transactions(itemid:  "some guide", //item.itemid.uuidString,
-                              ownerid: "pj2", //item.ownerid,
-                              receiverid: "rj2", //AccountManager().currentUsername!,
-                              state: 200) //stateVal)
-//        let curTime = Temporal.DateTime.now()
-//        tr.createdAt = curTime
-//        tr.updatedAt = curTime
+
+        let stateValue: Int = byOwner ? TransactionState.requestCancelByOwner.rawValue : TransactionState.requestInitiatedByReceiver.rawValue
+        let tr = UBEvent(itemid:  item.itemid.uuidString,
+                              ownerid: item.ownerid,
+                              receiverid: AccountManager().currentUsername!,
+                              state: stateValue)
+
         
         Amplify.API.mutate(request: .create(tr))
             .resultPublisher

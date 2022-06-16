@@ -2,7 +2,7 @@
 import Amplify
 import Foundation
 
-extension Transactions {
+extension UBEvent {
   // MARK: - CodingKeys 
    public enum CodingKeys: String, ModelKey {
     case id
@@ -18,14 +18,14 @@ extension Transactions {
   //  MARK: - ModelSchema 
   
   public static let schema = defineSchema { model in
-    let transactions = Transactions.keys
+    let uBEvent = UBEvent.keys
     
     model.authRules = [
       rule(allow: .private, operations: [.create, .update, .delete, .read]),
       rule(allow: .groups, groupClaim: "cognito:groups", groups: ["Admins"], provider: .userPools, operations: [.create, .update, .delete, .read])
     ]
     
-    model.pluralName = "Transactions"
+      model.syncPluralName = "UBEvents"
     
     model.attributes(
       .index(fields: ["id", "state"], name: nil),
@@ -35,12 +35,12 @@ extension Transactions {
     
     model.fields(
       .id(),
-      .field(transactions.itemid, is: .required, ofType: .string),
-      .field(transactions.ownerid, is: .required, ofType: .string),
-      .field(transactions.receiverid, is: .required, ofType: .string),
-      .field(transactions.state, is: .required, ofType: .int),
-      .field(transactions.createdAt, is: .optional, isReadOnly: true, ofType: .dateTime),
-      .field(transactions.updatedAt, is: .optional, isReadOnly: true, ofType: .dateTime)
+      .field(uBEvent.itemid, is: .required, ofType: .string),
+      .field(uBEvent.ownerid, is: .required, ofType: .string),
+      .field(uBEvent.receiverid, is: .required, ofType: .string),
+      .field(uBEvent.state, is: .required, ofType: .int),
+      .field(uBEvent.createdAt, is: .optional, isReadOnly: true, ofType: .dateTime),
+      .field(uBEvent.updatedAt, is: .optional, isReadOnly: true, ofType: .dateTime)
     )
     }
 }

@@ -11,9 +11,9 @@
     "additionalAuthTypes": [
       {
         "mode": "API_KEY",
-        "expirationTime": 7,
-        "apiKeyExpirationDate": "2022-06-22T06:00:06.788Z",
-        "keyDescription": ""
+        "expirationTime": 90,
+        "apiKeyExpirationDate": "2022-09-14T01:31:11.334Z",
+        "keyDescription": "ubeventmodifykey"
       }
     ]
   }

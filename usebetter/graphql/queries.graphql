@@ -1,6 +1,6 @@
 # this is an auto generated file. This will be overwritten
-query GetTransactions($id: ID!, $state: Int!) {
-  getTransactions(id: $id, state: $state) {
+query GetUBEvent($id: ID!, $state: Int!) {
+  getUBEvent(id: $id, state: $state) {
     id
     itemid
     ownerid
@@ -10,15 +10,15 @@ query GetTransactions($id: ID!, $state: Int!) {
     updatedAt
   }
 }
-query ListTransactions(
+query ListUBEvents(
   $id: ID
   $state: ModelIntKeyConditionInput
-  $filter: ModelTransactionsFilterInput
+  $filter: ModelUBEventFilterInput
   $limit: Int
   $nextToken: String
   $sortDirection: ModelSortDirection
 ) {
-  listTransactions(
+  listUBEvents(
     id: $id
     state: $state
     filter: $filter
@@ -38,14 +38,14 @@ query ListTransactions(
     nextToken
   }
 }
-query TransactionsByOwner(
+query EventsByOwner(
   $ownerid: String!
   $sortDirection: ModelSortDirection
-  $filter: ModelTransactionsFilterInput
+  $filter: ModelUBEventFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  transactionsByOwner(
+  eventsByOwner(
     ownerid: $ownerid
     sortDirection: $sortDirection
     filter: $filter
@@ -64,14 +64,14 @@ query TransactionsByOwner(
     nextToken
   }
 }
-query TransactionsByReceiver(
+query EventsByReceiver(
   $receiverid: String!
   $sortDirection: ModelSortDirection
-  $filter: ModelTransactionsFilterInput
+  $filter: ModelUBEventFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  transactionsByReceiver(
+  eventsByReceiver(
     receiverid: $receiverid
     sortDirection: $sortDirection
     filter: $filter

@@ -1,9 +1,9 @@
 # this is an auto generated file. This will be overwritten
-mutation CreateTransactions(
-  $input: CreateTransactionsInput!
-  $condition: ModelTransactionsConditionInput
+mutation CreateUBEvent(
+  $input: CreateUBEventInput!
+  $condition: ModelUBEventConditionInput
 ) {
-  createTransactions(input: $input, condition: $condition) {
+  createUBEvent(input: $input, condition: $condition) {
     id
     itemid
     ownerid
@@ -13,11 +13,11 @@ mutation CreateTransactions(
     updatedAt
   }
 }
-mutation UpdateTransactions(
-  $input: UpdateTransactionsInput!
-  $condition: ModelTransactionsConditionInput
+mutation UpdateUBEvent(
+  $input: UpdateUBEventInput!
+  $condition: ModelUBEventConditionInput
 ) {
-  updateTransactions(input: $input, condition: $condition) {
+  updateUBEvent(input: $input, condition: $condition) {
     id
     itemid
     ownerid
@@ -27,11 +27,11 @@ mutation UpdateTransactions(
     updatedAt
   }
 }
-mutation DeleteTransactions(
-  $input: DeleteTransactionsInput!
-  $condition: ModelTransactionsConditionInput
+mutation DeleteUBEvent(
+  $input: DeleteUBEventInput!
+  $condition: ModelUBEventConditionInput
 ) {
-  deleteTransactions(input: $input, condition: $condition) {
+  deleteUBEvent(input: $input, condition: $condition) {
     id
     itemid
     ownerid

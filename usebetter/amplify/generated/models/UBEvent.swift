@@ -2,7 +2,7 @@
 import Amplify
 import Foundation
 
-public struct Transactions: Model {
+public struct UBEvent: Model {
   public let id: String
   public var itemid: String
   public var ownerid: String

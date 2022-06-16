@@ -6,10 +6,10 @@
             "awsAPIPlugin": {
                 "usebetter": {
                     "endpointType": "GraphQL",
-                    "endpoint": "https://yils73i4bbhkvkghovenjfajmq.appsync-api.us-west-1.amazonaws.com/graphql",
+                    "endpoint": "https://ctcriln6rfbfnjqq7fgqktmrei.appsync-api.us-west-1.amazonaws.com/graphql",
                     "region": "us-west-1",
                     "authorizationType": "AMAZON_COGNITO_USER_POOLS",
-                    "apiKey": "da2-2ixcfomeb5arhlktprg6umjacu"
+                    "apiKey": "da2-bfswquagdndcnc3mer2jenjmye"
                 }
             }
         }
@@ -66,16 +66,16 @@
                 },
                 "AppSync": {
                     "Default": {
-                        "ApiUrl": "https://yils73i4bbhkvkghovenjfajmq.appsync-api.us-west-1.amazonaws.com/graphql",
+                        "ApiUrl": "https://ctcriln6rfbfnjqq7fgqktmrei.appsync-api.us-west-1.amazonaws.com/graphql",
                         "Region": "us-west-1",
                         "AuthMode": "AMAZON_COGNITO_USER_POOLS",
                         "ClientDatabasePrefix": "usebetter_AMAZON_COGNITO_USER_POOLS"
                     },
                     "usebetter_API_KEY": {
-                        "ApiUrl": "https://yils73i4bbhkvkghovenjfajmq.appsync-api.us-west-1.amazonaws.com/graphql",
+                        "ApiUrl": "https://ctcriln6rfbfnjqq7fgqktmrei.appsync-api.us-west-1.amazonaws.com/graphql",
                         "Region": "us-west-1",
                         "AuthMode": "API_KEY",
-                        "ApiKey": "da2-2ixcfomeb5arhlktprg6umjacu",
+                        "ApiKey": "da2-bfswquagdndcnc3mer2jenjmye",
                         "ClientDatabasePrefix": "usebetter_API_KEY"
                     }
                 }

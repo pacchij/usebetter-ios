@@ -67,16 +67,14 @@
 		C0016A1A283AD45300523EFF /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0016A18283AD45300523EFF /* AccountManager.swift */; };
 		C0016A1C2842864A00523EFF /* DashboardSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0016A1B2842864A00523EFF /* DashboardSettingsView.swift */; };
 		C0016A1D2842864A00523EFF /* DashboardSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0016A1B2842864A00523EFF /* DashboardSettingsView.swift */; };
-		C02D40E528568CBD00C28825 /* transactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02D40E228568CBD00C28825 /* transactions.swift */; };
-		C02D40E628568CBD00C28825 /* transactions+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02D40E328568CBD00C28825 /* transactions+Schema.swift */; };
 		C02D40E728568CBD00C28825 /* AmplifyModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02D40E428568CBD00C28825 /* AmplifyModels.swift */; };
-		C02D40E828568CD600C28825 /* transactions+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02D40E328568CBD00C28825 /* transactions+Schema.swift */; };
 		C02D40E928568CD800C28825 /* AmplifyModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02D40E428568CBD00C28825 /* AmplifyModels.swift */; };
-		C02D40EA28568CDC00C28825 /* transactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02D40E228568CBD00C28825 /* transactions.swift */; };
 		C0AD650228556AE700DF9400 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AD650128556AE700DF9400 /* API.swift */; };
 		C0AD650528556EE500DF9400 /* AWSAppSync in Frameworks */ = {isa = PBXBuildFile; productRef = C0AD650428556EE500DF9400 /* AWSAppSync */; };
 		C0C1EDFA2859622E00EB6AD5 /* graphql in Resources */ = {isa = PBXBuildFile; fileRef = C0C1EDF92859622E00EB6AD5 /* graphql */; };
 		C0C1EE09285966AD00EB6AD5 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AD650128556AE700DF9400 /* API.swift */; };
+		C0C1EE0C285AC37C00EB6AD5 /* UBEvent+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C1EE0A285AC37C00EB6AD5 /* UBEvent+Schema.swift */; };
+		C0C1EE0D285AC37C00EB6AD5 /* UBEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C1EE0B285AC37C00EB6AD5 /* UBEvent.swift */; };
 		C0E4ED2728429EEE002C29AA /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E4ED2628429EEE002C29AA /* SplashView.swift */; };
 		C0E4ED2828429EEE002C29AA /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E4ED2628429EEE002C29AA /* SplashView.swift */; };
 		C0E4ED2A284314C6002C29AA /* S3FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E4ED29284314C6002C29AA /* S3FileManager.swift */; };
@@ -147,11 +145,11 @@
 		C0016A09283A08BE00523EFF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0016A18283AD45300523EFF /* AccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		C0016A1B2842864A00523EFF /* DashboardSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardSettingsView.swift; sourceTree = "<group>"; };
-		C02D40E228568CBD00C28825 /* transactions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = transactions.swift; path = amplify/generated/models/transactions.swift; sourceTree = "<group>"; };
-		C02D40E328568CBD00C28825 /* transactions+Schema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "transactions+Schema.swift"; path = "amplify/generated/models/transactions+Schema.swift"; sourceTree = "<group>"; };
 		C02D40E428568CBD00C28825 /* AmplifyModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AmplifyModels.swift; path = amplify/generated/models/AmplifyModels.swift; sourceTree = "<group>"; };
 		C0AD650128556AE700DF9400 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		C0C1EDF92859622E00EB6AD5 /* graphql */ = {isa = PBXFileReference; lastKnownFileType = folder; path = graphql; sourceTree = "<group>"; };
+		C0C1EE0A285AC37C00EB6AD5 /* UBEvent+Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UBEvent+Schema.swift"; path = "amplify/generated/models/UBEvent+Schema.swift"; sourceTree = "<group>"; };
+		C0C1EE0B285AC37C00EB6AD5 /* UBEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UBEvent.swift; path = amplify/generated/models/UBEvent.swift; sourceTree = "<group>"; };
 		C0E4ED2628429EEE002C29AA /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		C0E4ED29284314C6002C29AA /* S3FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3FileManager.swift; sourceTree = "<group>"; };
 		C0E4ED2C28431C42002C29AA /* JSONInterpreter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONInterpreter.swift; sourceTree = "<group>"; };
@@ -210,20 +208,20 @@
 		C001694A282C4E1600523EFF = {
 			isa = PBXGroup;
 			children = (
-				C0C1EDF92859622E00EB6AD5 /* graphql */,
-				C02D40E428568CBD00C28825 /* AmplifyModels.swift */,
-				C02D40E228568CBD00C28825 /* transactions.swift */,
-				C02D40E328568CBD00C28825 /* transactions+Schema.swift */,
-				C0AD650128556AE700DF9400 /* API.swift */,
 				C0016A00283A081F00523EFF /* amplify */,
 				C0016A02283A081F00523EFF /* amplifyconfiguration.json */,
+				C02D40E428568CBD00C28825 /* AmplifyModels.swift */,
+				C0AD650128556AE700DF9400 /* API.swift */,
 				C0016A17283AD42300523EFF /* aws */,
 				C0016A01283A081F00523EFF /* awsconfiguration.json */,
+				C0C1EDF92859622E00EB6AD5 /* graphql */,
 				C001695E282C4E1800523EFF /* macOS */,
 				C0016958282C4E1800523EFF /* Products */,
 				C001694F282C4E1600523EFF /* Shared */,
 				C0016967282C4E1800523EFF /* Tests iOS */,
 				C0016973282C4E1800523EFF /* Tests macOS */,
+				C0C1EE0B285AC37C00EB6AD5 /* UBEvent.swift */,
+				C0C1EE0A285AC37C00EB6AD5 /* UBEvent+Schema.swift */,
 				C0E4ED32284585A2002C29AA /* usebetter--iOS--Info.plist */,
 			);
 			sourceTree = "<group>";
@@ -540,9 +538,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C02D40E528568CBD00C28825 /* transactions.swift in Sources */,
-				C02D40E628568CBD00C28825 /* transactions+Schema.swift in Sources */,
 				C02D40E728568CBD00C28825 /* AmplifyModels.swift in Sources */,
+				C0C1EE0D285AC37C00EB6AD5 /* UBEvent.swift in Sources */,
 				C0016996282CD49D00523EFF /* DashboardHomeView.swift in Sources */,
 				C00169E72836086400523EFF /* FriendsFeedModel.swift in Sources */,
 				C00169EA2838A65600523EFF /* UpdateItemView.swift in Sources */,
@@ -569,6 +566,7 @@
 				C0016978282C4E1800523EFF /* usebetterApp.swift in Sources */,
 				C00169D7282E203800523EFF /* DashboardMyStuffView.swift in Sources */,
 				C00169DD28317C1400523EFF /* URLParser.swift in Sources */,
+				C0C1EE0C285AC37C00EB6AD5 /* UBEvent+Schema.swift in Sources */,
 				C00169DA282E225900523EFF /* AddItemView.swift in Sources */,
 				C0E4ED2A284314C6002C29AA /* S3FileManager.swift in Sources */,
 				C0E4ED3028457926002C29AA /* ContactHelper.swift in Sources */,
@@ -598,11 +596,9 @@
 				C0E4ED41284C28F3002C29AA /* WebContentView.swift in Sources */,
 				C00169E52836084400523EFF /* UserFeedModel.swift in Sources */,
 				C0016A0B283A08BE00523EFF /* AppDelegate.swift in Sources */,
-				C02D40EA28568CDC00C28825 /* transactions.swift in Sources */,
 				C001699F282D921E00523EFF /* DashboardHomeViewModel.swift in Sources */,
 				C0E4ED3B2845D614002C29AA /* ActionItemView.swift in Sources */,
 				C0016A1A283AD45300523EFF /* AccountManager.swift in Sources */,
-				C02D40E828568CD600C28825 /* transactions+Schema.swift in Sources */,
 				C0E4ED382845B664002C29AA /* DashboardEventsView.swift in Sources */,
 				C0016979282C4E1800523EFF /* usebetterApp.swift in Sources */,
 				C00169D8282E203800523EFF /* DashboardMyStuffView.swift in Sources */,

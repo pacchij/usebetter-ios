@@ -1,6 +1,6 @@
 # this is an auto generated file. This will be overwritten
-subscription OnCreateTransactions {
-  onCreateTransactions {
+subscription OnCreateUBEvent {
+  onCreateUBEvent {
     id
     itemid
     ownerid
@@ -10,8 +10,8 @@ subscription OnCreateTransactions {
     updatedAt
   }
 }
-subscription OnUpdateTransactions {
-  onUpdateTransactions {
+subscription OnUpdateUBEvent {
+  onUpdateUBEvent {
     id
     itemid
     ownerid
@@ -21,8 +21,8 @@ subscription OnUpdateTransactions {
     updatedAt
   }
 }
-subscription OnDeleteTransactions {
-  onDeleteTransactions {
+subscription OnDeleteUBEvent {
+  onDeleteUBEvent {
     id
     itemid
     ownerid

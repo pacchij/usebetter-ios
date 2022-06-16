@@ -2,7 +2,7 @@
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
 input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
 
-type Transactions @model
+type UBEvent @model
  @auth(rules: [
   { allow: private },
   { allow: groups, groups: ["Admins"] }
@@ -10,7 +10,7 @@ type Transactions @model
 {
     id: ID! @primaryKey(sortKeyFields: ["state"])
     itemid: ID!
-    ownerid: String! @index(name: "byOwner", queryField: "transactionsByOwner")
-    receiverid: String! @index(name: "byReceiver", queryField: "transactionsByReceiver")
+    ownerid: String! @index(name: "byOwner", queryField: "eventsByOwner")
+    receiverid: String! @index(name: "byReceiver", queryField: "eventsByReceiver")
     state: Int!
 }

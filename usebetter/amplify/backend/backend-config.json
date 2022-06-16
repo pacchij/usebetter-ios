@@ -57,9 +57,9 @@
             {
               "authenticationType": "API_KEY",
               "apiKeyConfig": {
-                "apiKeyExpirationDays": 7,
-                "apiKeyExpirationDate": "2022-06-22T06:00:06.788Z",
-                "description": ""
+                "apiKeyExpirationDays": 90,
+                "apiKeyExpirationDate": "2022-09-14T01:31:11.334Z",
+                "description": "ubeventmodifykey"
               }
             }
           ]

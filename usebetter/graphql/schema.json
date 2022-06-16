@@ -15,7 +15,7 @@
         "name" : "Query",
         "description" : null,
         "fields" : [ {
-          "name" : "getTransactions",
+          "name" : "getUBEvent",
           "description" : null,
           "args" : [ {
             "name" : "id",
@@ -46,13 +46,13 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Transactions",
+            "name" : "UBEvent",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "listTransactions",
+          "name" : "listUBEvents",
           "description" : null,
           "args" : [ {
             "name" : "id",
@@ -77,7 +77,7 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelTransactionsFilterInput",
+              "name" : "ModelUBEventFilterInput",
               "ofType" : null
             },
             "defaultValue" : null
@@ -111,13 +111,13 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "ModelTransactionsConnection",
+            "name" : "ModelUBEventConnection",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "transactionsByOwner",
+          "name" : "eventsByOwner",
           "description" : null,
           "args" : [ {
             "name" : "ownerid",
@@ -146,7 +146,7 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelTransactionsFilterInput",
+              "name" : "ModelUBEventFilterInput",
               "ofType" : null
             },
             "defaultValue" : null
@@ -171,13 +171,13 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "ModelTransactionsConnection",
+            "name" : "ModelUBEventConnection",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "transactionsByReceiver",
+          "name" : "eventsByReceiver",
           "description" : null,
           "args" : [ {
             "name" : "receiverid",
@@ -206,7 +206,7 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelTransactionsFilterInput",
+              "name" : "ModelUBEventFilterInput",
               "ofType" : null
             },
             "defaultValue" : null
@@ -231,7 +231,7 @@
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "ModelTransactionsConnection",
+            "name" : "ModelUBEventConnection",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -243,7 +243,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "OBJECT",
-        "name" : "Transactions",
+        "name" : "UBEvent",
         "description" : null,
         "fields" : [ {
           "name" : "id",
@@ -393,7 +393,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "OBJECT",
-        "name" : "ModelTransactionsConnection",
+        "name" : "ModelUBEventConnection",
         "description" : null,
         "fields" : [ {
           "name" : "items",
@@ -407,7 +407,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "OBJECT",
-                "name" : "Transactions",
+                "name" : "UBEvent",
                 "ofType" : null
               }
             }
@@ -499,7 +499,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "ModelTransactionsFilterInput",
+        "name" : "ModelUBEventFilterInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -555,7 +555,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelTransactionsFilterInput",
+              "name" : "ModelUBEventFilterInput",
               "ofType" : null
             }
           },
@@ -568,7 +568,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelTransactionsFilterInput",
+              "name" : "ModelUBEventFilterInput",
               "ofType" : null
             }
           },
@@ -578,7 +578,7 @@
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
-            "name" : "ModelTransactionsFilterInput",
+            "name" : "ModelUBEventFilterInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -1108,7 +1108,7 @@
         "name" : "Mutation",
         "description" : null,
         "fields" : [ {
-          "name" : "createTransactions",
+          "name" : "createUBEvent",
           "description" : null,
           "args" : [ {
             "name" : "input",
@@ -1118,7 +1118,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "CreateTransactionsInput",
+                "name" : "CreateUBEventInput",
                 "ofType" : null
               }
             },
@@ -1128,20 +1128,20 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelTransactionsConditionInput",
+              "name" : "ModelUBEventConditionInput",
               "ofType" : null
             },
             "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Transactions",
+            "name" : "UBEvent",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "updateTransactions",
+          "name" : "updateUBEvent",
           "description" : null,
           "args" : [ {
             "name" : "input",
@@ -1151,7 +1151,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "UpdateTransactionsInput",
+                "name" : "UpdateUBEventInput",
                 "ofType" : null
               }
             },
@@ -1161,20 +1161,20 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelTransactionsConditionInput",
+              "name" : "ModelUBEventConditionInput",
               "ofType" : null
             },
             "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Transactions",
+            "name" : "UBEvent",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "deleteTransactions",
+          "name" : "deleteUBEvent",
           "description" : null,
           "args" : [ {
             "name" : "input",
@@ -1184,7 +1184,7 @@
               "name" : null,
               "ofType" : {
                 "kind" : "INPUT_OBJECT",
-                "name" : "DeleteTransactionsInput",
+                "name" : "DeleteUBEventInput",
                 "ofType" : null
               }
             },
@@ -1194,14 +1194,14 @@
             "description" : null,
             "type" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelTransactionsConditionInput",
+              "name" : "ModelUBEventConditionInput",
               "ofType" : null
             },
             "defaultValue" : null
           } ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Transactions",
+            "name" : "UBEvent",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -1213,7 +1213,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "CreateTransactionsInput",
+        "name" : "CreateUBEventInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -1283,7 +1283,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "ModelTransactionsConditionInput",
+        "name" : "ModelUBEventConditionInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -1321,7 +1321,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelTransactionsConditionInput",
+              "name" : "ModelUBEventConditionInput",
               "ofType" : null
             }
           },
@@ -1334,7 +1334,7 @@
             "name" : null,
             "ofType" : {
               "kind" : "INPUT_OBJECT",
-              "name" : "ModelTransactionsConditionInput",
+              "name" : "ModelUBEventConditionInput",
               "ofType" : null
             }
           },
@@ -1344,7 +1344,7 @@
           "description" : null,
           "type" : {
             "kind" : "INPUT_OBJECT",
-            "name" : "ModelTransactionsConditionInput",
+            "name" : "ModelUBEventConditionInput",
             "ofType" : null
           },
           "defaultValue" : null
@@ -1354,7 +1354,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "UpdateTransactionsInput",
+        "name" : "UpdateUBEventInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -1416,7 +1416,7 @@
         "possibleTypes" : null
       }, {
         "kind" : "INPUT_OBJECT",
-        "name" : "DeleteTransactionsInput",
+        "name" : "DeleteUBEventInput",
         "description" : null,
         "fields" : null,
         "inputFields" : [ {
@@ -1454,34 +1454,34 @@
         "name" : "Subscription",
         "description" : null,
         "fields" : [ {
-          "name" : "onCreateTransactions",
+          "name" : "onCreateUBEvent",
           "description" : null,
           "args" : [ ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Transactions",
+            "name" : "UBEvent",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "onUpdateTransactions",
+          "name" : "onUpdateUBEvent",
           "description" : null,
           "args" : [ ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Transactions",
+            "name" : "UBEvent",
             "ofType" : null
           },
           "isDeprecated" : false,
           "deprecationReason" : null
         }, {
-          "name" : "onDeleteTransactions",
+          "name" : "onDeleteUBEvent",
           "description" : null,
           "args" : [ ],
           "type" : {
             "kind" : "OBJECT",
-            "name" : "Transactions",
+            "name" : "UBEvent",
             "ofType" : null
           },
           "isDeprecated" : false,
@@ -1489,6 +1489,51 @@
         } ],
         "inputFields" : null,
         "interfaces" : [ ],
+        "enumValues" : null,
+        "possibleTypes" : null
+      }, {
+        "kind" : "INPUT_OBJECT",
+        "name" : "ModelBooleanInput",
+        "description" : null,
+        "fields" : null,
+        "inputFields" : [ {
+          "name" : "ne",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "Boolean",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "eq",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "Boolean",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "attributeExists",
+          "description" : null,
+          "type" : {
+            "kind" : "SCALAR",
+            "name" : "Boolean",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        }, {
+          "name" : "attributeType",
+          "description" : null,
+          "type" : {
+            "kind" : "ENUM",
+            "name" : "ModelAttributeTypes",
+            "ofType" : null
+          },
+          "defaultValue" : null
+        } ],
+        "interfaces" : null,
         "enumValues" : null,
         "possibleTypes" : null
       }, {
@@ -1591,51 +1636,6 @@
         "description" : "Built-in Float",
         "fields" : null,
         "inputFields" : null,
-        "interfaces" : null,
-        "enumValues" : null,
-        "possibleTypes" : null
-      }, {
-        "kind" : "INPUT_OBJECT",
-        "name" : "ModelBooleanInput",
-        "description" : null,
-        "fields" : null,
-        "inputFields" : [ {
-          "name" : "ne",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "Boolean",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "eq",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "Boolean",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "attributeExists",
-          "description" : null,
-          "type" : {
-            "kind" : "SCALAR",
-            "name" : "Boolean",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        }, {
-          "name" : "attributeType",
-          "description" : null,
-          "type" : {
-            "kind" : "ENUM",
-            "name" : "ModelAttributeTypes",
-            "ofType" : null
-          },
-          "defaultValue" : null
-        } ],
         "interfaces" : null,
         "enumValues" : null,
         "possibleTypes" : null
