@@ -14,7 +14,7 @@ struct UpdateItemView: View {
     @State var itemName: String = ""
     @State var itemCount: String = "1"
     @EnvironmentObject var userFeedData: UserFeedModel
-    @EnvironmentObject var transactionsModel: TransactionsModel
+    @EnvironmentObject var eventsModel: EventsModel
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var delegate = Delegate()
 
@@ -91,7 +91,7 @@ struct UpdateItemView: View {
                     }
                     .sheet(isPresented: $delegate.showPicker, onDismiss: {
                         delegate.showPicker = false
-                        transactionsModel.sendRequest(for: userFeedData.userItems[itemIndex], byOwner: true)
+                        eventsModel.sendRequest(for: userFeedData.userItems[itemIndex], byOwner: true)
                     }) {
                         ContactPicker(delegate: .constant(delegate))
                     }

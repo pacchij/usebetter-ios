@@ -83,8 +83,8 @@
 		C0E4ED2E28431C42002C29AA /* JSONInterpreter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E4ED2C28431C42002C29AA /* JSONInterpreter.swift */; };
 		C0E4ED3028457926002C29AA /* ContactHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E4ED2F28457926002C29AA /* ContactHelper.swift */; };
 		C0E4ED3128457926002C29AA /* ContactHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E4ED2F28457926002C29AA /* ContactHelper.swift */; };
-		C0E4ED3428458BB2002C29AA /* TransactionsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E4ED3328458BB2002C29AA /* TransactionsModel.swift */; };
-		C0E4ED3528458BB2002C29AA /* TransactionsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E4ED3328458BB2002C29AA /* TransactionsModel.swift */; };
+		C0E4ED3428458BB2002C29AA /* EventsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E4ED3328458BB2002C29AA /* EventsModel.swift */; };
+		C0E4ED3528458BB2002C29AA /* EventsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E4ED3328458BB2002C29AA /* EventsModel.swift */; };
 		C0E4ED372845B664002C29AA /* DashboardEventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E4ED362845B664002C29AA /* DashboardEventsView.swift */; };
 		C0E4ED382845B664002C29AA /* DashboardEventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E4ED362845B664002C29AA /* DashboardEventsView.swift */; };
 		C0E4ED3A2845D614002C29AA /* ActionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E4ED392845D614002C29AA /* ActionItemView.swift */; };
@@ -155,7 +155,7 @@
 		C0E4ED2C28431C42002C29AA /* JSONInterpreter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONInterpreter.swift; sourceTree = "<group>"; };
 		C0E4ED2F28457926002C29AA /* ContactHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactHelper.swift; sourceTree = "<group>"; };
 		C0E4ED32284585A2002C29AA /* usebetter--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "usebetter--iOS--Info.plist"; sourceTree = "<group>"; };
-		C0E4ED3328458BB2002C29AA /* TransactionsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsModel.swift; sourceTree = "<group>"; };
+		C0E4ED3328458BB2002C29AA /* EventsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsModel.swift; sourceTree = "<group>"; };
 		C0E4ED362845B664002C29AA /* DashboardEventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardEventsView.swift; sourceTree = "<group>"; };
 		C0E4ED392845D614002C29AA /* ActionItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionItemView.swift; sourceTree = "<group>"; };
 		C0E4ED3C28488856002C29AA /* DashboardEventsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardEventsViewModel.swift; sourceTree = "<group>"; };
@@ -340,7 +340,7 @@
 				C00169E32836084400523EFF /* UserFeedModel.swift */,
 				C0E4ED2C28431C42002C29AA /* JSONInterpreter.swift */,
 				C00169E62836086400523EFF /* FriendsFeedModel.swift */,
-				C0E4ED3328458BB2002C29AA /* TransactionsModel.swift */,
+				C0E4ED3328458BB2002C29AA /* EventsModel.swift */,
 			);
 			path = DataModels;
 			sourceTree = "<group>";
@@ -545,7 +545,7 @@
 				C00169EA2838A65600523EFF /* UpdateItemView.swift in Sources */,
 				C0E4ED3D28488856002C29AA /* DashboardEventsViewModel.swift in Sources */,
 				C0016990282CB46500523EFF /* SignUPView.swift in Sources */,
-				C0E4ED3428458BB2002C29AA /* TransactionsModel.swift in Sources */,
+				C0E4ED3428458BB2002C29AA /* EventsModel.swift in Sources */,
 				C001698D282CB23F00523EFF /* ViewRouter.swift in Sources */,
 				C0016993282CB4D000523EFF /* DashboardView.swift in Sources */,
 				C0E4ED2728429EEE002C29AA /* SplashView.swift in Sources */,
@@ -582,7 +582,7 @@
 				C00169EB2838A65600523EFF /* UpdateItemView.swift in Sources */,
 				C0E4ED3E28488856002C29AA /* DashboardEventsViewModel.swift in Sources */,
 				C0016991282CB46500523EFF /* SignUPView.swift in Sources */,
-				C0E4ED3528458BB2002C29AA /* TransactionsModel.swift in Sources */,
+				C0E4ED3528458BB2002C29AA /* EventsModel.swift in Sources */,
 				C001698E282CB23F00523EFF /* ViewRouter.swift in Sources */,
 				C0016994282CB4D000523EFF /* DashboardView.swift in Sources */,
 				C0E4ED2828429EEE002C29AA /* SplashView.swift in Sources */,

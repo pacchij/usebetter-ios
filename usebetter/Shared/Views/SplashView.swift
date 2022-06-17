@@ -12,7 +12,7 @@ struct SplashView: View {
     @EnvironmentObject var viewRouter: ViewRouter
     @EnvironmentObject var userFeedData: UserFeedModel
     @EnvironmentObject var friendsFeedData: FriendsFeedModel
-    @EnvironmentObject var transactionsModel: TransactionsModel
+    @EnvironmentObject var eventsModel: EventsModel
     @State private var isReady = false
     var body: some View {
         if isReady {
@@ -20,7 +20,7 @@ struct SplashView: View {
                 .environmentObject(viewRouter)
                 .environmentObject(userFeedData)
                 .environmentObject(friendsFeedData)
-                .environmentObject(transactionsModel)
+                .environmentObject(eventsModel)
         }
         else {
             ZStack {
@@ -37,7 +37,7 @@ struct SplashView: View {
                     }
                     else {
                         self.isReady = true
-                        self.transactionsModel.initialize(userfeed: userFeedData, friendsFeed: friendsFeedData)
+                        self.eventsModel.initialize(userfeed: userFeedData, friendsFeed: friendsFeedData)
                     }
                 } //Dispatch
             } //onAppear

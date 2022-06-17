@@ -19,7 +19,7 @@ struct DashboardView: View {
     @EnvironmentObject var viewRouter: ViewRouter
     @EnvironmentObject var userFeedData: UserFeedModel
     @EnvironmentObject var friendsFeedData: FriendsFeedModel
-    @EnvironmentObject var transactions: TransactionsModel
+    @EnvironmentObject var eventsModel: EventsModel
     var body: some View {
         TabView {
             DashboardHomeView(searchText: "")
@@ -33,7 +33,7 @@ struct DashboardView: View {
                     Label("MyStuff", systemImage: "bag")
                 }
             DashboardEventsView()
-                .environmentObject(transactions)
+                .environmentObject(eventsModel)
                 .tabItem {
                     Label("Events", systemImage: "person.3.sequence.fill")
                 }

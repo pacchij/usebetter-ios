@@ -15,7 +15,7 @@ struct ReadOnlyItemView: View {
     @State private var contactName: String = "determining...."
     @State var onItemLinkSelected: Bool = false
     @EnvironmentObject var userFeedData: UserFeedModel
-    @EnvironmentObject var transactionsModel: TransactionsModel
+    @EnvironmentObject var eventsModel: EventsModel
     
     let contactHelper = ContactHelper()
     
@@ -70,7 +70,7 @@ struct ReadOnlyItemView: View {
                 }.padding(20)
 
                 Button("Request To Use Better", action: {
-                    transactionsModel.sendRequest(for: item)
+                    eventsModel.sendRequest(for: item)
                 })
                 .font(.subheadline)
                 
