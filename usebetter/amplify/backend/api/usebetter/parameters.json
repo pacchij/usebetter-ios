@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "usebetter",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authusebetter6cc6b009",
+      "Outputs.UserPoolId"
+    ]
+  }
+}

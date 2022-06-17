@@ -19,12 +19,30 @@
       }
     },
     {
+      "identity" : "aws-mobile-appsync-sdk-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/awslabs/aws-mobile-appsync-sdk-ios.git",
+      "state" : {
+        "revision" : "4cf6c7d05e00f63f6b6fe866444781c91019082a",
+        "version" : "3.6.1"
+      }
+    },
+    {
       "identity" : "aws-sdk-ios-spm",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/aws-amplify/aws-sdk-ios-spm.git",
       "state" : {
         "revision" : "34bcb816dfa3cd909f97554b0328178aa5b85153",
         "version" : "2.27.9"
+      }
+    },
+    {
+      "identity" : "reachability.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ashleymills/Reachability.swift.git",
+      "state" : {
+        "revision" : "c01bbdf2d633cf049ae1ed1a68a2020a8bda32e2",
+        "version" : "5.1.0"
       }
     },
     {

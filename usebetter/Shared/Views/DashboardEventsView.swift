@@ -18,7 +18,7 @@ struct DashboardEventsView: View {
     
     private let dashboardEventsViewModel = DashboardEventsViewModel()
     
-    @EnvironmentObject var transactions: TransactionsModel
+    @EnvironmentObject var eventsModel: EventsModel
     var items: [GridItem] {
         Array(repeating: .init(.flexible()), count: 2)
     }
@@ -54,15 +54,16 @@ struct DashboardEventsView: View {
                     
                    
                     ScrollView(.vertical, showsIndicators: false) {
-                        if transactions.transactions.count == 0 {
+                        if eventsModel.events.count == 0 {
                             Text("No Events found")
                         }
                         else {
-                            ForEach(transactions.transactions.indices, id:\.self) { index in
-                                if let item = transactions.item(by: transactions.transactions[index].itemid) {
+                            ForEach(eventsModel.events.indices, id:\.self) { index in
+                                if let item = eventsModel.item(by: eventsModel.events[index].itemid)
+                                {
                                 HStack {
                                    
-                                    NavigationLink(destination: ActionItemView(index: index).environmentObject(transactions), label: {
+                                    NavigationLink(destination: ActionItemView(index: index).environmentObject(eventsModel), label: {
                                         if let imageURL = item.imageURL {
                                             AsyncImage(url: URL(string: imageURL)) { image1 in
                                                 image1.resizable()
@@ -81,7 +82,7 @@ struct DashboardEventsView: View {
                                     
                                     
                                     VStack {
-                                        let uiState = dashboardEventsViewModel.getUIState(for: transactions.transactions[index], isPreview)
+                                        let uiState = dashboardEventsViewModel.getUIState(for: eventsModel.events[index], isPreview)
                                         
                                         Text(uiState.label)
                                             .frame(alignment: .topLeading)
@@ -95,7 +96,7 @@ struct DashboardEventsView: View {
                                         HStack {
                                             if let pbText = uiState.primaryButtonText {
                                                 Button(pbText, action: {
-                                                    transactions.transactions[index].state = uiState.primaryButtonActionState ?? .archived
+                                                    eventsModel.events[index].state = uiState.primaryButtonActionState?.rawValue ?? EventState.archived.rawValue
                                                 })
                                                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .leading)
                                                 .padding(10)
@@ -103,7 +104,7 @@ struct DashboardEventsView: View {
                                             
                                             if let sbText = uiState.secondaryButtonText {
                                                 Button(sbText, action: {
-                                                    transactions.transactions[index].state = uiState.secondaryButtonActionState ?? .archived
+                                                    eventsModel.events[index].state = uiState.secondaryButtonActionState?.rawValue ?? EventState.archived.rawValue
                                                 })
                                                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .trailing)
                                                 .padding(10)
@@ -135,7 +136,7 @@ struct DashboardEventsView: View {
         print("on search")
     }
     
-    func backgroundColorByState(for state: TransactionState) -> Color {
+    func backgroundColorByState(for state: EventState) -> Color {
         switch state {
         case .archived:
             return Color.gray.opacity(0.5)
@@ -151,7 +152,7 @@ struct DashboardEventsView_Previews: PreviewProvider {
     static var previews: some View {
         
         DashboardEventsView(isPreview: true)
-            .environmentObject(TransactionsModel())
+            .environmentObject(EventsModel())
             
     }
 }

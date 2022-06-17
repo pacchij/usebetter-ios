@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "usebetter",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "/Users/prashanthjaligama/repo/usebetter/usebetter/amplify/backend/api/usebetter/schema.graphql",
+    "defaultAuthType": {
+      "mode": "AMAZON_COGNITO_USER_POOLS",
+      "cognitoUserPoolId": "authusebetter6cc6b009"
+    },
+    "additionalAuthTypes": [
+      {
+        "mode": "API_KEY",
+        "expirationTime": 90,
+        "apiKeyExpirationDate": "2022-09-14T01:31:11.334Z",
+        "keyDescription": "ubeventmodifykey"
+      }
+    ]
+  }
+}

@@ -12,19 +12,19 @@ import Amplify
 struct EventUIStates {
     var label: String
     var primaryButtonText: String?
-    var primaryButtonActionState: TransactionState?
+    var primaryButtonActionState: EventState?
     var secondaryButtonText: String?
-    var secondaryButtonActionState: TransactionState?
+    var secondaryButtonActionState: EventState?
 }
 
 struct EventsStateMachine {
-    var state: TransactionState
+    var state: EventState
     var ownerUIState: EventUIStates
     var receiverUIState: EventUIStates
 }
 
 class DashboardEventsViewModel {
-    var eventsStateMachine: [TransactionState: EventsStateMachine] = [:]
+    var eventsStateMachine: [EventState: EventsStateMachine] = [:]
     
     private let invalidUIState = EventUIStates(label: "Unknown state", primaryButtonText: nil, primaryButtonActionState: nil, secondaryButtonText: nil, secondaryButtonActionState: nil)
     private let previewUIState = EventUIStates(label: "Example UI State", primaryButtonText: "Accept", primaryButtonActionState: .archived, secondaryButtonText: "Cancel", secondaryButtonActionState: .archived)
@@ -34,7 +34,7 @@ class DashboardEventsViewModel {
         
     }
     
-    func stateMachine(for state: TransactionState) {
+    func stateMachine(for state: EventState) {
         
     }
     private func initializeStates() {
@@ -95,7 +95,7 @@ class DashboardEventsViewModel {
                                 )
     }
     
-    func getUIState(for transaction: Transactions, _ isPreview: Bool = false) -> EventUIStates {
+    func getUIState(for event: UBEvent, _ isPreview: Bool = false) -> EventUIStates {
         
         guard !isPreview else {
             return previewUIState
@@ -103,11 +103,12 @@ class DashboardEventsViewModel {
         guard let currentUser = Amplify.Auth.getCurrentUser() else {
             return invalidUIState
         }
-        if currentUser.username == transaction.owner {
-            return eventsStateMachine[transaction.state]?.ownerUIState ?? invalidUIState
+        let eventState = EventState(rawValue: event.state) ?? EventState.archived
+        if currentUser.username == event.ownerid {
+            return eventsStateMachine[eventState]?.ownerUIState ?? invalidUIState
         }
         else {
-            return eventsStateMachine[transaction.state]?.receiverUIState ?? invalidUIState
+            return eventsStateMachine[eventState]?.receiverUIState ?? invalidUIState
         }
     }
 }

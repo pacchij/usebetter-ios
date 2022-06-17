@@ -1,0 +1,34 @@
+# this is an auto generated file. This will be overwritten
+subscription OnCreateUBEvent {
+  onCreateUBEvent {
+    id
+    itemid
+    ownerid
+    receiverid
+    state
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateUBEvent {
+  onUpdateUBEvent {
+    id
+    itemid
+    ownerid
+    receiverid
+    state
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteUBEvent {
+  onDeleteUBEvent {
+    id
+    itemid
+    ownerid
+    receiverid
+    state
+    createdAt
+    updatedAt
+  }
+}

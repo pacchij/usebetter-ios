@@ -1,0 +1,43 @@
+# this is an auto generated file. This will be overwritten
+mutation CreateUBEvent(
+  $input: CreateUBEventInput!
+  $condition: ModelUBEventConditionInput
+) {
+  createUBEvent(input: $input, condition: $condition) {
+    id
+    itemid
+    ownerid
+    receiverid
+    state
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateUBEvent(
+  $input: UpdateUBEventInput!
+  $condition: ModelUBEventConditionInput
+) {
+  updateUBEvent(input: $input, condition: $condition) {
+    id
+    itemid
+    ownerid
+    receiverid
+    state
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteUBEvent(
+  $input: DeleteUBEventInput!
+  $condition: ModelUBEventConditionInput
+) {
+  deleteUBEvent(input: $input, condition: $condition) {
+    id
+    itemid
+    ownerid
+    receiverid
+    state
+    createdAt
+    updatedAt
+  }
+}

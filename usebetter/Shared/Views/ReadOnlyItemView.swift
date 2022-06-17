@@ -15,7 +15,7 @@ struct ReadOnlyItemView: View {
     @State private var contactName: String = "determining...."
     @State var onItemLinkSelected: Bool = false
     @EnvironmentObject var userFeedData: UserFeedModel
-    @EnvironmentObject var transactions: TransactionsModel
+    @EnvironmentObject var eventsModel: EventsModel
     
     let contactHelper = ContactHelper()
     
@@ -67,16 +67,16 @@ struct ReadOnlyItemView: View {
                         .foregroundColor(.green)
                         .font(.callout)
                     
-                }
+                }.padding(20)
+
+                Button("Request To Use Better", action: {
+                    eventsModel.sendRequest(for: item)
+                })
+                .font(.subheadline)
                 
                 NavigationLink(destination: WebContentView(url: item.originalItemURL ?? "https://amazon.com")) {
                     Label("Open item Link", systemImage: "icloud").font(.title2)
                 }.padding([.top], 20)
-
-                Button("Request To Use Better", action: {
-                    transactions.sendRequest(for: item)
-                })
-                .font(.subheadline)
             }
             .frame(minWidth: 0, maxHeight: .infinity, alignment: .topLeading)
             .padding(5)
@@ -85,7 +85,7 @@ struct ReadOnlyItemView: View {
         .edgesIgnoringSafeArea([.bottom])
         .onAppear() {
             contactHelper.contactFullname(for: item.ownerid) { name in
-                self.contactName = name
+                self.contactName = item.ownerid
             }
         }
     }

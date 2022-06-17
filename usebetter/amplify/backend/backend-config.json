@@ -31,5 +31,40 @@
       "providerPlugin": "awscloudformation",
       "dependsOn": []
     }
+  },
+  "api": {
+    "usebetter": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "auth",
+          "resourceName": "usebetter6cc6b009",
+          "attributes": [
+            "UserPoolId"
+          ]
+        }
+      ],
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authusebetter6cc6b009"
+            }
+          },
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "API_KEY",
+              "apiKeyConfig": {
+                "apiKeyExpirationDays": 90,
+                "apiKeyExpirationDate": "2022-09-14T01:31:11.334Z",
+                "description": "ubeventmodifykey"
+              }
+            }
+          ]
+        }
+      }
+    }
   }
 }

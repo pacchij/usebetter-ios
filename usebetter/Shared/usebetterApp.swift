@@ -13,7 +13,7 @@ struct usebetterApp: App {
     @StateObject var viewRouter = ViewRouter()
     @StateObject var userFeedData = UserFeedModel()
     @StateObject var friendsFeedData = FriendsFeedModel()
-    @StateObject var transactions = TransactionsModel()//userfeed: userFeedData, friendsFeed: friendsFeedData)
+    @StateObject var eventsModel = EventsModel()
     
     var body: some Scene {
         WindowGroup {
@@ -21,7 +21,7 @@ struct usebetterApp: App {
                 .environmentObject(viewRouter)
                 .environmentObject(userFeedData)
                 .environmentObject(friendsFeedData)
-                .environmentObject(transactions)
+                .environmentObject(eventsModel)
            
         }
     }
