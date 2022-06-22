@@ -96,7 +96,6 @@ class DashboardEventsViewModel {
     }
     
     func getUIState(for event: UBEvent, _ isPreview: Bool = false) -> EventUIStates {
-        
         guard !isPreview else {
             return previewUIState
         }
@@ -110,5 +109,9 @@ class DashboardEventsViewModel {
         else {
             return eventsStateMachine[eventState]?.receiverUIState ?? invalidUIState
         }
+    }
+    
+    func getName(for event: UBEvent) -> String {
+        
     }
 }

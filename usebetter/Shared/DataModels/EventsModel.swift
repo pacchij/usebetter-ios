@@ -28,6 +28,7 @@ enum EventState: Int {
 }
 
 class EventsModel: ObservableObject {
+    var mappedEvents: [String: UBEvent] = [:]
     @Published var events: [UBEvent] = []
     private var userfeed: UserFeedModel?
     private var friendsFeed: FriendsFeedModel?
@@ -74,6 +75,7 @@ class EventsModel: ObservableObject {
                     if eventsFromDB.isEmpty {
                         print("EventsModel: loadEvensByOwner: no events found")
                     }
+                    self.updateEvents(from: eventsFromDB)
                     print("EventsModel: loadEvensByOwner: events read")
                 case .failure(let error):
                     print("EventsModel: loadEvensByOwner: failed \(error)")
@@ -99,6 +101,7 @@ class EventsModel: ObservableObject {
                     if eventsFromDB.isEmpty {
                         print("EventsModel: loadEventsByReceiver: no events found")
                     }
+                    self.updateEvents(from: eventsFromDB)
                     print("EventsModel: loadEventsByReceiver: events read")
                 case .failure(let error):
                     print("EventsModel: loadEventsByReceiver: failed to query events \(error)")
@@ -142,5 +145,12 @@ class EventsModel: ObservableObject {
         else {
             return friendsFeed?.item(by: itemUUID)
         }
+    }
+    
+    func updateEvents(from remoteEvents: List<UBEvent>) {
+        for event in remoteEvents.elements {
+            mappedEvents[event.id] = event
+        }
+        events = Array(mappedEvents.values.map {$0})
     }
 }
