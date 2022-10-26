@@ -58,7 +58,7 @@ class EventsModel: ObservableObject {
     
     private func loadEvensByOwner() {
         let keys = UBEvent.keys
-        let predicateByOwner = keys.ownerid == AccountManager().currentUsername!
+        let predicateByOwner = keys.ownerid == AccountManager().currentUsername
         
         byOwnerSink = Amplify.API.query(request: .paginatedList(UBEvent.self, where: predicateByOwner, limit: 100 ))
             .resultPublisher
@@ -83,7 +83,7 @@ class EventsModel: ObservableObject {
     
     private func loadEventsByReceiver() {
         let keys = UBEvent.keys
-        let predicateByReceiver = keys.receiverid == AccountManager().currentUsername!
+        let predicateByReceiver = keys.receiverid == AccountManager().currentUsername
         
         byReceiverSink = Amplify.API.query(request: .paginatedList(UBEvent.self, where: predicateByReceiver, limit: 100 ))
             .resultPublisher
