@@ -124,5 +124,16 @@ class FriendsFeedModel: ObservableObject {
             $0[$1.itemid] = $1
         }
     }
+    
+    func filteredItems(searchText: String?) -> [UBItem] {
+        guard let searchText = searchText else {
+            return self.friendsItems
+        }
+        
+        let items = friendsItems.filter {
+            $0.includes(searchText)
+        }
+        return items
+    }
 }
 

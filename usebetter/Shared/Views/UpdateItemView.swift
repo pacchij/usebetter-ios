@@ -10,7 +10,7 @@ import SwiftUI
 import Contacts
 
 struct UpdateItemView: View {
-    @State var itemIndex: Int = 0
+    @State var itemId: UUID
     @State var itemName: String = ""
     @State var itemCount: String = "1"
     @EnvironmentObject var userFeedData: UserFeedModel
@@ -23,7 +23,8 @@ struct UpdateItemView: View {
             VStack {
                 Spacer()
                     .frame(height: 50)
-                if let imageURL = userFeedData.userItems[itemIndex].imageURL {
+                if let item = userFeedData.item(by: itemId) {
+                if let imageURL = item.imageURL {
                     AsyncImage(url: URL(string: imageURL)) { image1 in
                         image1.resizable()
                             .scaledToFit()
@@ -44,32 +45,32 @@ struct UpdateItemView: View {
                 
                 Spacer()
                     .frame(height: 50)
-                TextField(userFeedData.userItems[itemIndex].name, text: $itemName)
+                TextField(item.name, text: $itemName)
                     .onSubmit {
-                        userFeedData.userItems[itemIndex].name = itemName
+                        userFeedData.updateName(by: itemId, name: itemName)
                     }
                     .textFieldStyle(.roundedBorder)
                     .multilineTextAlignment(.leading)
                 
                 HStack {
                     Text("Tags:")
-                    Text(userFeedData.userItems[itemIndex].getTags)
+                    Text(item.getTags)
                 }
                 .padding(20)
                 
                 HStack {
                     Text("Available Counts: ")
-                    TextField(String(userFeedData.userItems[itemIndex].itemCount), text: $itemCount)
+                    TextField(String(item.itemCount), text: $itemCount)
                         .onSubmit {
-                            userFeedData.userItems[itemIndex].itemCount = Int(itemCount) ?? 0
+                            userFeedData.updateCount(by: itemId, count: Int(itemCount) ?? 0)
                         }
                         .textFieldStyle(.roundedBorder)
                         .frame(width: 50)
                     Spacer().frame(height:50)
                 }
-
+                
                 HStack {
-                    if let contactName =  userFeedData.userItems[itemIndex].ownerid {
+                    if let contactName =  item.ownerid {
                         Text("shared To: ")
                         Text(contactName)
                             .frame(width:150)
@@ -80,7 +81,7 @@ struct UpdateItemView: View {
                         Text("share To: ")
                         Spacer().frame(width: 150)
                     }
-                
+                    
                     Button(action: {
                         delegate.showPicker = true
                         print("button clicked")
@@ -91,24 +92,28 @@ struct UpdateItemView: View {
                     }
                     .sheet(isPresented: $delegate.showPicker, onDismiss: {
                         delegate.showPicker = false
-                        eventsModel.sendRequest(for: userFeedData.userItems[itemIndex], byOwner: true)
+                        eventsModel.sendRequest(for: item, byOwner: true)
                     }) {
                         ContactPicker(delegate: .constant(delegate))
                     }
                 }
                 
-                NavigationLink(destination: WebContentView(url: userFeedData.userItems[itemIndex].originalItemURL ?? "https://amazon.com")) {
+                NavigationLink(destination: WebContentView(url: item.originalItemURL ?? "https://amazon.com")) {
                     Label("Open item Link", systemImage: "icloud").font(.title2)
                 }.padding([.top], 20)
-
+                
                 Spacer()
                     .frame(height: 50)
                 Button("Update Item", action: {
-                    userFeedData.userItems[itemIndex].name = itemName
-                    userFeedData.userItems[itemIndex].itemCount = Int(itemCount) ?? 0
+                    userFeedData.updateName(by: itemId, name: itemName)
+                    userFeedData.updateCount(by: itemId, count: Int(itemCount) ?? 0)
                     userFeedData.update()
                     presentationMode.wrappedValue.dismiss()
                 })
+            }
+            else {
+                Text("OOPS.... Item not Found")
+            }
             }
             .frame(minWidth: 0, maxHeight: .infinity, alignment: .topLeading)
             .padding(5)
@@ -170,6 +175,6 @@ struct UpdateItemView: View {
 
 struct UpdateItemView_Previews: PreviewProvider {
     static var previews: some View {
-        UpdateItemView(itemIndex: 0)
+        UpdateItemView(itemId: UUID())
     }
 }

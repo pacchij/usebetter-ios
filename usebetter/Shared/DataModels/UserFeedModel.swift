@@ -46,6 +46,14 @@ class UserFeedModel: ObservableObject {
         mappedItems[id]
     }
     
+    func updateName(by id: UUID, name: String) {
+        mappedItems[id]?.name = name
+    }
+    
+    func updateCount(by id: UUID, count: Int) {
+        mappedItems[id]?.itemCount = count
+    }
+    
     private func readCache() {
         DispatchQueue.global().async {
             self.userRemoteItems = JsonInterpreter(filePath: Constants.userFeed).read()
@@ -145,6 +153,17 @@ class UserFeedModel: ObservableObject {
         self.mappedItems = self.userItems.reduce(into: [UUID: UBItem]() ) {
             $0[$1.itemid] = $1
         }
+    }
+    
+    func filteredItems(searchText: String?) -> [UBItem] {
+        guard let searchText = searchText, searchText.count > 0 else {
+            return self.userItems
+        }
+        
+        let items = userItems.filter {
+            $0.includes(searchText)
+        }
+        return items
     }
  
 }

@@ -65,7 +65,7 @@ struct AddItemView: View {
                     })
                 }
                 else if isURLParsing == .complete && self.item.name != "" {
-                    UpdateItemView(itemIndex: userFeedData.userItems.count-1)
+                    UpdateItemView(itemId: userFeedData.userItems[0].itemid)
                 }
             }
             .frame(minWidth: 0, maxHeight: .infinity, alignment: .center)

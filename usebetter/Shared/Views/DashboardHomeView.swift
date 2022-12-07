@@ -45,7 +45,7 @@ struct DashboardHomeView: View {
                 ScrollView(.vertical, showsIndicators: false) {
                     Spacer()
                     LazyVGrid(columns: items, spacing: 10) {
-                        ForEach(friendsFeedData.friendsItems) { item in
+                        ForEach(friendsFeedData.filteredItems(searchText: $searchText.wrappedValue)) { item in
                             NavigationLink(destination: ReadOnlyItemView(item: item), label: {
                                 if let imageURL = item.imageURL {
                                     AsyncImage(url: URL(string: imageURL)) { image in
