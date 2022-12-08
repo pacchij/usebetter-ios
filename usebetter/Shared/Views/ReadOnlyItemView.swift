@@ -70,7 +70,7 @@ struct ReadOnlyItemView: View {
                 }.padding(20)
 
                 Button("Request To Use Better", action: {
-                    eventsModel.sendRequest(for: item)
+                    eventsModel.createRequest(for: item)
                 })
                 .font(.subheadline)
                 

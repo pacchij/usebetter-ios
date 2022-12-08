@@ -29,6 +29,7 @@ enum EventState: Int {
 
 class EventsModel: ObservableObject {
     @Published var events: [UBEvent] = []
+    @Published var mappedItems: [String: UBEvent] = [:]
     private var userfeed: UserFeedModel?
     private var friendsFeed: FriendsFeedModel?
     private var subscriptions = Set<AnyCancellable>()
@@ -100,13 +101,14 @@ class EventsModel: ObservableObject {
                         print("EventsModel: loadEventsByReceiver: no events found")
                     }
                     print("EventsModel: loadEventsByReceiver: events read")
+                    self.updateMappedItems(eventsToMerge: eventsFromDB)
                 case .failure(let error):
                     print("EventsModel: loadEventsByReceiver: failed to query events \(error)")
                 }
             }
     }
     
-    func sendRequest(for item: UBItem, byOwner: Bool = false) {
+    func createRequest(for item: UBItem, byOwner: Bool = false) {
         let stateValue: Int = byOwner ? EventState.requestCancelByOwner.rawValue : EventState.requestInitiatedByReceiver.rawValue
         let tr = UBEvent(itemid:  item.itemid.uuidString,
                               ownerid: item.ownerid,
@@ -142,5 +144,51 @@ class EventsModel: ObservableObject {
         else {
             return friendsFeed?.item(by: itemUUID)
         }
+    }
+    
+    private func updateMappedItems(eventsToMerge: List<UBEvent>) {
+        DispatchQueue.main.async {
+            self.mappedItems = eventsToMerge.reduce(into: [String: UBEvent]() ) {
+                if $0[$1.id] == nil {
+                    $0[$1.id] = $1
+                }
+                else if  $0[$1.id]!.updatedAt! < $1.updatedAt! {
+                    $0[$1.id] = $1
+                }
+            }
+            //update all events
+            self.events = self.mappedItems.map {$0.1}
+        }
+    }
+    
+    func updateEventState(by eventId: String, newState: EventState) {
+        mappedItems[eventId]?.state = newState.rawValue
+        updateRemoteEvent(by: eventId)
+    }
+    
+    private func updateRemoteEvent(by eventId: String) {
+        guard let event = mappedItems[eventId] else {
+            print("EventsModel: updateEvent: eventId does not exists \(eventId)")
+            return
+        }
+        
+        //Event update is new record DB, this way old transaction is not overwritten
+        Amplify.API.mutate(request: .create(event))
+            .resultPublisher
+            .sink {
+                if case let .failure(error) = $0 {
+                    print("EventsModel: sendRequest: failed to create events \(error)")
+                }
+            }
+            receiveValue: { result in
+                switch result {
+                case .success(let trans):
+                    print("EventsModel: sendRequest: successfull \(trans)")
+                    self.loadEventsByReceiver()
+                case .failure(let error):
+                    print("EventsModel: sendRequest: receiveValue failed to create evnets \(error)")
+                }
+            }
+            .store(in: &subscriptions)
     }
 }

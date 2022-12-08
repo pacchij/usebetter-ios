@@ -92,7 +92,7 @@ struct UpdateItemView: View {
                     }
                     .sheet(isPresented: $delegate.showPicker, onDismiss: {
                         delegate.showPicker = false
-                        eventsModel.sendRequest(for: item, byOwner: true)
+                        eventsModel.createRequest(for: item, byOwner: true)
                     }) {
                         ContactPicker(delegate: .constant(delegate))
                     }

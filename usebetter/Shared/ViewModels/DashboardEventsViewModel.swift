@@ -68,7 +68,7 @@ class DashboardEventsViewModel {
         
         eventsStateMachine[.requestInitiatedByReceiver] = EventsStateMachine(state: .requestInitiatedByReceiver,
                              ownerUIState: EventUIStates(label: "You have a new request from", primaryButtonText: "Accept", primaryButtonActionState: .requestAcceptedByOwner, secondaryButtonText: "Ignore", secondaryButtonActionState: .requestCancelByOwner),
-                             receiverUIState: EventUIStates(label: "You requested an item from", primaryButtonText: "Received", primaryButtonActionState: .itemReturnedByReceiver, secondaryButtonText: "Cancel", secondaryButtonActionState: .requestCancelledByReceiver)
+                             receiverUIState: EventUIStates(label: "You requested an item from", primaryButtonText: "Received", primaryButtonActionState: .itemReceivedAckByReceiver, secondaryButtonText: "Cancel", secondaryButtonActionState: .requestCancelledByReceiver)
                                 )
         
         

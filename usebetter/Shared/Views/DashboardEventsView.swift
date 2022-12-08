@@ -96,7 +96,7 @@ struct DashboardEventsView: View {
                                         HStack {
                                             if let pbText = uiState.primaryButtonText {
                                                 Button(pbText, action: {
-                                                    eventsModel.events[index].state = uiState.primaryButtonActionState?.rawValue ?? EventState.archived.rawValue
+                                                    eventsModel.updateEventState(by: eventsModel.events[index].id, newState: uiState.primaryButtonActionState ?? EventState.archived)
                                                 })
                                                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .leading)
                                                 .padding(10)
@@ -104,7 +104,7 @@ struct DashboardEventsView: View {
                                             
                                             if let sbText = uiState.secondaryButtonText {
                                                 Button(sbText, action: {
-                                                    eventsModel.events[index].state = uiState.secondaryButtonActionState?.rawValue ?? EventState.archived.rawValue
+                                                    eventsModel.updateEventState(by: eventsModel.events[index].id, newState: uiState.secondaryButtonActionState ?? EventState.archived)
                                                 })
                                                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .trailing)
                                                 .padding(10)
@@ -128,6 +128,9 @@ struct DashboardEventsView: View {
                     .edgesIgnoringSafeArea([.bottom])
                 } //VStack
                  
+            }
+            .onAppear {
+                print("DashboardEventsView: onAppear")
             }
         }
     } //Body
