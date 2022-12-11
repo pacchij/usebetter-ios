@@ -96,7 +96,6 @@ class DashboardEventsViewModel {
     }
     
     func getUIState(for event: UBEvent, _ isPreview: Bool = false) -> EventUIStates {
-        
         guard !isPreview else {
             return previewUIState
         }
@@ -104,6 +103,7 @@ class DashboardEventsViewModel {
             return invalidUIState
         }
         let eventState = EventState(rawValue: event.state) ?? EventState.archived
+        print("DashboardEventsViewModel: getUIState: currentUser \(currentUser.username) event.ownerID \(event.ownerid) eventState \(eventState)")
         if currentUser.username == event.ownerid {
             return eventsStateMachine[eventState]?.ownerUIState ?? invalidUIState
         }

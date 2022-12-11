@@ -38,12 +38,21 @@ class EventsModel: ObservableObject {
     
     init() {
         print("EventsModel: init")
-        load()
+        registerForEvents()
     }
     
     func initialize(userfeed: UserFeedModel, friendsFeed: FriendsFeedModel) {
         self.userfeed = userfeed
         self.friendsFeed = friendsFeed
+    }
+    
+    private func registerForEvents() {
+        AccountManager.sharedInstance.signedInState.sink { signInState in
+            if signInState == .signedIn || signInState == .alreadySignedIn {
+                self.load()
+            }
+        }
+        .store(in: &subscriptions)
     }
     
     private func load() {
@@ -59,7 +68,7 @@ class EventsModel: ObservableObject {
     
     private func loadEvensByOwner() {
         let keys = UBEvent.keys
-        let predicateByOwner = keys.ownerid == AccountManager().currentUsername
+        let predicateByOwner = keys.ownerid == AccountManager.sharedInstance.currentUsername
         
         byOwnerSink = Amplify.API.query(request: .paginatedList(UBEvent.self, where: predicateByOwner, limit: 100 ))
             .resultPublisher
@@ -76,6 +85,7 @@ class EventsModel: ObservableObject {
                         print("EventsModel: loadEvensByOwner: no events found")
                     }
                     print("EventsModel: loadEvensByOwner: events read")
+                    self.updateMappedItems(eventsToMerge: eventsFromDB)
                 case .failure(let error):
                     print("EventsModel: loadEvensByOwner: failed \(error)")
                 }
@@ -84,7 +94,7 @@ class EventsModel: ObservableObject {
     
     private func loadEventsByReceiver() {
         let keys = UBEvent.keys
-        let predicateByReceiver = keys.receiverid == AccountManager().currentUsername
+        let predicateByReceiver = keys.receiverid == AccountManager.sharedInstance.currentUsername
         
         byReceiverSink = Amplify.API.query(request: .paginatedList(UBEvent.self, where: predicateByReceiver, limit: 100 ))
             .resultPublisher
@@ -112,7 +122,7 @@ class EventsModel: ObservableObject {
         let stateValue: Int = byOwner ? EventState.requestCancelByOwner.rawValue : EventState.requestInitiatedByReceiver.rawValue
         let tr = UBEvent(itemid:  item.itemid.uuidString,
                               ownerid: item.ownerid,
-                              receiverid: AccountManager().currentUsername!,
+                         receiverid: AccountManager.sharedInstance.currentUsername!,
                               state: stateValue)
         
         Amplify.API.mutate(request: .create(tr))
@@ -148,15 +158,10 @@ class EventsModel: ObservableObject {
     
     private func updateMappedItems(eventsToMerge: List<UBEvent>) {
         DispatchQueue.main.async {
-            self.mappedItems = eventsToMerge.reduce(into: [String: UBEvent]() ) {
-                if $0[$1.id] == nil {
-                    $0[$1.id] = $1
-                }
-                else if  $0[$1.id]!.updatedAt! < $1.updatedAt! {
-                    $0[$1.id] = $1
-                }
+            print("EventsModel: updateMappedItems: \(eventsToMerge.count)")
+            eventsToMerge.forEach { eventInDB in
+                self.mappedItems[eventInDB.id] = eventInDB
             }
-            //update all events
             self.events = self.mappedItems.map {$0.1}
         }
     }

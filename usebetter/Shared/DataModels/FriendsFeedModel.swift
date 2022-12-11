@@ -7,6 +7,7 @@
 
 import Foundation
 import Amplify
+import Combine
 
 class FriendsFeedModel: ObservableObject {
      struct Constants {
@@ -17,13 +18,23 @@ class FriendsFeedModel: ObservableObject {
     var mappedItems: [UUID: UBItem] = [:]
     private var friendsRemoteItems: [UBItemRemote] = []
     private var s3FileManager = S3FileManager()
+    private var subscriptions = Set<AnyCancellable>()
     
     init() {
-        readCache()
+        registerForEvents()
     }
     
     func item(by id: UUID) -> UBItem? {
         mappedItems[id]
+    }
+    
+    private func registerForEvents() {
+        AccountManager.sharedInstance.signedInState.sink { signInState in
+            if signInState == .signedIn || signInState == .alreadySignedIn {
+                self.readCache()
+            }
+        }
+        .store(in: &subscriptions)
     }
     
     private var currentUserKey: String {

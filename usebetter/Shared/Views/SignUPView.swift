@@ -20,7 +20,7 @@ struct SignUpView: View {
     @EnvironmentObject var userFeedData: UserFeedModel
     @EnvironmentObject var friendsFeedData: FriendsFeedModel
     
-    private let accountManager = AccountManager()
+    private let accountManager = AccountManager.sharedInstance
     @State private var bag = Set<AnyCancellable>()
     @State private var phoneNumber = "7142615481"
     @State private var email = ""
@@ -173,11 +173,15 @@ struct SignUpView: View {
     
     func onSingnUp() {
         let _ = accountManager.signIn(email: $email.wrappedValue, password: $password.wrappedValue)
-        .sink (
+        accountManager.signedInState.sink (
         receiveValue: { signInState in
             print("signedup view: reeived value \(signInState)")
             switch signInState {
-            case .signInSuccess:
+            case .notSignedIn:
+                self.userSignedIn = false
+                self.shouldHideOTP = true
+                self.shouldShowErrorMsg = false
+            case .signedIn:
                 self.userSignedIn = true
             case .alreadySignedIn:
                 self.userSignedIn = true

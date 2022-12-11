@@ -24,7 +24,7 @@ class UserFeedModel: ObservableObject {
     private var s3FileManager = S3FileManager()
     
     init() {
-        readCache()
+        registerForEvents()
     }
     
     func update() {
@@ -52,6 +52,14 @@ class UserFeedModel: ObservableObject {
     
     func updateCount(by id: UUID, count: Int) {
         mappedItems[id]?.itemCount = count
+    }
+    
+    private func registerForEvents() {
+        AccountManager.sharedInstance.signedInState.sink { signInState in
+            if signInState == .signedIn || signInState == .alreadySignedIn {
+                self.readCache()            }
+        }
+        .store(in: &bag)
     }
     
     private func readCache() {

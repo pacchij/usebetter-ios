@@ -116,7 +116,7 @@ struct DashboardEventsView: View {
                                     }) //End of navigation
                                 } //HSTck for each Row
                                 .padding(5)
-                                .frame(width: .infinity, height: .infinity, alignment: .top)
+                                .frame(alignment: .top)
                                 }
                             } //end of forEach
                             .background(Color.green.opacity(0.2))
@@ -129,9 +129,10 @@ struct DashboardEventsView: View {
                 } //VStack
                  
             }
-            .onAppear {
-                print("DashboardEventsView: onAppear")
-            }
+        }
+        .refreshable {
+            print("DashboardEventsView: refreshable. Reloadign Events")
+            eventsModel.loadRemote()
         }
     } //Body
     

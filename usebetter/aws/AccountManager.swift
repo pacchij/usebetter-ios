@@ -13,11 +13,12 @@ import AWSCognitoAuthPlugin
 import Amplify
 
 enum SingInState {
-    case signInSuccess
+    case signedIn
     case error
     case alreadySignedIn
     case signedUp
     case pendingEmailConfirm
+    case notSignedIn
 }
 
 enum OtpConfirmState {
@@ -27,29 +28,33 @@ enum OtpConfirmState {
 
 class AccountManager {
     var bag = Set<AnyCancellable>()
+    static var sharedInstance = AccountManager()
+    var signedInState: CurrentValueSubject<SingInState, Never> = .init(.notSignedIn)
     
     var currentUsername: String? {
         Amplify.Auth.getCurrentUser()?.username 
     }
     
-    func signIn(email: String, password: String) -> PassthroughSubject <SingInState, Never> {
-        let signInSubject = PassthroughSubject <SingInState, Never>()
+    private init() {
+        signedInState = Amplify.Auth.getCurrentUser() == nil ? .init(.notSignedIn) : .init(.signedIn)
+    }
+    
+    func signIn(email: String, password: String) {
         //Try signIn First, if user does not exist, signUp
         guard Amplify.Auth.getCurrentUser() == nil else {
             print("AccountManager: signIn: already signed In \(Amplify.Auth.getCurrentUser()?.username ?? "")")
-            signInSubject.send(.alreadySignedIn)
-            return signInSubject
+            self.signedInState.send(.alreadySignedIn)
+            return
         }
         let _ = Amplify.Auth.signIn(username: email, password: password)
             .resultPublisher
             .sink {
                 if case let .failure(authError) = $0 {
                         print("AccountManager: signIn: SignIn Failed \(authError)")
-                    signInSubject.send(.signedUp)
-                    self.signUp(email: email, password: password, listener: signInSubject)
+                    self.signUp(email: email, password: password)
                 }
                 else {
-                    signInSubject.send(.signInSuccess)
+                    self.signedInState.send(.signedIn)
                 }
             }
             receiveValue: { result in
@@ -58,16 +63,15 @@ class AccountManager {
                     print("AccountManager: signIn confirmSignup \(info?.description ?? "")")
                 case .done:
                     print("AccountManager: signIn: Sign IN succeeded")
-                    signInSubject.send(.signInSuccess)
+                    self.signedInState.send(.signedIn)
                 default:
                     print("AccountManager: signIn \(result.nextStep)")
                 }
             }
             .store(in: &bag)
-        return signInSubject
     }
     
-    func signUp(email: String, password: String, listener: PassthroughSubject <SingInState, Never>) {
+    private func signUp(email: String, password: String) {
         let userAttributes = [AuthUserAttribute(.email, value: email)]
         let options = AuthSignUpRequest.Options(userAttributes: userAttributes)
         let _ = Amplify.Auth.signUp(username: email, password: password, options: options)
@@ -75,16 +79,16 @@ class AccountManager {
             .sink {
                 if case let .failure(authError) = $0 {
                     print("AccountManager: signUp: An error occurred while registering a user \(authError)")
-                    listener.send(.error)
+                    self.signedInState.send(.error)
                 }
             }
             receiveValue: { signUpResult in
                 if case let .confirmUser(deliveryDetails, _) = signUpResult.nextStep {
                     print("Delivery details \(String(describing: deliveryDetails))")
-                    listener.send(.pendingEmailConfirm)
+                    self.signedInState.send(.pendingEmailConfirm)
                 } else {
                     print("AccountManager: signUp: SignUp Complete")
-                    listener.send(.signInSuccess)
+                    self.signedInState.send(.signedIn)
                 }
             }
             .store(in: &bag)
