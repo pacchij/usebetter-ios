@@ -30,6 +30,7 @@ class AccountManager {
     var bag = Set<AnyCancellable>()
     static var sharedInstance = AccountManager()
     var signedInState: CurrentValueSubject<SingInState, Never> = .init(.notSignedIn)
+    private var attributes: [AuthUserAttribute] = []
     
     var currentUsername: String? {
         Amplify.Auth.getCurrentUser()?.username 
@@ -37,6 +38,9 @@ class AccountManager {
     
     private init() {
         signedInState = Amplify.Auth.getCurrentUser() == nil ? .init(.notSignedIn) : .init(.signedIn)
+        if signedInState.value == .signedIn {
+            fetchAttributes()
+        }
     }
     
     func signIn(email: String, password: String) {
@@ -88,6 +92,9 @@ class AccountManager {
                     self.signedInState.send(.pendingEmailConfirm)
                 } else {
                     print("AccountManager: signUp: SignUp Complete")
+                    Amplify.Auth.update(userAttribute: AuthUserAttribute(AuthUserAttributeKey.custom("displayName"), value: email)) { error in
+                        print("AccountManager: signUp updateUserAttribute return error \(error)")
+                    }
                     self.signedInState.send(.signedIn)
                 }
             }
@@ -110,5 +117,36 @@ class AccountManager {
             }
             .store(in: &bag)
         return otpState
+    }
+    
+    private func fetchAttributes()  {
+        print("AccountManager: fetchAttributes")
+        let _  = Amplify.Auth.fetchUserAttributes()
+                .resultPublisher
+                .sink {
+                    if case let .failure(fetchError) = $0 {
+                        print("AccountManager: fetchAttributes: failed with error \(fetchError)")
+                    }
+                    else {
+                        print("AccountManager: fetchAttributes: success")
+                    }
+                }
+                receiveValue: { attributes in
+                    print("AccountManager: fetchAttributes attributes - \(attributes)")
+                    self.attributes = attributes
+                }
+                .store(in: &bag)
+    }
+    
+    var displayName: String {
+        if signedInState.value != .signedIn {
+            return "Unassigned"
+        }
+        
+        let key = AuthUserAttributeKey.custom("displayName")
+        let results = self.attributes.filter { attr in
+            attr.key == key
+        }
+        return (results.count > 0) ? results[0].value : Amplify.Auth.getCurrentUser()?.username ?? "Unassigned"
     }
 }

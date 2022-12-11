@@ -86,12 +86,12 @@ struct DashboardEventsView: View {
                                         
                                         Text(uiState.label)
                                             .frame(alignment: .topLeading)
-                                            .foregroundColor(Color.black)
+                                            .foregroundColor(Color.gray)
                                             
                                         Spacer()
-                                        Text("Prashanth Jaligama")
-                                            .foregroundColor(Color.red.opacity(0.7))
-                                            .font(.title2)
+                                        Text(eventReceiverName(event: eventsModel.events[index]))
+                                            .foregroundColor(Color.orange.opacity(0.5))
+                                            //.font(.title2)
                                         Spacer()
                                         HStack {
                                             if let pbText = uiState.primaryButtonText {
@@ -119,7 +119,7 @@ struct DashboardEventsView: View {
                                 .frame(alignment: .top)
                                 }
                             } //end of forEach
-                            .background(Color.green.opacity(0.2))
+                            .background(Color.cyan.opacity(0.2))
                             .frame(height: 130,  alignment: .center)
                             .padding([.trailing, .leading], 2)
                     } //scroll view
@@ -149,7 +149,14 @@ struct DashboardEventsView: View {
         }
     }
     
-    
+    private func eventReceiverName(event: UBEvent) -> String {
+        if event.ownerid == (AccountManager.sharedInstance.currentUsername ?? "") {
+            return event.receiverid
+        }
+        else {
+            return event.ownerid
+        }
+    }
 }
 
 struct DashboardEventsView_Previews: PreviewProvider {

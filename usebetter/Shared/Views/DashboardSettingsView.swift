@@ -9,6 +9,7 @@ import SwiftUI
 import Amplify
 
 struct DashboardSettingsView: View {
+    @State private var changedDisplayName = "DisplayName"
     var body: some View {
         NavigationView {
             ZStack(alignment: .top) {
@@ -16,13 +17,40 @@ struct DashboardSettingsView: View {
                     Text("Welcome to Settings view")
                 }
                 else {
-                    VStack {
-                        Text("User name")
-                        Text(Amplify.Auth.getCurrentUser()?.username ?? "")
-                    }
+                        VStack(alignment: .leading) {
+                            HStack {
+                                    Text("Email: ")
+                                    Text(userid)
+                                }
+                            HStack() {
+                                Text("Display Name: ")
+                                TextField(displayName, text: $changedDisplayName)
+                                    .textFieldStyle(.roundedBorder)
+                                    .onSubmit {
+                                        updateDisplayName()
+                                    }
+                            }
+                    }// VStack
+                    .padding(10)
                 }
-            }
+            } // ZStack
+        }  // Navigation view
+        .onAppear {
+            changedDisplayName = displayName
         }
+    } // body
+    
+    private func updateDisplayName() {
+        print("DashboardSettingsView: updateDisplayName")
+        Amplify.Auth.update(userAttribute: AuthUserAttribute(AuthUserAttributeKey.custom("displayName"), value: $changedDisplayName.wrappedValue)) { error in
+            print("DashboardSettingsView: updateDisplayName error \(error)")
+        }
+    }
+    private var userid: String {
+        AccountManager.sharedInstance.currentUsername ?? "unknown"
+    }
+    private var displayName: String {
+        AccountManager.sharedInstance.displayName
     }
 }
 

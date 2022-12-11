@@ -84,9 +84,9 @@ struct ReadOnlyItemView: View {
         .navigationBarTitle("View Item", displayMode: .inline)
         .edgesIgnoringSafeArea([.bottom])
         .onAppear() {
-            contactHelper.contactFullname(for: item.ownerid) { name in
+            //contactHelper.contactFullname(for: item.ownerid) { name in
                 self.contactName = item.ownerid
-            }
+            //}
         }
     }
 }
