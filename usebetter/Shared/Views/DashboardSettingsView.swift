@@ -13,15 +13,17 @@ struct DashboardSettingsView: View {
     var body: some View {
         NavigationView {
             ZStack(alignment: .top) {
-                if Amplify.Auth.getCurrentUser() == nil {
-                    Text("Welcome to Settings view")
-                }
-                else {
-                        VStack(alignment: .leading) {
+                ScrollView {
+                    VStack(alignment: .leading) {
+                        Text("User Profile")
+                            .font(.title)
+                        Spacer()
+                            .frame(height: 100)
+                        if Amplify.Auth.getCurrentUser() != nil {
                             HStack {
-                                    Text("Email: ")
-                                    Text(userid)
-                                }
+                                Text("Email: ")
+                                Text(userid)
+                            }
                             HStack() {
                                 Text("Display Name: ")
                                 TextField(displayName, text: $changedDisplayName)
@@ -30,6 +32,7 @@ struct DashboardSettingsView: View {
                                         updateDisplayName()
                                     }
                             }
+                        }
                     }// VStack
                     .padding(10)
                 }
