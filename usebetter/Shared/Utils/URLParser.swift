@@ -17,15 +17,15 @@ class URLParser {
     }
     
     func parse( callback: @escaping (_ item: UBItem?)->Void)  {
-        print("URLParser: parse: Entered")
+        logger.log("URLParser: parse: Entered")
         DispatchQueue.global().async {
             guard let url = URL(string: self.url) else {
-                print("URLParser: parse: error in url")
+                logger.log("URLParser: parse: error in url")
                 callback(nil)
                 return
             }
             let htmlContent = try! String(contentsOf: url)
-            print("URLParser: parse: parsing amazon url")
+            logger.log("URLParser: parse: parsing amazon url")
             AmazonURLParser().parse(html: htmlContent, callback: callback)
         }
     }
@@ -42,11 +42,11 @@ class AmazonURLParser {
                 titleElement = try document.select("#productTitle")
                 title = try titleElement.first()?.text()
             }
-            print("AmazonURLParser: getTitle: ", title ?? "" )
+            logger.log("AmazonURLParser: getTitle: \(title ?? "")" )
             return title
         }
         catch {
-            print("AmazonURLParser: getTitle: Exception \(error) ")
+            logger.log("AmazonURLParser: getTitle: Exception \(error) ")
         }
         return nil
     }
@@ -65,11 +65,11 @@ class AmazonURLParser {
                 priceElement = try document.select("#twister-plus-price-data-price")
                 price = try priceElement.first()?.attr("value")
             }
-            print("AmazonURLParser: getPrice: ", price ?? "" )
+            logger.log("AmazonURLParser: getPrice: \(price ?? "")" )
             return price
         }
         catch {
-            print("AmazonURLParser: getPrice: Exception \(error) ")
+            logger.log("AmazonURLParser: getPrice: Exception \(error) ")
         }
         return nil
     }
@@ -84,7 +84,7 @@ class AmazonURLParser {
             }
             
             if imageBlockHtml == nil {
-                print("AmazonURLParser: getImage: image block not found")
+                logger.log("AmazonURLParser: getImage: image block not found")
                 return nil
             }
 
@@ -92,20 +92,20 @@ class AmazonURLParser {
             let images: Elements = try imageDocument.select("img[src]")
             let imagesStringArray: [String?] = images.array().map { try? $0.attr("src").description }
             
-            print("AmazonURLParser: getImage: images: ", imagesStringArray)
+            logger.log("AmazonURLParser: getImage: images: \(imagesStringArray)")
             
             if imagesStringArray.isEmpty {
-                print("AmazonURLParser: getImage: no images found")
+                logger.log("AmazonURLParser: getImage: no images found")
                 return nil
             }
             
             return imagesStringArray[0]
         }
-        catch Exception.Error(let type, let message) {
-            print("AmazonURLParser: getImage: : Excepiton: ", type, message)
+        catch Exception.Error(_, _) {
+            logger.log("AmazonURLParser: getImage: : Excepiton:")
         }
         catch {
-            print("AmazonURLParser: getImage: : Unknown Excepiton")
+            logger.log("AmazonURLParser: getImage: : Unknown Excepiton")
         }
         return nil
     }
@@ -113,9 +113,9 @@ class AmazonURLParser {
     func parse(html: String, callback: @escaping (_ item: UBItem?)->Void){
        
         do {
-            print("AmazonURLParser: parse: entered")
+            logger.log("AmazonURLParser: parse: entered")
             let document: Document = try SwiftSoup.parse(html)
-            print("AmazonURLParser: parse: title: ", document )
+            logger.log("AmazonURLParser: parse: title: \(document)" )
             
             guard let title = getTitle(for: document) else {
                 callback(nil)
@@ -133,7 +133,7 @@ class AmazonURLParser {
             }
             
             let tags = getCategories(document: document)
-            print("AmazonURLParser: parse: categories ", tags)
+            logger.log("AmazonURLParser: parse: categories \(tags)")
             
             var item = UBItem(name: title, itemid: UUID())
             item.description = title
@@ -144,14 +144,14 @@ class AmazonURLParser {
             callback(item)
             return
         }
-        catch Exception.Error(let type, let message) {
-            print("AmazonURLParser: parse: : Excepiton: ", type, message)
+        catch Exception.Error(_, _) {
+            logger.log("AmazonURLParser: parse: : Excepiton: ")
         }
         catch {
-            print("AmazonURLParser: parse: : Unknown Excepiton")
+            logger.log("AmazonURLParser: parse: : Unknown Excepiton")
         }
     
-        print("AmazonURLParser: parse: parse calling nil")
+        logger.log("AmazonURLParser: parse: parse calling nil")
         callback(nil)
 
     }
@@ -172,11 +172,11 @@ class AmazonURLParser {
             }
             return cats
         }
-        catch Exception.Error(let type, let message) {
-            print("AmazonURLParser: getCategories: Excepiton: ", type, message)
+        catch Exception.Error(_, _) {
+            logger.log("AmazonURLParser: getCategories: Excepiton: ")
         }
         catch {
-            print("AmazonURLParser: getCategories: Unknown Excepiton")
+            logger.log("AmazonURLParser: getCategories: Unknown Excepiton")
         }
         return []
     }

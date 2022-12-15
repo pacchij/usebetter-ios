@@ -47,11 +47,11 @@ struct SplashView: View {
     func isAppAlreadyLaunchedOnce() -> Bool {
         let defaults = UserDefaults.standard
         if let _ = defaults.string(forKey: "isAppAlreadyLaunchedOnce") {
-            print("App already launched")
+            logger.log("App already launched")
             return true
         } else {
             defaults.set(true, forKey: "isAppAlreadyLaunchedOnce")
-            print("App launched first time")
+            logger.log("App launched first time")
             return false
         }
     }

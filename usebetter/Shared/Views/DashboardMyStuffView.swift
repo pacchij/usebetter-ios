@@ -86,7 +86,7 @@ struct DashboardMyStuffView: View {
     }
     
     func onSearchItem() {
-        print("on search")
+        logger.log("on search")
     }
     
     func onAdd() {

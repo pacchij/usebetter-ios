@@ -17,25 +17,25 @@ class S3FileManager {
     func downloadRemote(key: String, localURL: URL, completion: @escaping (Bool)->Void) {
         let storageOpertion = Amplify.Storage.downloadFile(key: key, local: localURL)
         let _ = storageOpertion.progressPublisher.sink { progress in
-            print("S3FileManager: readRemote: Progress: \(progress)")
+            logger.log("S3FileManager: readRemote: Progress: \(progress)")
         }
         .store(in: &bag)
         
         let _ = storageOpertion.resultPublisher.sink {
             if case let .failure(storageError) = $0 {
-                print("S3FileManager: readRemote: Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
+                logger.log("S3FileManager: readRemote: Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
                 completion(false)
             }
         }
         receiveValue: { data in
-            print("S3FileManager: readRemote: Completed: \(data)")
+            logger.log("S3FileManager: readRemote: Completed:")
             Amplify.Storage.getURL(key: key)
                 .resultPublisher
                 .sink { data in
-                    print("S3FileManager: readRemote: getURL: sink: \(data)")
+                    logger.log("S3FileManager: readRemote: getURL: sink:")
                 }
         receiveValue: { data in
-                    print("S3FileManager: readRemote: getURL: reeciveValue: \(data)")
+                    logger.log("S3FileManager: readRemote: getURL: reeciveValue: \(data)")
                 }
         .store(in: &self.bag)
                 
@@ -49,18 +49,18 @@ class S3FileManager {
     func updateRemote(key: String, localURL: URL, completion: @escaping (Bool)->Void) {
         let storageOperation = Amplify.Storage.uploadFile(key:key, local: localURL)
         let _ = storageOperation.progressPublisher.sink { progress in
-            print("S3FileManager: updateRemote: Progress: \(progress)")
+            logger.log("S3FileManager: updateRemote: Progress: \(progress)")
         }
         .store(in: &bag)
         
         let _ = storageOperation.resultPublisher.sink {
             if case let .failure(storageError) = $0 {
-                print("S3FileManager: updateRemote: Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
+                logger.log("S3FileManager: updateRemote: Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
                 completion(false)
             }
         }
         receiveValue: { data in
-            print("S3FileManager: updateRemote: Upload Completed: \(data)")
+            logger.log("S3FileManager: updateRemote: Upload Completed: \(data)")
             completion(true)
         }
         .store(in: &bag)
@@ -71,11 +71,11 @@ class S3FileManager {
             .resultPublisher
             .sink {
                 if case let .failure(storageError) = $0 {
-                    print("Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
+                    logger.log("listUserFolders: Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
                 }
             }
             receiveValue: { listResult in
-                print("Completed \(listResult)")
+                logger.log("listUserFolders: Completed")
                 completion(listResult)
             }
             .store(in: &bag)

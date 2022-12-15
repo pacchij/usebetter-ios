@@ -46,7 +46,7 @@ class AccountManager {
     func signIn(email: String, password: String) {
         //Try signIn First, if user does not exist, signUp
         guard Amplify.Auth.getCurrentUser() == nil else {
-            print("AccountManager: signIn: already signed In \(Amplify.Auth.getCurrentUser()?.username ?? "")")
+            logger.log("AccountManager: signIn: already signed In \(Amplify.Auth.getCurrentUser()?.username ?? "")")
             self.signedInState.send(.alreadySignedIn)
             return
         }
@@ -54,7 +54,7 @@ class AccountManager {
             .resultPublisher
             .sink {
                 if case let .failure(authError) = $0 {
-                        print("AccountManager: signIn: SignIn Failed \(authError)")
+                        logger.log("AccountManager: signIn: SignIn Failed \(authError)")
                     self.signUp(email: email, password: password)
                 }
                 else {
@@ -64,12 +64,12 @@ class AccountManager {
             receiveValue: { result in
                 switch result.nextStep {
                 case .confirmSignUp(let info):
-                    print("AccountManager: signIn confirmSignup \(info?.description ?? "")")
+                    logger.log("AccountManager: signIn confirmSignup \(info?.description ?? "")")
                 case .done:
-                    print("AccountManager: signIn: Sign IN succeeded")
+                    logger.log("AccountManager: signIn: Sign IN succeeded")
                     self.signedInState.send(.signedIn)
                 default:
-                    print("AccountManager: signIn \(result.nextStep)")
+                    logger.log("AccountManager: signIn ")
                 }
             }
             .store(in: &bag)
@@ -82,18 +82,18 @@ class AccountManager {
             .resultPublisher
             .sink {
                 if case let .failure(authError) = $0 {
-                    print("AccountManager: signUp: An error occurred while registering a user \(authError)")
+                    logger.log("AccountManager: signUp: An error occurred while registering a user \(authError)")
                     self.signedInState.send(.error)
                 }
             }
             receiveValue: { signUpResult in
                 if case let .confirmUser(deliveryDetails, _) = signUpResult.nextStep {
-                    print("Delivery details \(String(describing: deliveryDetails))")
+                    logger.log("Delivery details \(String(describing: deliveryDetails))")
                     self.signedInState.send(.pendingEmailConfirm)
                 } else {
-                    print("AccountManager: signUp: SignUp Complete")
+                    logger.log("AccountManager: signUp: SignUp Complete")
                     Amplify.Auth.update(userAttribute: AuthUserAttribute(AuthUserAttributeKey.custom("displayName"), value: email)) { error in
-                        print("AccountManager: signUp updateUserAttribute return error \(error)")
+                        logger.log("AccountManager: signUp updateUserAttribute return error")
                     }
                     self.signedInState.send(.signedIn)
                 }
@@ -107,12 +107,12 @@ class AccountManager {
             .resultPublisher
             .sink {
                 if case let .failure(authError) = $0 {
-                    print("AccountManager: confirm: confirm failed \(authError)")
+                    logger.log("AccountManager: confirm: confirm failed \(authError)")
                     otpState.send(.failure)
                 }
             }
             receiveValue: { _ in
-                print("AccountManager: confirm: confirm sucess")
+                logger.log("AccountManager: confirm: confirm sucess")
                 otpState.send(.success)
             }
             .store(in: &bag)
@@ -120,19 +120,19 @@ class AccountManager {
     }
     
     private func fetchAttributes()  {
-        print("AccountManager: fetchAttributes")
+        logger.log("AccountManager: fetchAttributes")
         let _  = Amplify.Auth.fetchUserAttributes()
                 .resultPublisher
                 .sink {
                     if case let .failure(fetchError) = $0 {
-                        print("AccountManager: fetchAttributes: failed with error \(fetchError)")
+                        logger.log("AccountManager: fetchAttributes: failed with error \(fetchError)")
                     }
                     else {
-                        print("AccountManager: fetchAttributes: success")
+                        logger.log("AccountManager: fetchAttributes: success")
                     }
                 }
                 receiveValue: { attributes in
-                    print("AccountManager: fetchAttributes attributes - \(attributes)")
+                    logger.log("AccountManager: fetchAttributes attributes - \(attributes)")
                     self.attributes = attributes
                 }
                 .store(in: &bag)

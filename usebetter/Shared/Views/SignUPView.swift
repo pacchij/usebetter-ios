@@ -129,26 +129,26 @@ struct SignUpView: View {
         if self.$phoneNumber.wrappedValue.count == 10 {
             errorMessage = "Enter Valid Phone Number..."
             shouldShowErrorMsg = true
-            print("unHide")
+            logger.log("unHide")
         }
         else {
             shouldShowErrorMsg = false
-            print("unHide")
+            logger.log("unHide")
         }
     }
     
     func validatePassword() {
         print(self.password)
-        print("submit called")
+        logger.log("submit called")
 
         if self.$password.wrappedValue.count == 6 {
             errorMessage = "Enter Valid Password 6 digits..."
             shouldShowErrorMsg = true
-            print("unHide")
+            logger.log("unHide")
         }
         else {
             shouldShowErrorMsg = false
-            print("unHide")
+            logger.log("unHide")
         }
     }
     
@@ -175,7 +175,7 @@ struct SignUpView: View {
         let _ = accountManager.signIn(email: $email.wrappedValue, password: $password.wrappedValue)
         accountManager.signedInState.sink (
         receiveValue: { signInState in
-            print("signedup view: reeived value \(signInState)")
+            logger.log("signedup view: reeived value \(signInState.hashValue)")
             switch signInState {
             case .notSignedIn:
                 self.userSignedIn = false

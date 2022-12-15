@@ -37,7 +37,7 @@ class EventsModel: ObservableObject {
     private var byReceiverSink: AnyCancellable!
     
     init() {
-        print("EventsModel: init")
+        logger.log("EventsModel: init")
         registerForEvents()
     }
     
@@ -75,19 +75,19 @@ class EventsModel: ObservableObject {
             .sink {
                 self.byOwnerSink.cancel()
                 if case let .failure(error) = $0 {
-                    print("EventsModel: loadEvensByOwner: failed to query events \(error)")
+                    logger.log("EventsModel: loadEvensByOwner: failed to query events \(error)")
                 }
             }
             receiveValue: { result in
                 switch result {
                 case .success(let eventsFromDB):
                     if eventsFromDB.isEmpty {
-                        print("EventsModel: loadEvensByOwner: no events found")
+                        logger.log("EventsModel: loadEvensByOwner: no events found")
                     }
-                    print("EventsModel: loadEvensByOwner: events read")
+                    logger.log("EventsModel: loadEvensByOwner: events read")
                     self.updateMappedItems(eventsToMerge: eventsFromDB)
                 case .failure(let error):
-                    print("EventsModel: loadEvensByOwner: failed \(error)")
+                    logger.log("EventsModel: loadEvensByOwner: failed \(error)")
                 }
             }
     }
@@ -101,19 +101,19 @@ class EventsModel: ObservableObject {
             .sink {
                 self.byReceiverSink.cancel()
                 if case let .failure(error) = $0 {
-                    print("EventsModel: loadEventsByReceiver: failed to query events \(error)")
+                    logger.log("EventsModel: loadEventsByReceiver: failed to query events \(error)")
                 }
             }
             receiveValue: { result in
                 switch result {
                 case .success(let eventsFromDB):
                     if eventsFromDB.isEmpty {
-                        print("EventsModel: loadEventsByReceiver: no events found")
+                        logger.log("EventsModel: loadEventsByReceiver: no events found")
                     }
-                    print("EventsModel: loadEventsByReceiver: events read")
+                    logger.log("EventsModel: loadEventsByReceiver: events read")
                     self.updateMappedItems(eventsToMerge: eventsFromDB)
                 case .failure(let error):
-                    print("EventsModel: loadEventsByReceiver: failed to query events \(error)")
+                    logger.log("EventsModel: loadEventsByReceiver: failed to query events \(error)")
                 }
             }
     }
@@ -129,15 +129,15 @@ class EventsModel: ObservableObject {
             .resultPublisher
             .sink {
                 if case let .failure(error) = $0 {
-                    print("EventsModel: sendRequest: failed to create events \(error)")
+                    logger.log("EventsModel: sendRequest: failed to create events \(error)")
                 }
             }
             receiveValue: { result in
                 switch result {
-                case .success(let trans):
-                    print("EventsModel: sendRequest: successfull \(trans)")
+                case .success(_):
+                    logger.log("EventsModel: sendRequest: successfull")
                 case .failure(let error):
-                    print("EventsModel: sendRequest: receiveValue failed to create evnets \(error)")
+                    logger.log("EventsModel: sendRequest: receiveValue failed to create evnets \(error)")
                 }
             }
             .store(in: &subscriptions)
@@ -145,7 +145,7 @@ class EventsModel: ObservableObject {
     
     func item(by id: String) -> UBItem? {
         guard let itemUUID = UUID(uuidString: id) else {
-            print("EventsModel: item: item id is invalid")
+            logger.log("EventsModel: item: item id is invalid")
             return nil
         }
         if let userItem = userfeed?.item(by: itemUUID) {
@@ -158,7 +158,7 @@ class EventsModel: ObservableObject {
     
     private func updateMappedItems(eventsToMerge: List<UBEvent>) {
         DispatchQueue.main.async {
-            print("EventsModel: updateMappedItems: \(eventsToMerge.count)")
+            logger.log("EventsModel: updateMappedItems: \(eventsToMerge.count)")
             eventsToMerge.forEach { eventInDB in
                 self.mappedItems[eventInDB.id] = eventInDB
             }
@@ -173,7 +173,7 @@ class EventsModel: ObservableObject {
     
     private func updateRemoteEvent(by eventId: String) {
         guard let event = mappedItems[eventId] else {
-            print("EventsModel: updateEvent: eventId does not exists \(eventId)")
+            logger.log("EventsModel: updateEvent: eventId does not exists \(eventId)")
             return
         }
         
@@ -182,16 +182,16 @@ class EventsModel: ObservableObject {
             .resultPublisher
             .sink {
                 if case let .failure(error) = $0 {
-                    print("EventsModel: sendRequest: failed to create events \(error)")
+                    logger.log("EventsModel: sendRequest: failed to create events \(error)")
                 }
             }
             receiveValue: { result in
                 switch result {
-                case .success(let trans):
-                    print("EventsModel: sendRequest: successfull \(trans)")
+                case .success(_):
+                    logger.log("EventsModel: sendRequest: successfull")
                     self.loadEventsByReceiver()
                 case .failure(let error):
-                    print("EventsModel: sendRequest: receiveValue failed to create evnets \(error)")
+                    logger.log("EventsModel: sendRequest: receiveValue failed to create evnets \(error)")
                 }
             }
             .store(in: &subscriptions)

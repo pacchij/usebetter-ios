@@ -67,6 +67,8 @@
 		C0016A1A283AD45300523EFF /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0016A18283AD45300523EFF /* AccountManager.swift */; };
 		C0016A1C2842864A00523EFF /* DashboardSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0016A1B2842864A00523EFF /* DashboardSettingsView.swift */; };
 		C0016A1D2842864A00523EFF /* DashboardSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0016A1B2842864A00523EFF /* DashboardSettingsView.swift */; };
+		C021F446294AB385009A5E1C /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C021F445294AB385009A5E1C /* Logger.swift */; };
+		C021F447294AB385009A5E1C /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C021F445294AB385009A5E1C /* Logger.swift */; };
 		C02D40E728568CBD00C28825 /* AmplifyModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02D40E428568CBD00C28825 /* AmplifyModels.swift */; };
 		C02D40E928568CD800C28825 /* AmplifyModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02D40E428568CBD00C28825 /* AmplifyModels.swift */; };
 		C0AD650228556AE700DF9400 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AD650128556AE700DF9400 /* API.swift */; };
@@ -145,6 +147,7 @@
 		C0016A09283A08BE00523EFF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0016A18283AD45300523EFF /* AccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		C0016A1B2842864A00523EFF /* DashboardSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardSettingsView.swift; sourceTree = "<group>"; };
+		C021F445294AB385009A5E1C /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		C02D40E428568CBD00C28825 /* AmplifyModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AmplifyModels.swift; path = amplify/generated/models/AmplifyModels.swift; sourceTree = "<group>"; };
 		C0AD650128556AE700DF9400 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		C0C1EDF92859622E00EB6AD5 /* graphql */ = {isa = PBXFileReference; lastKnownFileType = folder; path = graphql; sourceTree = "<group>"; };
@@ -330,6 +333,7 @@
 			isa = PBXGroup;
 			children = (
 				C00169DC28317C1400523EFF /* URLParser.swift */,
+				C021F445294AB385009A5E1C /* Logger.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -539,6 +543,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C02D40E728568CBD00C28825 /* AmplifyModels.swift in Sources */,
+				C021F446294AB385009A5E1C /* Logger.swift in Sources */,
 				C0C1EE0D285AC37C00EB6AD5 /* UBEvent.swift in Sources */,
 				C0016996282CD49D00523EFF /* DashboardHomeView.swift in Sources */,
 				C00169E72836086400523EFF /* FriendsFeedModel.swift in Sources */,
@@ -577,6 +582,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C021F447294AB385009A5E1C /* Logger.swift in Sources */,
 				C0016997282CD49D00523EFF /* DashboardHomeView.swift in Sources */,
 				C00169E82836086400523EFF /* FriendsFeedModel.swift in Sources */,
 				C00169EB2838A65600523EFF /* UpdateItemView.swift in Sources */,

@@ -10,11 +10,11 @@ import SwiftUI
 class DashboardHomeViewModel {
     private var items: [UBItem] = []
     init() {
-        print("init: DashboardHomeViewModel")
+        logger.log("init: DashboardHomeViewModel")
     }
     
     deinit {
-        print("deinit: DashboardHomeViewModel")
+        logger.log("deinit: DashboardHomeViewModel")
     }
     
     func items(searchTag: String?) -> [UBItem] {

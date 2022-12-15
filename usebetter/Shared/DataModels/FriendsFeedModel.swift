@@ -45,7 +45,7 @@ class FriendsFeedModel: ObservableObject {
     
     private var currentUserKey: String {
         guard let username = Amplify.Auth.getCurrentUser()?.username else {
-            print("FriendFeedModel: updateRemote: No local file exists")
+            logger.log("FriendFeedModel: updateRemote: No local file exists")
             return ""
         }
         return username + "/" + Constants.items
@@ -57,14 +57,14 @@ class FriendsFeedModel: ObservableObject {
             //1. get list of users except current user files
             self.s3FileManager.listUserFolders { list in
                 list.items.forEach { [unowned self] item in
-                    print("FriendsFeedModel: readCache \(item)")
+                    logger.log("FriendsFeedModel: readCache \(item.key)")
                     if item.key.suffix(4) != "json" {
                         return
                     }
                     if item.key != self.currentUserKey {
                         //2. download each user file into respective folder, only if remote file updated
                         if self.isRemoteFileChanged(key: item.key, lastModified: item.lastModified) {
-                            print("FriendFeedModel: readCache: RemoteFileChanged: downloading...")
+                            logger.log("FriendFeedModel: readCache: RemoteFileChanged: downloading...")
                             self.downloadFile(key: item.key) { result in
                                 //3. modify the downloaded file lastModifiedDate
                                 self.updateLastModifiedDate(key: item.key, lastModified: item.lastModified ?? Date())

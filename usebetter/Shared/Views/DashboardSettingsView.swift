@@ -44,9 +44,9 @@ struct DashboardSettingsView: View {
     } // body
     
     private func updateDisplayName() {
-        print("DashboardSettingsView: updateDisplayName")
+        logger.log("DashboardSettingsView: updateDisplayName")
         Amplify.Auth.update(userAttribute: AuthUserAttribute(AuthUserAttributeKey.custom("displayName"), value: $changedDisplayName.wrappedValue)) { error in
-            print("DashboardSettingsView: updateDisplayName error \(error)")
+            logger.log("DashboardSettingsView: updateDisplayName error ")
         }
     }
     private var userid: String {

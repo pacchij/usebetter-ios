@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import os
 
 import Amplify
 import AWSS3
@@ -118,34 +119,34 @@ class UserFeedModel: ObservableObject {
     
     private func readRemote(completion: @escaping (Bool)->Void) {
         guard let localURL = userFeedFile() else {
-            print("UserFeedModel: readRemote: No local file exists")
+            logger.log("UserFeedModel: readRemote: No local file exists")
             return
         }
         
         guard let username = Amplify.Auth.getCurrentUser()?.username else {
-            print("UserFeedModel: readRemote: No local file exists")
+            logger.log("UserFeedModel: readRemote: No local file exists")
             return
         }
         
         s3FileManager.downloadRemote(key: username+"/"+Constants.userFeed, localURL: localURL) { result in
-            print("UserFeedModel: readRemote: Completed: \(result)")
+            logger.log("UserFeedModel: readRemote: Completed: \(result)")
             completion(result)
         }
     }
     
     private func updateRemote() {
         guard let localURL = userFeedFile() else {
-            print("UserFeedModel: updateRemote: No local file exists")
+            logger.log("UserFeedModel: updateRemote: No local file exists")
             return
         }
         
         guard let username = Amplify.Auth.getCurrentUser()?.username else {
-            print("UserFeedModel: updateRemote: No local file exists")
+            logger.log("UserFeedModel: updateRemote: No local file exists")
             return
         }
         
         S3FileManager().updateRemote(key: username+"/"+Constants.userFeed, localURL: localURL) { result in
-            print("UserFeedModel: updateRemote: Completed: \(result)")
+            logger.log("UserFeedModel: updateRemote: Completed: \(result)")
         }
     }
     

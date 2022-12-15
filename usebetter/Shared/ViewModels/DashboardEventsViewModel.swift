@@ -107,7 +107,7 @@ class DashboardEventsViewModel {
             return invalidUIState
         }
         let eventState = EventState(rawValue: event.state) ?? EventState.archived
-        print("DashboardEventsViewModel: getUIState: currentUser \(currentUser.username) event.ownerID \(event.ownerid) eventState \(eventState)")
+        logger.log("DashboardEventsViewModel: getUIState: currentUser \(currentUser.username) event.ownerID \(event.ownerid) eventState \(eventState.rawValue)")
         if currentUser.username == event.ownerid {
             return eventsStateMachine[eventState]?.ownerUIState ?? invalidUIState
         }

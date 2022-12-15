@@ -14,16 +14,16 @@ import AWSS3StoragePlugin
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
+        logger.log("UseBetter Logging initialized")
         do {
             Amplify.Logging.logLevel = .verbose
             try Amplify.add(plugin: AWSCognitoAuthPlugin())
             try Amplify.add(plugin: AWSS3StoragePlugin()	)
             try Amplify.add(plugin: AWSAPIPlugin(modelRegistration: AmplifyModels()))
             try Amplify.configure()
-            print("Amplify configured with auth plugin")
+            logger.log("Amplify configured with auth plugin")
         } catch {
-            print("Failed to initialize Amplify with \(error)")
+            logger.log("Failed to initialize Amplify with \(error)")
         }
 
         return true

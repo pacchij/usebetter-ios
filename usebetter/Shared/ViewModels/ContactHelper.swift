@@ -14,7 +14,7 @@ class ContactHelper {
         
         hasAccess() { succeeded, value in
             guard succeeded && value == nil else {
-                print("ContactHelper: fullName: did not find contact")
+                logger.log("ContactHelper: fullName: did not find contact")
                 completionHandler(false, nil)
                 return
             }
@@ -36,7 +36,7 @@ class ContactHelper {
                 }
             }
             catch {
-                print("ContactHelper: fullName: Exception \(error)")
+                logger.log("ContactHelper: fullName: Exception \(error)")
             }
             completionHandler(false, nil)
         }

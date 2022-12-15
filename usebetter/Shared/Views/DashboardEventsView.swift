@@ -131,13 +131,13 @@ struct DashboardEventsView: View {
             }
         }
         .refreshable {
-            print("DashboardEventsView: refreshable. Reloadign Events")
+            logger.log("DashboardEventsView: refreshable. Reloadign Events")
             eventsModel.loadRemote()
         }
     } //Body
     
     func onSearchItem() {
-        print("on search")
+        logger.log("on search")
     }
     
     func backgroundColorByState(for state: EventState) -> Color {

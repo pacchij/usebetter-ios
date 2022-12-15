@@ -86,7 +86,7 @@ struct AddItemView: View {
             DispatchQueue.main.async {
                 guard let item = item else {
                     isURLParsing = .error
-                    print("AddItemView: parse callback return nil")
+                    logger.log("AddItemView: parse callback return nil")
                     return
                 }
                 self.item.name = item.name
@@ -97,7 +97,6 @@ struct AddItemView: View {
                 self.item.originalItemURL = $itemURL.wrappedValue
                  
                 userFeedData.append(item: self.item)
-                print("callback returned with item: ", item)
                 isURLParsing = .complete
             }
         }

@@ -23,7 +23,7 @@ class JsonInterpreter {
                     return []
                 }
                 
-                print("JsonInterpreter: read: file path \(pathWithFilename.path)")
+                logger.log("JsonInterpreter: read: file path \(pathWithFilename.path)")
                 let jsonString = try String(contentsOfFile: pathWithFilename.path, encoding: String.Encoding.utf8)
                 let dataString = Data(jsonString.utf8)
                 
@@ -31,7 +31,7 @@ class JsonInterpreter {
                 let model = try decoder.decode([T].self, from: dataString)
                 return model
             } catch {
-                print("JsonInterpreter: read: Exception \(error)")
+                logger.log("JsonInterpreter: read: Exception \(error)")
             }
         }
         return []
@@ -41,13 +41,13 @@ class JsonInterpreter {
 //        if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
 //            let pathWithFilename = documentDirectory.appendingPathComponent(filePath)
 //            do {
-//                print("UserFeedModel: Writing to local file \(pathWithFilename.path)")
+//                logger.log("UserFeedModel: Writing to local file \(pathWithFilename.path)")
 //                try jsonString.write(to: pathWithFilename,
 //                                     atomically: true,
 //                                     encoding: .utf8)
 //                return true
 //            } catch {
-//                print("JsonInterpreter: write: Exception \(error)")
+//                logger.log("JsonInterpreter: write: Exception \(error)")
 //            }
 //        }
 //        return false
@@ -63,11 +63,11 @@ class JsonInterpreter {
             if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
                 let pathWithFilename = documentDirectory.appendingPathComponent(filePath)
                 
-                print("JsonInterpreter: write: file path \(pathWithFilename.path)")
+                logger.log("JsonInterpreter: write: file path \(pathWithFilename.path)")
                 try jsonString.write(to: pathWithFilename, atomically: true, encoding: .utf8)
             }
         } catch {
-            print("JsonInterpreter: write: data Exception \(error)")
+            logger.log("JsonInterpreter: write: data Exception \(error)")
         }
     }
 }

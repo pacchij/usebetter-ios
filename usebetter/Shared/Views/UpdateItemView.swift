@@ -84,7 +84,7 @@ struct UpdateItemView: View {
                     
                     Button(action: {
                         delegate.showPicker = true
-                        print("button clicked")
+                        logger.log("button clicked")
                     }) {
                         Image(systemName: "plus.bubble.fill")
                             .renderingMode(.original)
