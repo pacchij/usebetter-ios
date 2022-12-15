@@ -29,6 +29,18 @@ class S3FileManager {
         }
         receiveValue: { data in
             print("S3FileManager: readRemote: Completed: \(data)")
+            Amplify.Storage.getURL(key: key)
+                .resultPublisher
+                .sink { data in
+                    print("S3FileManager: readRemote: getURL: sink: \(data)")
+                }
+        receiveValue: { data in
+                    print("S3FileManager: readRemote: getURL: reeciveValue: \(data)")
+                }
+        .store(in: &self.bag)
+                
+            
+            
             completion(true)
         }
         .store(in: &bag)

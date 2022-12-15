@@ -64,7 +64,7 @@ class UserFeedModel: ObservableObject {
     
     private func readCache() {
         DispatchQueue.global().async {
-            self.userRemoteItems = JsonInterpreter(filePath: Constants.userFeed).read()
+            self.userRemoteItems = JsonInterpreter(filePath: Constants.userFeed).read(type: UBItemRemote.self)
             if self.userRemoteItems.isEmpty {
                   self.readRemote() { result in
                       if result == true {
@@ -111,7 +111,7 @@ class UserFeedModel: ObservableObject {
                 remoteItem.ownerid = item.ownerid
                 self.userRemoteItems.append(remoteItem)
             }
-            JsonInterpreter(filePath: Constants.userFeed).write(data1: self.userRemoteItems)
+            JsonInterpreter(filePath: Constants.userFeed).write(data: self.userRemoteItems)
             self.updateRemote()
         }
     }

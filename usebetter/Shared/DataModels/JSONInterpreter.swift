@@ -15,7 +15,7 @@ class JsonInterpreter {
         self.filePath = filePath
     }
     
-    func read() -> [UBItemRemote] {
+    func read<T: Decodable>(type: T.Type) -> [T] {
         if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
             let pathWithFilename = documentDirectory.appendingPathComponent(filePath)
             do {
@@ -28,7 +28,7 @@ class JsonInterpreter {
                 let dataString = Data(jsonString.utf8)
                 
                 let decoder = JSONDecoder()
-                let model = try decoder.decode([UBItemRemote].self, from: dataString)
+                let model = try decoder.decode([T].self, from: dataString)
                 return model
             } catch {
                 print("JsonInterpreter: read: Exception \(error)")
@@ -37,25 +37,25 @@ class JsonInterpreter {
         return []
     }
     
-    func write(jsonString: String) -> Bool {
-        if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            let pathWithFilename = documentDirectory.appendingPathComponent(filePath)
-            do {
-                print("UserFeedModel: Writing to local file \(pathWithFilename.path)")
-                try jsonString.write(to: pathWithFilename,
-                                     atomically: true,
-                                     encoding: .utf8)
-                return true
-            } catch {
-                print("JsonInterpreter: write: Exception \(error)")
-            }
-        }
-        return false
-    }
+//    func write(jsonString: String) -> Bool {
+//        if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+//            let pathWithFilename = documentDirectory.appendingPathComponent(filePath)
+//            do {
+//                print("UserFeedModel: Writing to local file \(pathWithFilename.path)")
+//                try jsonString.write(to: pathWithFilename,
+//                                     atomically: true,
+//                                     encoding: .utf8)
+//                return true
+//            } catch {
+//                print("JsonInterpreter: write: Exception \(error)")
+//            }
+//        }
+//        return false
+//    }
     
-    func write(data1: [UBItemRemote]) {
+    func write<T: Encodable>(data: [T]) {
         do {
-            let jsonData = try JSONEncoder().encode(data1)
+            let jsonData = try JSONEncoder().encode(data)
             guard let jsonString = String(data: jsonData, encoding: .utf8) else {
                 return
             }

@@ -9,9 +9,15 @@ import Foundation
 import Amplify
 import Combine
 
+struct UBMetaData : Codable {
+    var lastModified: String?
+}
+
+
 class FriendsFeedModel: ObservableObject {
-     struct Constants {
-         static var items = "items.json"
+    struct Constants {
+        static var items = "items.json"
+        static var metaData = "metaData.json"
     }
     
     @Published var friendsItems: [UBItem] = []
@@ -39,7 +45,7 @@ class FriendsFeedModel: ObservableObject {
     
     private var currentUserKey: String {
         guard let username = Amplify.Auth.getCurrentUser()?.username else {
-            print("UserFeedModel: updateRemote: No local file exists")
+            print("FriendFeedModel: updateRemote: No local file exists")
             return ""
         }
         return username + "/" + Constants.items
@@ -50,23 +56,59 @@ class FriendsFeedModel: ObservableObject {
             
             //1. get list of users except current user files
             self.s3FileManager.listUserFolders { list in
-                list.items.forEach { item in
+                list.items.forEach { [unowned self] item in
                     print("FriendsFeedModel: readCache \(item)")
                     if item.key.suffix(4) != "json" {
                         return
                     }
                     if item.key != self.currentUserKey {
-                        //2. download each user file into respective folder
-                        self.downloadFile(key: item.key) { result in
-                            //3. load each file
-                            let friendItems = JsonInterpreter(filePath: item.key).read()
-                            //4. update each file content in user thread
-                            self.convertRemoteData(friendUsername: self.friendUserId(key: item.key) ?? "", remoteFriendsItems: friendItems)
+                        //2. download each user file into respective folder, only if remote file updated
+                        if self.isRemoteFileChanged(key: item.key, lastModified: item.lastModified) {
+                            print("FriendFeedModel: readCache: RemoteFileChanged: downloading...")
+                            self.downloadFile(key: item.key) { result in
+                                //3. modify the downloaded file lastModifiedDate
+                                self.updateLastModifiedDate(key: item.key, lastModified: item.lastModified ?? Date())
+                                self.loadFile(key: item.key)
+                            }
+                        }
+                        else {
+                            self.loadFile(key: item.key)
                         }
                     }
                 }
             }
         }
+    }
+    
+    private func loadFile(key: String) {
+        //4. load each file
+        let friendItems = JsonInterpreter(filePath: key).read(type: UBItemRemote.self)
+        //5. update each file content in user thread
+        self.convertRemoteData(friendUsername: self.friendUserId(key: key) ?? "", remoteFriendsItems: friendItems)
+    }
+    private func isRemoteFileChanged(key: String, lastModified: Date?) ->  Bool {
+        guard let remoteLastModified = lastModified else {
+            return true
+        }
+        let friendPath = friendDocumentDirectory(key: key)
+        let metadataFilename = friendPath.appendingPathComponent(Constants.items)
+        
+        if !FileManager.default.fileExists(atPath: metadataFilename.path) {
+            return true
+        }
+        else {
+            guard let attrs = try? FileManager.default.attributesOfItem(atPath: metadataFilename.path) else {
+                return true
+            }
+            guard let lastModifiedDateFromFile = attrs[FileAttributeKey.modificationDate] as? Date else {
+                return true
+            }
+            
+            if lastModifiedDateFromFile < remoteLastModified {
+                return true
+            }
+        }
+        return false
     }
     
     private func friendUserId(key: String) -> String? {
@@ -77,21 +119,35 @@ class FriendsFeedModel: ObservableObject {
     }
     
     private func downloadFile(key: String, completion: @escaping (Bool)->Void) {
-        
-        if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            guard let friendUsername = friendUserId(key: key) else {
-                return completion(false)
-            }
-            let friendPath = documentDirectory.appendingPathComponent(friendUsername)
-            if !FileManager.default.fileExists(atPath: friendPath.path) {
-                try! FileManager.default.createDirectory(at: friendPath, withIntermediateDirectories: true)
-            }
-            let pathWithFilename = friendPath.appendingPathComponent(Constants.items)
-            s3FileManager.downloadRemote(key: key, localURL: pathWithFilename) { result in
-                completion(result)
-            }
+        let friendPath = friendDocumentDirectory(key: key)
+        let pathWithFilename = friendPath.appendingPathComponent(Constants.items)
+        s3FileManager.downloadRemote(key: key, localURL: pathWithFilename) { result in
+            completion(result)
         }
+    }
+    
+    private func updateLastModifiedDate(key: String, lastModified: Date) {
+        let friendPath = friendDocumentDirectory(key: key)
+        let pathWithFilename = friendPath.appendingPathComponent(Constants.items)
         
+        var attrs: [FileAttributeKey: Any] = [:]
+        attrs[FileAttributeKey.modificationDate] = lastModified
+        
+        try? FileManager.default.setAttributes(attrs, ofItemAtPath: pathWithFilename.path)
+    }
+    
+    private func friendDocumentDirectory(key: String) -> URL {
+        guard let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
+            fatalError("FriendsFeedModel: friendDocumentDirectory: invalid document directory")
+        }
+        guard let friendUsername = friendUserId(key: key) else {
+            fatalError("FriendsFeedModel: friendDocumentDirectory: invalid user id")
+        }
+        let friendPath = documentDirectory.appendingPathComponent(friendUsername)
+        if !FileManager.default.fileExists(atPath: friendPath.path) {
+            try! FileManager.default.createDirectory(at: friendPath, withIntermediateDirectories: true)
+        }
+        return friendPath
     }
     
     private func convertRemoteData() {
