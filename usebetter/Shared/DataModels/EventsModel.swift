@@ -28,8 +28,8 @@ enum EventState: Int {
 }
 
 class EventsModel: ObservableObject {
-    @Published var events: [UBEvent] = []
-    @Published var mappedItems: [String: UBEvent] = [:]
+    var events: [UBEvent] = []
+    var mappedItems: [String: UBEvent] = [:]
     private var userfeed: UserFeedModel?
     private var friendsFeed: FriendsFeedModel?
     private var subscriptions = Set<AnyCancellable>()

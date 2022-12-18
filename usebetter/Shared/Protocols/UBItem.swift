@@ -11,7 +11,7 @@ import CoreData
 struct UBItem : Identifiable {
     var name: String
     var itemid: UUID
-    var ownerid: String = AccountManager.sharedInstance.currentUsername!
+    var ownerid: String = AccountManager.sharedInstance.currentUsername ?? ""
     var itemCount: Int = 1
     var tags: [String] = []
     var imageURL: String?

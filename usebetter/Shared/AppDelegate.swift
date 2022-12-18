@@ -12,7 +12,11 @@ import SwiftUI
 import AWSAPIPlugin
 import AWSS3StoragePlugin
 
-class AppDelegate: NSObject, UIApplicationDelegate {
+import Firebase
+import FirebaseMessaging
+import UserNotifications
+
+class AppDelegate: NSObject, UIApplicationDelegate, MessagingDelegate, UNUserNotificationCenterDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         logger.log("UseBetter Logging initialized")
         do {
@@ -25,7 +29,29 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         } catch {
             logger.log("Failed to initialize Amplify with \(error)")
         }
-
+        
+        FirebaseApp.configure()
+        
+        Messaging.messaging().delegate = self
+        UNUserNotificationCenter.current().delegate = self
+        UNUserNotificationCenter.current().requestAuthorization() { succeess, error in
+            guard succeess else {
+                logger.log("[AppDelegate] request authorization failed")
+                return
+            }
+        }
+        
+        application.registerForRemoteNotifications()
+        
         return true
+    }
+    
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+        messaging.token { token, _ in
+            guard let token = token else {
+                return
+            }
+            logger.log("[AppDelegate] messaging token is \(token)")
+        }
     }
 }
