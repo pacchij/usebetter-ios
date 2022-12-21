@@ -28,8 +28,8 @@ enum EventState: Int {
 }
 
 class EventsModel: ObservableObject {
-    var events: [UBEvent] = []
-    var mappedItems: [String: UBEvent] = [:]
+    @Published var events: [UBEvent] = []
+    @Published var mappedItems: [String: UBEvent] = [:]
     private var userfeed: UserFeedModel?
     private var friendsFeed: FriendsFeedModel?
     private var subscriptions = Set<AnyCancellable>()
@@ -156,6 +156,10 @@ class EventsModel: ObservableObject {
         }
     }
     
+    func event(by id: String) -> UBEvent? {
+        mappedItems[id]
+    }
+    
     private func updateMappedItems(eventsToMerge: List<UBEvent>) {
         DispatchQueue.main.async {
             logger.log("EventsModel: updateMappedItems: \(eventsToMerge.count)")
@@ -195,5 +199,9 @@ class EventsModel: ObservableObject {
                 }
             }
             .store(in: &subscriptions)
+    }
+    
+    func filteredEvents() -> [UBEvent] {
+        return self.events
     }
 }

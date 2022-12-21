@@ -10,9 +10,8 @@ import SwiftUI
 struct DashboardHomeView: View {
     @State var searchText: String
     @EnvironmentObject var friendsFeedData: FriendsFeedModel
-    var items: [GridItem] {
-        Array(repeating: .init(.flexible()), count: 3)
-    }
+    private static let iconSize = CGFloat(90)
+    let columns = [GridItem(.adaptive(minimum: DashboardHomeView.iconSize))]
     var body: some View {
         NavigationView {
         ZStack(alignment: .top) {
@@ -44,14 +43,14 @@ struct DashboardHomeView: View {
             VStack(spacing: 0) {
                 ScrollView(.vertical, showsIndicators: false) {
                     Spacer()
-                    LazyVGrid(columns: items, spacing: 10) {
+                    LazyVGrid(columns: columns) {
                         ForEach(friendsFeedData.filteredItems(searchText: $searchText.wrappedValue)) { item in
                             NavigationLink(destination: ReadOnlyItemView(item: item), label: {
                                 if let imageURL = item.imageURL {
                                     AsyncImage(url: URL(string: imageURL)) { image in
                                         image.resizable()
                                             .scaledToFit()
-                                            .frame(width: 120, height: 120,  alignment: .center)
+                                            .frame(width: DashboardHomeView.iconSize, height: DashboardHomeView.iconSize,  alignment: .center)
                                     } placeholder: {
                                         ProgressView()
                                     }
@@ -60,22 +59,20 @@ struct DashboardHomeView: View {
                                     AsyncImage(url: URL(string: "notAvailable")) { image in
                                         image.resizable()
                                             .scaledToFit()
-                                            .frame(width: 120, height: 120,  alignment: .center)
+                                            .frame(width: DashboardHomeView.iconSize, height: DashboardHomeView.iconSize,  alignment: .center)
                                     } placeholder: {
                                         ProgressView()
                                     }
                                 }
                             })
                         }
-                        Spacer()
-                            .frame(height: 20)
+                        .padding(5)
+                        .overlay( RoundedRectangle(cornerRadius: 16).stroke(Color.blue.opacity(0.2), lineWidth: 1))
                     }
                 }
                 .padding()
             }
-            .foregroundColor(Color.black.opacity(0.7))
             .padding()
-            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .leading)
             .offset(x:0, y:40)
         }
         .navigationBarHidden(true)

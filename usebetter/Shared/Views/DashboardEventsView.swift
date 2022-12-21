@@ -15,7 +15,7 @@ struct DashboardEventsView: View {
     @State var secondaryActionButtonText = "Cancel"
     @State var detailedSummaryLabelText = ""
     @State var isPreview = false
-    
+    private var localEvents: [UBEvent] = []
     private let dashboardEventsViewModel = DashboardEventsViewModel()
     
     @EnvironmentObject var eventsModel: EventsModel
@@ -25,109 +25,24 @@ struct DashboardEventsView: View {
     var body: some View {
         NavigationView {
             ZStack(alignment: .top) {
-
-                HStack {
-                    Image(systemName: "magnifyingglass.circle.fill")
-                        .foregroundColor(.gray)
-                        .padding(0)
-                        .font(.largeTitle)
-                        .frame(alignment: .topLeading)
-                    TextField("Search", text: $searchText)
-                    .font(.body)
-                    .multilineTextAlignment(.center)
-                    .padding()
-                    .textFieldStyle(.roundedBorder)
-                    .onSubmit {
-                        onSearchItem()
-                    }
-                    Spacer()
-                }
-                .frame(minWidth: 0, maxHeight: 30, alignment: .topLeading)
-                .padding(5)
-                .offset(x:5, y: 5)
-                
                 VStack(spacing: 0) {
                     Spacer()
-                        .frame(height: 70)
+                        .frame(height: 10)
                     Text("Events")
                         .font(.title)
+                        .frame(maxWidth: .infinity, alignment: .topLeading)
                     
-                   
                     ScrollView(.vertical, showsIndicators: false) {
                         if eventsModel.events.count == 0 {
                             Text("No Events found")
                         }
                         else {
-                            ForEach(eventsModel.events.indices, id:\.self) { index in
-                                if let item = eventsModel.item(by: eventsModel.events[index].itemid)
-                                {
-                                HStack {
-                                   
-                                    NavigationLink(destination: ActionItemView(index: index).environmentObject(eventsModel), label: {
-                                        if let imageURL = item.imageURL {
-                                            AsyncImage(url: URL(string: imageURL)) { image1 in
-                                                image1.resizable()
-                                                    .scaledToFit()
-                                                    .frame(width: 120, height: 120,  alignment: .leading)
-                                            } placeholder: {
-                                                ProgressView()
-                                            }
-                                        }
-                                        else {
-                                              Image("notAvailable")
-                                                .resizable()
-                                                .scaledToFit()
-                                                .frame(width: 120, height: 120,  alignment: .leading)
-                                        }
-                                    
-                                    
-                                    VStack {
-                                        let uiState = dashboardEventsViewModel.getUIState(for: eventsModel.events[index], isPreview)
-                                        
-                                        Text(uiState.label)
-                                            .frame(alignment: .topLeading)
-                                            .foregroundColor(Color.gray)
-                                            
-                                        Spacer()
-                                        Text(eventReceiverName(event: eventsModel.events[index]))
-                                            .foregroundColor(Color.orange.opacity(0.5))
-                                            //.font(.title2)
-                                        Spacer()
-                                        HStack {
-                                            if let pbText = uiState.primaryButtonText {
-                                                Button(pbText, action: {
-                                                    eventsModel.updateEventState(by: eventsModel.events[index].id, newState: uiState.primaryButtonActionState ?? EventState.archived)
-                                                })
-                                                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .leading)
-                                                .padding(10)
-                                            }
-                                            
-                                            if let sbText = uiState.secondaryButtonText {
-                                                Button(sbText, action: {
-                                                    eventsModel.updateEventState(by: eventsModel.events[index].id, newState: uiState.secondaryButtonActionState ?? EventState.archived)
-                                                })
-                                                .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .trailing)
-                                                .padding(10)
-                                            }
-                                        } //HStack for buttons
-                                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .trailing)
-                                    } //VStack for right side texts
-                                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .trailing)
-                                    }) //End of navigation
-                                } //HSTck for each Row
-                                .padding(5)
-                                .frame(alignment: .top)
-                                }
-                            } //end of forEach
-                            .background(Color.cyan.opacity(0.2))
-                            .frame(height: 130,  alignment: .center)
-                            .padding([.trailing, .leading], 2)
-                    } //scroll view
+                            DashboardEventsGridView()
+                        } //scroll view
                     } //else
                     .navigationBarHidden(true)
-                    .edgesIgnoringSafeArea([.bottom])
+                    //.edgesIgnoringSafeArea([.])
                 } //VStack
-                 
             }
         }
         .refreshable {
@@ -148,6 +63,87 @@ struct DashboardEventsView: View {
             return Color.green.opacity(0.5)
         }
     }
+}
+
+struct DashboardEventsView_Previews: PreviewProvider {
+    static var previews: some View {
+        
+        DashboardEventsView()
+            .environmentObject(EventsModel())
+        
+    }
+}
+
+struct DashboardEventsGridView: View {
+    private var localEvents: [UBEvent] = []
+    private let dashboardEventsViewModel = DashboardEventsViewModel()
+    @EnvironmentObject var eventsModel: EventsModel
+    private static let iconSize = CGFloat(60)
+    var body: some View {
+        VStack{
+            ForEach(eventsModel.events, id: \.id) { currentEvent in
+                VStack {
+                    if let item = eventsModel.item(by: currentEvent.itemid) {
+                    NavigationLink(destination: ReadOnlyItemView(item: item).environmentObject(eventsModel), label: {
+                        if let imageURL = item.imageURL {
+                            AsyncImage(url: URL(string: imageURL)) { localImage in
+                                localImage.resizable()
+                                    .scaledToFit()
+                                    .frame(width: DashboardEventsGridView.iconSize, height: DashboardEventsGridView.iconSize,  alignment: .topLeading)
+                            } placeholder: {
+                                ProgressView()
+                            }
+                            
+                        }
+                        else {
+                            Image("notAvailable")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: DashboardEventsGridView.iconSize, height: DashboardEventsGridView.iconSize,  alignment: .topLeading)
+                        }
+                        
+                        VStack {
+                            let uiState = dashboardEventsViewModel.getUIState(for: currentEvent, false)
+                            
+                            Text(uiState.label)
+                                .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                                .foregroundColor(Color.gray)
+                            Spacer()
+                            Text(eventReceiverName(event: currentEvent))
+                                .foregroundColor(Color.orange.opacity(0.5))
+                                .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                            Spacer()
+                            HStack {
+                                if let pbText = uiState.primaryButtonText {
+                                    Button(pbText, action: {
+                                        eventsModel.updateEventState(by: currentEvent.id, newState: uiState.primaryButtonActionState ?? EventState.archived)
+                                    })
+                                    //                                                .overlay( RoundedRectangle(cornerRadius: 16).stroke(Color.blue.opacity(0.5), lineWidth: 1))
+                                    .padding(10)
+                                }
+                                
+                                if let sbText = uiState.secondaryButtonText {
+                                    Button(sbText, action: {
+                                        eventsModel.updateEventState(by: currentEvent.id, newState: uiState.secondaryButtonActionState ?? EventState.archived)
+                                    })
+                                    //                                                .overlay( RoundedRectangle(cornerRadius: 16).stroke(Color.blue.opacity(0.5), lineWidth: 1))
+                                    .padding(10)
+                                }
+                            } //HStack for buttons
+                            .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                        } //VStack for right side texts
+                        .frame(minWidth: 0, maxWidth: .infinity, alignment: .leading)
+                    }) //End of navigation
+                }
+                            } //VSTck for each Row
+                            .padding(5)
+                            .overlay( RoundedRectangle(cornerRadius: 16).stroke(Color.blue.opacity(0.5), lineWidth: 1))
+            } //end of forEach
+            .padding([.trailing, .leading], 5)
+            .frame(width: UIScreen.main.bounds.width)
+        }
+        .frame(width: UIScreen.main.bounds.width)
+    }
     
     private func eventReceiverName(event: UBEvent) -> String {
         if event.ownerid == (AccountManager.sharedInstance.currentUsername ?? "") {
@@ -159,11 +155,12 @@ struct DashboardEventsView: View {
     }
 }
 
-struct DashboardEventsView_Previews: PreviewProvider {
+
+struct DashboardEventsGridView_Previews: PreviewProvider {
     static var previews: some View {
         
-        DashboardEventsView(isPreview: true)
+        DashboardEventsView()
             .environmentObject(EventsModel())
-            
+        
     }
 }

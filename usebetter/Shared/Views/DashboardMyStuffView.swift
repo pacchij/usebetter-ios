@@ -13,9 +13,8 @@ struct DashboardMyStuffView: View {
     @State var onItemClicked: Bool = false
     @EnvironmentObject var userFeedData: UserFeedModel
     let dvm = DashboardHomeViewModel()
-    var items: [GridItem] {
-        Array(repeating: .init(.flexible()), count: 3)
-    }
+    private static let iconSize = CGFloat(90)
+    let columns = [GridItem(.adaptive(minimum: DashboardMyStuffView.iconSize))]
     var body: some View {
         NavigationView {
         ZStack(alignment: .top) {
@@ -51,14 +50,14 @@ struct DashboardMyStuffView: View {
             VStack(spacing: 0) {
                 ScrollView(.vertical, showsIndicators: false) {
                     Spacer()
-                    LazyVGrid(columns: items, spacing: 10) {
+                    LazyVGrid(columns: columns) {
                         ForEach(userFeedData.filteredItems(searchText: $searchText.wrappedValue)) { item in
                             NavigationLink(destination: UpdateItemView(itemId: item.itemid, itemName: item.name, itemCount: String(item.itemCount)).environmentObject(userFeedData), label: {
                                     if let imageURL = item.imageURL {
                                         AsyncImage(url: URL(string: imageURL)) { image1 in
                                             image1.resizable()
                                                 .scaledToFit()
-                                                .frame(width: 120, height: 120,  alignment: .center)
+                                                .frame(width: DashboardMyStuffView.iconSize, height: DashboardMyStuffView.iconSize,  alignment: .center)
                                         } placeholder: {
                                             ProgressView()
                                         }
@@ -67,16 +66,18 @@ struct DashboardMyStuffView: View {
                                         Image("notAvailable")
                                             .resizable()
                                             .scaledToFit()
-                                            .frame(width: 120, height: 120,  alignment: .center)
+                                            .frame(width: DashboardMyStuffView.iconSize, height: DashboardMyStuffView.iconSize,  alignment: .center)
                                     }
                                 })
                         }
+                        .padding(5)
+                        .overlay( RoundedRectangle(cornerRadius: 16).stroke(Color.blue.opacity(0.2), lineWidth: 1))
                     }
                 }
                 .padding()
             }
             .foregroundColor(Color.black.opacity(0.7))
-            .padding()
+            //.padding()
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity, alignment: .leading)
             .offset(x:0, y:40)
         }

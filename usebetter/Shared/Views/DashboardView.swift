@@ -42,6 +42,11 @@ struct DashboardView: View {
                     Label("Settings", systemImage: "gearshape")
                 }
         }
+        .onAppear {
+            let tabBarAppearance = UITabBarAppearance()
+            tabBarAppearance.configureWithDefaultBackground()
+            UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
+        }
     }
 }
 
