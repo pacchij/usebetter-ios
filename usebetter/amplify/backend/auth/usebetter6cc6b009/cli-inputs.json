@@ -36,7 +36,7 @@
     "sharedId": "6cc6b009",
     "resourceName": "usebetter6cc6b009",
     "authSelections": "identityPoolAndUserPool",
-    "useDefault": "manual",
+    "useDefault": "defaultSocial",
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
@@ -55,15 +55,23 @@
     },
     "breakCircularDependency": true,
     "dependsOn": [],
-    "thirdPartyAuth": true,
-    "authProviders": [],
     "userPoolGroups": false,
     "adminQueries": false,
     "triggers": {},
-    "hostedUI": false,
+    "hostedUI": true,
     "parentStack": {
       "Ref": "AWS::StackId"
     },
-    "permissions": []
+    "permissions": [],
+    "hostedUIDomainName": "usebetter",
+    "authProvidersUserPool": [
+      "SignInWithApple"
+    ],
+    "hostedUIProviderMeta": "[{\"ProviderName\":\"SignInWithApple\",\"authorize_scopes\":\"email\",\"AttributeMapping\":{\"email\":\"email\"}}]",
+    "authProviders": [],
+    "signinwithappleAuthorizeScopes": [
+      "email"
+    ],
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"usebetter://\"],\"LogoutURLs\":[\"usebettter://\"]}"
   }
 }

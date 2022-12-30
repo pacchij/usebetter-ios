@@ -67,55 +67,55 @@ class EventsModel: ObservableObject {
     }
     
     private func loadEvensByOwner() {
-        let keys = UBEvent.keys
-        let predicateByOwner = keys.ownerid == AccountManager.sharedInstance.currentUsername
+//        let keys = UBEvent.keys
+//        let predicateByOwner = keys.ownerid == AccountManager.sharedInstance.currentUsername
         
-        byOwnerSink = Amplify.API.query(request: .paginatedList(UBEvent.self, where: predicateByOwner, limit: 100 ))
-            .resultPublisher
-            .sink {
-                self.byOwnerSink.cancel()
-                if case let .failure(error) = $0 {
-                    logger.log("EventsModel: loadEvensByOwner: failed to query events \(error)")
-                }
-            }
-            receiveValue: { result in
-                switch result {
-                case .success(let eventsFromDB):
-                    if eventsFromDB.isEmpty {
-                        logger.log("EventsModel: loadEvensByOwner: no events found")
-                    }
-                    logger.log("EventsModel: loadEvensByOwner: events read")
-                    self.updateMappedItems(eventsToMerge: eventsFromDB)
-                case .failure(let error):
-                    logger.log("EventsModel: loadEvensByOwner: failed \(error)")
-                }
-            }
+//        byOwnerSink = Amplify.API.query(request: .paginatedList(UBEvent.self, where: predicateByOwner, limit: 100 ))
+//            .resultPublisher
+//            .sink {
+//                self.byOwnerSink.cancel()
+//                if case let .failure(error) = $0 {
+//                    logger.log("EventsModel: loadEvensByOwner: failed to query events \(error)")
+//                }
+//            }
+//            receiveValue: { result in
+//                switch result {
+//                case .success(let eventsFromDB):
+//                    if eventsFromDB.isEmpty {
+//                        logger.log("EventsModel: loadEvensByOwner: no events found")
+//                    }
+//                    logger.log("EventsModel: loadEvensByOwner: events read")
+//                    self.updateMappedItems(eventsToMerge: eventsFromDB)
+//                case .failure(let error):
+//                    logger.log("EventsModel: loadEvensByOwner: failed \(error)")
+//                }
+//            }
     }
     
     private func loadEventsByReceiver() {
-        let keys = UBEvent.keys
-        let predicateByReceiver = keys.receiverid == AccountManager.sharedInstance.currentUsername
+//        let keys = UBEvent.keys
+//        let predicateByReceiver = keys.receiverid == AccountManager.sharedInstance.currentUsername
         
-        byReceiverSink = Amplify.API.query(request: .paginatedList(UBEvent.self, where: predicateByReceiver, limit: 100 ))
-            .resultPublisher
-            .sink {
-                self.byReceiverSink.cancel()
-                if case let .failure(error) = $0 {
-                    logger.log("EventsModel: loadEventsByReceiver: failed to query events \(error)")
-                }
-            }
-            receiveValue: { result in
-                switch result {
-                case .success(let eventsFromDB):
-                    if eventsFromDB.isEmpty {
-                        logger.log("EventsModel: loadEventsByReceiver: no events found")
-                    }
-                    logger.log("EventsModel: loadEventsByReceiver: events read")
-                    self.updateMappedItems(eventsToMerge: eventsFromDB)
-                case .failure(let error):
-                    logger.log("EventsModel: loadEventsByReceiver: failed to query events \(error)")
-                }
-            }
+//        byReceiverSink = Amplify.API.query(request: .paginatedList(UBEvent.self, where: predicateByReceiver, limit: 100 ))
+//            .resultPublisher
+//            .sink {
+//                self.byReceiverSink.cancel()
+//                if case let .failure(error) = $0 {
+//                    logger.log("EventsModel: loadEventsByReceiver: failed to query events \(error)")
+//                }
+//            }
+//            receiveValue: { result in
+//                switch result {
+//                case .success(let eventsFromDB):
+//                    if eventsFromDB.isEmpty {
+//                        logger.log("EventsModel: loadEventsByReceiver: no events found")
+//                    }
+//                    logger.log("EventsModel: loadEventsByReceiver: events read")
+//                    self.updateMappedItems(eventsToMerge: eventsFromDB)
+//                case .failure(let error):
+//                    logger.log("EventsModel: loadEventsByReceiver: failed to query events \(error)")
+//                }
+//            }
     }
     
     func createRequest(for item: UBItem, byOwner: Bool = false) {
@@ -125,22 +125,22 @@ class EventsModel: ObservableObject {
                          receiverid: AccountManager.sharedInstance.currentUsername!,
                               state: stateValue)
         
-        Amplify.API.mutate(request: .create(tr))
-            .resultPublisher
-            .sink {
-                if case let .failure(error) = $0 {
-                    logger.log("EventsModel: sendRequest: failed to create events \(error)")
-                }
-            }
-            receiveValue: { result in
-                switch result {
-                case .success(_):
-                    logger.log("EventsModel: sendRequest: successfull")
-                case .failure(let error):
-                    logger.log("EventsModel: sendRequest: receiveValue failed to create evnets \(error)")
-                }
-            }
-            .store(in: &subscriptions)
+//        Amplify.API.mutate(request: .create(tr))
+//            .resultPublisher
+//            .sink {
+//                if case let .failure(error) = $0 {
+//                    logger.log("EventsModel: sendRequest: failed to create events \(error)")
+//                }
+//            }
+//            receiveValue: { result in
+//                switch result {
+//                case .success(_):
+//                    logger.log("EventsModel: sendRequest: successfull")
+//                case .failure(let error):
+//                    logger.log("EventsModel: sendRequest: receiveValue failed to create evnets \(error)")
+//                }
+//            }
+//            .store(in: &subscriptions)
     }
     
     func item(by id: String) -> UBItem? {
@@ -182,23 +182,23 @@ class EventsModel: ObservableObject {
         }
         
         //Event update is new record DB, this way old transaction is not overwritten
-        Amplify.API.mutate(request: .create(event))
-            .resultPublisher
-            .sink {
-                if case let .failure(error) = $0 {
-                    logger.log("EventsModel: sendRequest: failed to create events \(error)")
-                }
-            }
-            receiveValue: { result in
-                switch result {
-                case .success(_):
-                    logger.log("EventsModel: sendRequest: successfull")
-                    self.loadEventsByReceiver()
-                case .failure(let error):
-                    logger.log("EventsModel: sendRequest: receiveValue failed to create evnets \(error)")
-                }
-            }
-            .store(in: &subscriptions)
+//        Amplify.API.mutate(request: .create(event))
+//            .resultPublisher
+//            .sink {
+//                if case let .failure(error) = $0 {
+//                    logger.log("EventsModel: sendRequest: failed to create events \(error)")
+//                }
+//            }
+//            receiveValue: { result in
+//                switch result {
+//                case .success(_):
+//                    logger.log("EventsModel: sendRequest: successfull")
+//                    self.loadEventsByReceiver()
+//                case .failure(let error):
+//                    logger.log("EventsModel: sendRequest: receiveValue failed to create evnets \(error)")
+//                }
+//            }
+//            .store(in: &subscriptions)
     }
     
     func filteredEvents() -> [UBEvent] {

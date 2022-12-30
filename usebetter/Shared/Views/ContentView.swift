@@ -36,7 +36,7 @@ struct ContentView: View {
     var body: some View {
         switch viewRouter.currentPage {
         case .signUp:
-            if Amplify.Auth.getCurrentUser() == nil {
+            if AccountManager.sharedInstance.currentUsername == nil {
                 SignUpView().environmentObject(viewRouter)
             }
             else {

@@ -1,3 +1,10 @@
+//
+//  UBEvent.swift
+//  usebetter
+//
+//  Created by Prashanth Jaligama on 12/29/22.
+//
+
 // swiftlint:disable all
 import Amplify
 import Foundation
@@ -40,3 +47,4 @@ public struct UBEvent: Model {
       self.updatedAt = updatedAt
   }
 }
+

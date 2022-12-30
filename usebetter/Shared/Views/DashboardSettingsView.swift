@@ -19,7 +19,7 @@ struct DashboardSettingsView: View {
                             .font(.title)
                         Spacer()
                             .frame(height: 100)
-                        if Amplify.Auth.getCurrentUser() != nil {
+                        if AccountManager.sharedInstance.currentUsername != nil {
                             HStack {
                                 Text("Email: ")
                                 Text(userid)
@@ -45,8 +45,14 @@ struct DashboardSettingsView: View {
     
     private func updateDisplayName() {
         logger.log("DashboardSettingsView: updateDisplayName")
-        Amplify.Auth.update(userAttribute: AuthUserAttribute(AuthUserAttributeKey.custom("displayName"), value: $changedDisplayName.wrappedValue)) { error in
-            logger.log("DashboardSettingsView: updateDisplayName error ")
+        Task {
+            do {
+                let result = try await Amplify.Auth.update(userAttribute: AuthUserAttribute(AuthUserAttributeKey.custom("displayName"), value: $changedDisplayName.wrappedValue))
+                logger.log("DashboardSettingsView: updateDisplayName updated \(result.isUpdated) ")
+            }
+            catch {
+                logger.log("DashboardSettingsView: updateDisplayName error ")
+            }
         }
     }
     private var userid: String {
@@ -57,8 +63,8 @@ struct DashboardSettingsView: View {
     }
 }
 
-struct DashboardSettingsView_Previews: PreviewProvider {
-    static var previews: some View {
-        DashboardSettingsView()
-    }
-}
+//struct DashboardSettingsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DashboardSettingsView()
+//    }
+//}

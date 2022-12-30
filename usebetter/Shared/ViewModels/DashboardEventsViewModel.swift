@@ -103,12 +103,12 @@ class DashboardEventsViewModel {
         guard !isPreview else {
             return previewUIState
         }
-        guard let currentUser = Amplify.Auth.getCurrentUser() else {
+        guard let currentUser = AccountManager.sharedInstance.currentUsername else {
             return invalidUIState
         }
         let eventState = EventState(rawValue: event.state) ?? EventState.archived
-        logger.log("DashboardEventsViewModel: getUIState: currentUser \(currentUser.username) event.ownerID \(event.ownerid) eventState \(eventState.rawValue)")
-        if currentUser.username == event.ownerid {
+        logger.log("DashboardEventsViewModel: getUIState: currentUser \(currentUser) event.ownerID \(event.ownerid) eventState \(eventState.rawValue)")
+        if currentUser == event.ownerid {
             return eventsStateMachine[eventState]?.ownerUIState ?? invalidUIState
         }
         else {

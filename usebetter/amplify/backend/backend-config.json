@@ -6,7 +6,9 @@
       "dependsOn": [],
       "customAuth": false,
       "frontendAuthConfig": {
-        "socialProviders": [],
+        "socialProviders": [
+          "APPLE"
+        ],
         "usernameAttributes": [],
         "signupAttributes": [
           "EMAIL"

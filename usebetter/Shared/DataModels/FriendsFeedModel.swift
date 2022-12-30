@@ -44,7 +44,7 @@ class FriendsFeedModel: ObservableObject {
     }
     
     private var currentUserKey: String {
-        guard let username = Amplify.Auth.getCurrentUser()?.username else {
+        guard let username = AccountManager.sharedInstance.currentUsername else {
             logger.log("FriendFeedModel: updateRemote: No local file exists")
             return ""
         }

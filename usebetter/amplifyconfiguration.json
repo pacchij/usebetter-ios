@@ -39,8 +39,23 @@
                 },
                 "Auth": {
                     "Default": {
+                        "OAuth": {
+                            "WebDomain": "usebetter-devn.auth.us-west-1.amazoncognito.com",
+                            "AppClientId": "600ide6ba6274n4n89kokbmhcu",
+                            "SignInRedirectURI": "usebetter://",
+                            "SignOutRedirectURI": "usebettter://",
+                            "Scopes": [
+                                "phone",
+                                "email",
+                                "openid",
+                                "profile",
+                                "aws.cognito.signin.user.admin"
+                            ]
+                        },
                         "authenticationFlowType": "USER_SRP_AUTH",
-                        "socialProviders": [],
+                        "socialProviders": [
+                            "APPLE"
+                        ],
                         "usernameAttributes": [],
                         "signupAttributes": [
                             "EMAIL"

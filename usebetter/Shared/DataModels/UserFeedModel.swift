@@ -123,7 +123,7 @@ class UserFeedModel: ObservableObject {
             return
         }
         
-        guard let username = Amplify.Auth.getCurrentUser()?.username else {
+        guard let username = AccountManager.sharedInstance.currentUsername else {
             logger.log("UserFeedModel: readRemote: No local file exists")
             return
         }
@@ -140,7 +140,7 @@ class UserFeedModel: ObservableObject {
             return
         }
         
-        guard let username = Amplify.Auth.getCurrentUser()?.username else {
+        guard let username = AccountManager.sharedInstance.currentUsername else {
             logger.log("UserFeedModel: updateRemote: No local file exists")
             return
         }

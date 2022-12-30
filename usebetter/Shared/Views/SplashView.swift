@@ -31,8 +31,9 @@ struct SplashView: View {
             .onAppear {
                 DispatchQueue.global().asyncAfter(deadline: .now() + 1.0 ) {
                     if !isAppAlreadyLaunchedOnce() {
-                        let _ = Amplify.Auth.signOut() { _ in
-                            self.isReady = true
+                        Task {
+                            let result = await Amplify.Auth.signOut()
+                                self.isReady = true
                         }
                     }
                     else {

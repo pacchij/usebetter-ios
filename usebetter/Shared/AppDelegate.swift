@@ -22,13 +22,22 @@ class AppDelegate: NSObject, UIApplicationDelegate, MessagingDelegate, UNUserNot
         do {
             Amplify.Logging.logLevel = .verbose
             try Amplify.add(plugin: AWSCognitoAuthPlugin())
-            try Amplify.add(plugin: AWSS3StoragePlugin()	)
-            try Amplify.add(plugin: AWSAPIPlugin(modelRegistration: AmplifyModels()))
+            try Amplify.add(plugin: AWSS3StoragePlugin())
+            try Amplify.add(plugin: AWSAPIPlugin())
             try Amplify.configure()
             logger.log("Amplify configured with auth plugin")
         } catch {
             logger.log("Failed to initialize Amplify with \(error)")
         }
+        
+//        // Initialize AWSMobileClient singleton
+//        AWSMobileClient.default().initialize { (userState, error) in
+//            if let userState = userState {
+//                print("UserState: \(userState.rawValue)")
+//            } else if let error = error {
+//                print("error: \(error.localizedDescription)")
+//            }
+//        }
         
         FirebaseApp.configure()
         

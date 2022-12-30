@@ -16,7 +16,7 @@ class S3FileManager {
     
     func downloadRemote(key: String, localURL: URL, completion: @escaping (Bool)->Void) {
         let storageOpertion = Amplify.Storage.downloadFile(key: key, local: localURL)
-        let _ = storageOpertion.progressPublisher.sink { progress in
+        let _ = storageOpertion.inProcessPublisher.sink { progress in
             logger.log("S3FileManager: readRemote: Progress: \(progress)")
         }
         .store(in: &bag)
@@ -28,16 +28,16 @@ class S3FileManager {
             }
         }
         receiveValue: { data in
-            logger.log("S3FileManager: readRemote: Completed:")
-            Amplify.Storage.getURL(key: key)
-                .resultPublisher
-                .sink { data in
-                    logger.log("S3FileManager: readRemote: getURL: sink:")
-                }
-        receiveValue: { data in
-                    logger.log("S3FileManager: readRemote: getURL: reeciveValue: \(data)")
-                }
-        .store(in: &self.bag)
+//            logger.log("S3FileManager: readRemote: Completed:")
+//            Amplify.Storage.getURL(key: key)
+//                .resultPublisher
+//                .sink { data in
+//                    logger.log("S3FileManager: readRemote: getURL: sink:")
+//                }
+//        receiveValue: { data in
+//                    logger.log("S3FileManager: readRemote: getURL: reeciveValue: \(data)")
+//                }
+//        .store(in: &self.bag)
                 
             
             
@@ -48,7 +48,7 @@ class S3FileManager {
     
     func updateRemote(key: String, localURL: URL, completion: @escaping (Bool)->Void) {
         let storageOperation = Amplify.Storage.uploadFile(key:key, local: localURL)
-        let _ = storageOperation.progressPublisher.sink { progress in
+        let _ = storageOperation.inProcessPublisher.sink { progress in
             logger.log("S3FileManager: updateRemote: Progress: \(progress)")
         }
         .store(in: &bag)
@@ -67,17 +67,25 @@ class S3FileManager {
     }
     
     func listUserFolders(completion: @escaping (StorageListResult)->Void) {
-        let _ = Amplify.Storage.list()
-            .resultPublisher
-            .sink {
-                if case let .failure(storageError) = $0 {
-                    logger.log("listUserFolders: Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
-                }
+        Task {
+            do {
+                let result = try await Amplify.Storage.list()
+                completion(result)
             }
-            receiveValue: { listResult in
-                logger.log("listUserFolders: Completed")
-                completion(listResult)
+            catch {
+                logger.log("S3FileManager: listUserFolders: exception")
             }
-            .store(in: &bag)
+        }
+//            .resultPublisher
+//            .sink {
+//                if case let .failure(storageError) = $0 {
+//                    logger.log("listUserFolders: Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
+//                }
+//            }
+//            receiveValue: { listResult in
+//                logger.log("listUserFolders: Completed")
+//                completion(listResult)
+//            }
+//            .store(in: &bag)
     }
 }

@@ -41,81 +41,49 @@ struct SignUpView: View {
                         .environmentObject(friendsFeedData)
                 }
                 else {
-                Text("Use Better")
-                    .font(.title)
-                    .fontWeight(.medium)
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(.green)
-                    .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100)
-                
-                Image("AppIcon")
-                
-                HStack(spacing: 10) {
-                    Spacer()
-                        .frame(width: 10)
-                    Text("Email")
-                        .font(.body)
+                    Text("Use Better")
+                        .font(.title)
+                        .fontWeight(.medium)
+                        .multilineTextAlignment(.center)
                         .foregroundColor(.green)
-                        .padding(10)
-                    TextField("Enter Email", text: $email)
-                        .textFieldStyle(.roundedBorder)
-                        .onSubmit {
-                            validateEmail()
-                        }
-                    Spacer()
-                        .frame(width: 10)
-                }
-                
-                HStack(spacing: 10) {
-                    Spacer()
-                        .frame(width: 10)
-                    Text("Password")
-                        .font(.body)
-                        .foregroundColor(.green)
-                        .padding(10)
-                
-                    SecureField("Enter Password", text: $password)
-                        .textFieldStyle(.roundedBorder)
-                        .focused($phoneFieldIsFocused)
-                        .onSubmit {
-                            validateEmail()
-                        }
-                    Spacer()
-                        .frame(width: 10)
-                }
-                
+                        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 100)
                     
-                HStack(spacing: 10) {
-                    Spacer()
-                        .frame(width: 10)
-                    Text("OTP from your email")
-                        .font(.body)
-                        .foregroundColor(.green)
-                        .padding(10)
-                    TextField("OTP", text: $otp)
-                        .textFieldStyle(.roundedBorder)
-                        .onSubmit {
-                            validateOtp()
-                        }
-                    Spacer()
-                        .frame(width: 10)
-                }
-                .opacity(shouldHideOTP ? 0 : 1)
+                    Image("AppIcon")
                     
-                Text($errorMessage.wrappedValue)
-                .font(.subheadline)
-                .foregroundColor(Color.red)
-                .padding(10)
-                .opacity(shouldShowErrorMsg ? 1 : 0)
-          
-                    Button(signUpText, action: {
-                        if shouldHideOTP {
-                            onSingnUp()
-                        }
-                        else {
-                            validateOtp()
-                        }
-                    })
+                    LoginOptionsView()
+                    
+                    
+//                    HStack(spacing: 10) {
+//                        Spacer()
+//                            .frame(width: 10)
+//                        Text("OTP from your email")
+//                            .font(.body)
+//                            .foregroundColor(.green)
+//                            .padding(10)
+//                        TextField("OTP", text: $otp)
+//                            .textFieldStyle(.roundedBorder)
+//                            .onSubmit {
+//                                validateOtp()
+//                            }
+//                        Spacer()
+//                            .frame(width: 10)
+//                    }
+//                    .opacity(shouldHideOTP ? 0 : 1)
+//
+//                    Text($errorMessage.wrappedValue)
+//                        .font(.subheadline)
+//                        .foregroundColor(Color.red)
+//                        .padding(10)
+//                        .opacity(shouldShowErrorMsg ? 1 : 0)
+//
+//                    Button(signUpText, action: {
+//                        if shouldHideOTP {
+//                            onSingnUp()
+//                        }
+//                        else {
+//                            validateOtp()
+//                        }
+//                    })
                 }
             }
         }
@@ -124,7 +92,7 @@ struct SignUpView: View {
     func validateEmail() {
         
     }
-
+    
     func validatePhoneNumber() {
         if self.$phoneNumber.wrappedValue.count == 10 {
             errorMessage = "Enter Valid Phone Number..."
@@ -140,7 +108,7 @@ struct SignUpView: View {
     func validatePassword() {
         print(self.password)
         logger.log("submit called")
-
+        
         if self.$password.wrappedValue.count == 6 {
             errorMessage = "Enter Valid Password 6 digits..."
             shouldShowErrorMsg = true
@@ -174,29 +142,33 @@ struct SignUpView: View {
     func onSingnUp() {
         let _ = accountManager.signIn(email: $email.wrappedValue, password: $password.wrappedValue)
         accountManager.signedInState.sink (
-        receiveValue: { signInState in
-            logger.log("signedup view: reeived value \(signInState.hashValue)")
-            switch signInState {
-            case .notSignedIn:
-                self.userSignedIn = false
-                self.shouldHideOTP = true
-                self.shouldShowErrorMsg = false
-            case .signedIn:
-                self.userSignedIn = true
-            case .alreadySignedIn:
-                self.userSignedIn = true
-            case .signedUp:
-                self.userSignedIn = false
-            case .error:
-                self.userSignedIn = false
-            case .pendingEmailConfirm:
-                self.shouldHideOTP = false
-                self.shouldShowErrorMsg = true
-                self.errorMessage = "Enter Valid OTP sent to your email"
-                self.signUpText = "Validate"
-            }
-        })
+            receiveValue: { signInState in
+                logger.log("signedup view: reeived value \(signInState.hashValue)")
+                switch signInState {
+                case .notSignedIn:
+                    self.userSignedIn = false
+                    self.shouldHideOTP = true
+                    self.shouldShowErrorMsg = false
+                case .signedIn:
+                    self.userSignedIn = true
+                case .alreadySignedIn:
+                    self.userSignedIn = true
+                case .signedUp:
+                    self.userSignedIn = false
+                case .error:
+                    self.userSignedIn = false
+                case .pendingEmailConfirm:
+                    self.shouldHideOTP = false
+                    self.shouldShowErrorMsg = true
+                    self.errorMessage = "Enter Valid OTP sent to your email"
+                    self.signUpText = "Validate"
+                }
+            })
         .store(in: &bag)
+    }
+    
+    func showAppleLoginView() {
+        logger.log("[SignUPView] showAppleLoginView: Entered")
     }
 }
 
@@ -218,3 +190,4 @@ struct SignUpView_Previews: PreviewProvider {
         SignUpView().environmentObject(ViewRouter())
     }
 }
+
