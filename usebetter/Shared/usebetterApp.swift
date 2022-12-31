@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GoogleSignIn
 
 @main
 struct usebetterApp: App {
@@ -22,7 +23,9 @@ struct usebetterApp: App {
                 .environmentObject(userFeedData)
                 .environmentObject(friendsFeedData)
                 .environmentObject(eventsModel)
-           
+                .onOpenURL { url in
+                    GIDSignIn.sharedInstance.handle(url)
+                }
         }
     }
 }

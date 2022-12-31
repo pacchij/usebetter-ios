@@ -10,6 +10,7 @@ import Combine
 import AuthenticationServices
 import Amplify
 import AWSCognitoAuthPlugin
+import GoogleSignInSwift
 
 struct LoginOptionsView: View {
     @State private var bag = Set<AnyCancellable>()
@@ -27,6 +28,7 @@ struct LoginOptionsView: View {
     private let accountManager = AccountManager.sharedInstance
     @State private var window_: UIWindow? = nil
     private var connectedScene = UIApplication.shared.connectedScenes.first
+    private let googleSignInButtonViewModel = GoogleSignInButtonViewModel()
     
     struct Constants {
         static let loginOptionWidth = CGFloat(280)
@@ -37,8 +39,14 @@ struct LoginOptionsView: View {
         VStack {
             SignUpWithAppleView()
                 .frame(width: Constants.loginOptionWidth, height: Constants.signInAppleHeight, alignment: .center)
-                .onTapGesture(perform: showAppleLoginView)
+                .onTapGesture(perform: appleSignInWithWebUI)
+                .padding()
             
+            GoogleSignInButton(viewModel: googleSignInButtonViewModel, action: googleSignInWithWebUI)
+                .frame(width: Constants.loginOptionWidth, height: Constants.signInAppleHeight, alignment: .center)
+                .cornerRadius(10)
+                .padding()
+            //GoogleSignInButtonViewModel
             
             Text("or")
             TextField("Enter Email", text: $email)
@@ -59,13 +67,12 @@ struct LoginOptionsView: View {
             Button(signUpText, action: {
                 onSingnUp()
             })
-            Button("apple sign in test", action: {
-                socialSignInWithWebUI()
-            })
+           
         }
         .onAppear {
             window_ = window
             logger.log("access window \(window)")
+            googleSignInButtonViewModel.scheme = .dark
         }
     }
     
@@ -111,10 +118,25 @@ struct LoginOptionsView: View {
         .store(in: &bag)
     }
     
-    func socialSignInWithWebUI() {
+    func appleSignInWithWebUI() {
         Task {
             do {
                 let signInResult = try await Amplify.Auth.signInWithWebUI(for: .apple, presentationAnchor: self.window_!)
+                if signInResult.isSignedIn {
+                    print("Sign in succeeded")
+                }
+            } catch let error as AuthError {
+                print("Sign in failed \(error)")
+            } catch {
+                print("Unexpected error: \(error)")
+            }
+        }
+    }
+    
+    func googleSignInWithWebUI() {
+        Task {
+            do {
+                let signInResult = try await Amplify.Auth.signInWithWebUI(for: .google, presentationAnchor: self.window_!)
                 if signInResult.isSignedIn {
                     print("Sign in succeeded")
                 }

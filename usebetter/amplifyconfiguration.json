@@ -45,15 +45,13 @@
                             "SignInRedirectURI": "usebetter://",
                             "SignOutRedirectURI": "usebettter://",
                             "Scopes": [
-                                "phone",
                                 "email",
                                 "openid",
-                                "profile",
-                                "aws.cognito.signin.user.admin"
                             ]
                         },
                         "authenticationFlowType": "USER_SRP_AUTH",
                         "socialProviders": [
+                            "GOOGLE",
                             "APPLE"
                         ],
                         "usernameAttributes": [],

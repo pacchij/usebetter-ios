@@ -65,9 +65,10 @@
     "permissions": [],
     "hostedUIDomainName": "usebetter",
     "authProvidersUserPool": [
+      "Google",
       "SignInWithApple"
     ],
-    "hostedUIProviderMeta": "[{\"ProviderName\":\"SignInWithApple\",\"authorize_scopes\":\"email\",\"AttributeMapping\":{\"email\":\"email\"}}]",
+    "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}},{\"ProviderName\":\"SignInWithApple\",\"authorize_scopes\":\"email\",\"AttributeMapping\":{\"email\":\"email\"}}]",
     "authProviders": [],
     "signinwithappleAuthorizeScopes": [
       "email"

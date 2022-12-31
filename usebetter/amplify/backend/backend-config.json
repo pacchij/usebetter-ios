@@ -7,6 +7,7 @@
       "customAuth": false,
       "frontendAuthConfig": {
         "socialProviders": [
+          "GOOGLE",
           "APPLE"
         ],
         "usernameAttributes": [],

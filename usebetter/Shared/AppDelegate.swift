@@ -15,6 +15,7 @@ import AWSS3StoragePlugin
 import Firebase
 import FirebaseMessaging
 import UserNotifications
+import GoogleSignIn
 
 class AppDelegate: NSObject, UIApplicationDelegate, MessagingDelegate, UNUserNotificationCenterDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -30,15 +31,6 @@ class AppDelegate: NSObject, UIApplicationDelegate, MessagingDelegate, UNUserNot
             logger.log("Failed to initialize Amplify with \(error)")
         }
         
-//        // Initialize AWSMobileClient singleton
-//        AWSMobileClient.default().initialize { (userState, error) in
-//            if let userState = userState {
-//                print("UserState: \(userState.rawValue)")
-//            } else if let error = error {
-//                print("error: \(error.localizedDescription)")
-//            }
-//        }
-        
         FirebaseApp.configure()
         
         Messaging.messaging().delegate = self
@@ -49,6 +41,15 @@ class AppDelegate: NSObject, UIApplicationDelegate, MessagingDelegate, UNUserNot
                 return
             }
         }
+        
+        GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
+            if error != nil || user == nil {
+                logger.log("[AppDelegate] user is Nil error \(error)")
+            } else {
+              // Show the app's signed-in state.
+                logger.log("[AppDelegate] user is Signed in")
+            }
+          }
         
         application.registerForRemoteNotifications()
         
@@ -62,5 +63,19 @@ class AppDelegate: NSObject, UIApplicationDelegate, MessagingDelegate, UNUserNot
             }
             logger.log("[AppDelegate] messaging token is \(token)")
         }
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+      var handled: Bool
+
+      handled = GIDSignIn.sharedInstance.handle(url)
+      if handled {
+        return true
+      }
+
+      // Handle other custom URL types.
+
+      // If not handled by this app, return false.
+      return false
     }
 }

@@ -68,16 +68,18 @@ class EventsModel: ObservableObject {
     
     private func loadEvensByOwner() {
 //        let keys = UBEvent.keys
-//        let predicateByOwner = keys.ownerid == AccountManager.sharedInstance.currentUsername
-        
-//        byOwnerSink = Amplify.API.query(request: .paginatedList(UBEvent.self, where: predicateByOwner, limit: 100 ))
-//            .resultPublisher
-//            .sink {
-//                self.byOwnerSink.cancel()
-//                if case let .failure(error) = $0 {
-//                    logger.log("EventsModel: loadEvensByOwner: failed to query events \(error)")
-//                }
-//            }
+//        Task {
+//            do {
+//                let predicateByOwner = keys.ownerid == AccountManager.sharedInstance.currentUsername
+//                
+//                byOwnerSink = try await Amplify.API.query(request: .paginatedList(UBEvent.self, where: predicateByOwner, limit: 100 ))
+//                    .resultPublisher
+//                    .sink {
+//                        self.byOwnerSink.cancel()
+//                        if case let .failure(error) = $0 {
+//                            logger.log("EventsModel: loadEvensByOwner: failed to query events \(error)")
+//                        }
+//                    }
 //            receiveValue: { result in
 //                switch result {
 //                case .success(let eventsFromDB):
@@ -90,6 +92,11 @@ class EventsModel: ObservableObject {
 //                    logger.log("EventsModel: loadEvensByOwner: failed \(error)")
 //                }
 //            }
+//            }
+//            catch {
+//                logger.error("EventsModel: loadEvensByOwner: Exception \(error)")
+//            }
+//        }
     }
     
     private func loadEventsByReceiver() {
