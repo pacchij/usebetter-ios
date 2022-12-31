@@ -57,18 +57,18 @@ struct ReadOnlyItemView: View {
                 HStack {
                     Text("Available Counts: ")
                     Text(String(item.itemCount))
-                       .frame(width: 50)
+                        .frame(width: 50)
                 }
                 Spacer().frame(height: 50)
                 HStack {
-                   
+                    
                     Text("shared By: ")
                     Text(self.contactName).frame(width:150)
                         .foregroundColor(.green)
                         .font(.callout)
                     
                 }.padding(20)
-
+                
                 Button("Request To Use Better", action: {
                     eventsModel.createRequest(for: item)
                 })
@@ -84,9 +84,7 @@ struct ReadOnlyItemView: View {
         .navigationBarTitle("View Item", displayMode: .inline)
         .edgesIgnoringSafeArea([.bottom])
         .onAppear() {
-            //contactHelper.contactFullname(for: item.ownerid) { name in
-                self.contactName = item.ownerid
-            //}
+            self.contactName = item.ownerid
         }
     }
 }

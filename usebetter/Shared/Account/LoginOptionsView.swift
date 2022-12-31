@@ -67,7 +67,7 @@ struct LoginOptionsView: View {
             Button(signUpText, action: {
                 onSingnUp()
             })
-           
+            
         }
         .onAppear {
             window_ = window
@@ -150,12 +150,12 @@ struct LoginOptionsView: View {
     
     var window: UIWindow? {
         if window_ == nil {
-
-                guard let scene = connectedScene,
-                      let windowSceneDelegate = scene.delegate as? UIWindowSceneDelegate,
-                      let localWindow = windowSceneDelegate.window else {
-                    return window_
-                }
+            
+            guard let scene = connectedScene,
+                  let windowSceneDelegate = scene.delegate as? UIWindowSceneDelegate,
+                  let localWindow = windowSceneDelegate.window else {
+                return window_
+            }
             return localWindow
             
         }

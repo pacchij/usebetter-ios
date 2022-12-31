@@ -45,10 +45,7 @@ class SignUpWithAppleVIewModel: NSObject, ASAuthorizationControllerDelegate {
     
     func federatedSignIn(identityToken: String, for providerName: String) {
         Task {
-           // let stateMachine = AuthStateMachine()
-            //stateMachine.
             do {
-                //Amplify.Auth
                 let awsCognitoPublin = try Amplify.Auth.getPlugin(for: "awsCognitoAuthPlugin") as? AWSCognitoAuthPlugin
                 let result = try await awsCognitoPublin?.federateToIdentityPool(withProviderToken: identityToken, for: .apple)
                 logger.log("[SignUpWithAppleVIewModel] federatedSignIn:result \(String(describing: result)) ")
@@ -57,31 +54,14 @@ class SignUpWithAppleVIewModel: NSObject, ASAuthorizationControllerDelegate {
                 logger.log("[SignUpWithAppleVIewModel] federatedSignIn: Exception \(String(describing: error)) ")
             }
         }
-//        guard let plugin = try? Amplify.Auth.getPlugin(for: AWSCognitoAuthPlugin().key),
-//              let authPlugin = plugin as? AWSCognitoAuthPlugin,
-//              case .userPool(let client) = authPlugin.getEscapeHatch() else {
-//            return
-//        }
-//
-//        client.federatedSignIn(providerName: providerName , token: identityToken) { state, error in
-//            if let error = error {
-//                logger.error("[SignUpWithAppleVIewModel] [signInFederated] error: \(error)")
-//            }
-//            else {
-//                logger.log("[SignUpWithAppleVIewModel] [signInFederated] success. State is \(state?.rawValue ?? "state is empty")")
-//            }
-//        }
     }
     
     var window: UIWindow? {
-       // if window_ == nil {
-
-                guard let scene = UIApplication.shared.connectedScenes.first,
-                      let windowSceneDelegate = scene.delegate as? UIWindowSceneDelegate,
-                      let localWindow = windowSceneDelegate.window else {
-                    return nil
-                }
-            return localWindow
+        guard let scene = UIApplication.shared.connectedScenes.first,
+              let windowSceneDelegate = scene.delegate as? UIWindowSceneDelegate,
+              let localWindow = windowSceneDelegate.window else {
+            return nil
         }
-      //  return window_
+        return localWindow
+    }
 }
