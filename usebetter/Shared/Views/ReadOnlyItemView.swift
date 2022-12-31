@@ -84,7 +84,7 @@ struct ReadOnlyItemView: View {
         .navigationBarTitle("View Item", displayMode: .inline)
         .edgesIgnoringSafeArea([.bottom])
         .onAppear() {
-            self.contactName = item.ownerid
+            self.contactName = AccountManager.sharedInstance.displayName
         }
     }
 }

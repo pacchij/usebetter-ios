@@ -70,7 +70,7 @@ struct UpdateItemView: View {
                 }
                 
                 HStack {
-                    if let contactName =  item.ownerid {
+                    if let contactName =  AccountManager.sharedInstance.displayName {
                         Text("shared To: ")
                         Text(contactName)
                             .frame(width:150)
