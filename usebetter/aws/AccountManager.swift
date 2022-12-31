@@ -99,7 +99,6 @@ class AccountManager {
                 }
             }
         }
-        
     }
     
     func confirmSignUp(username: String, confirmationCode: String) -> PassthroughSubject<OtpConfirmState, Never> {
@@ -127,9 +126,10 @@ class AccountManager {
         Task {
             do {
                 self.attributes = try await Amplify.Auth.fetchUserAttributes()
+                logger.log("AccountManager: fetchAttributes: \(String(describing: self.attributes))")
             }
             catch {
-                logger.error("AccountManager: fetchAttributes Exception")
+                logger.error("AccountManager: fetchAttributes Exception \(error)")
             }
         }
     }
@@ -143,6 +143,44 @@ class AccountManager {
         let results = self.attributes.filter { attr in
             attr.key == key
         }
-        return (results.count > 0) ? results[0].value : currentUsername ?? "Unassigned"
+        if results.count > 0 {
+            return results[0].value
+        }
+        else {
+            let firstNameKey = AuthUserAttributeKey.custom("firstName")
+            let fName = self.attributes.filter { attr in
+                attr.key == firstNameKey
+            }
+            let lastNameKey = AuthUserAttributeKey.custom("lastName")
+            let lName = self.attributes.filter { attr in
+                attr.key == lastNameKey
+            }
+            if fName.count > 0 || lName.count > 0 {
+                var displayName_ = ""
+                if fName.count > 0 {
+                    displayName_ += fName[0].value
+                    displayName_ += " "
+                }
+                if lName.count > 0 {
+                    displayName_ += lName[0].value
+                }
+                return displayName_
+            }
+            else {
+                return emailId
+            }
+        }
+    }
+    
+    var emailId: String {
+        if signedInState.value != .signedIn {
+            return ""
+        }
+        
+        let key = AuthUserAttributeKey.email
+        let results = self.attributes.filter { attr in
+            attr.key == key
+        }
+        return (results.count > 0) ? results[0].value : ""
     }
 }

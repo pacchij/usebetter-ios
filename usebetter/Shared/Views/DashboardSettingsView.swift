@@ -22,7 +22,7 @@ struct DashboardSettingsView: View {
                         if AccountManager.sharedInstance.currentUsername != nil {
                             HStack {
                                 Text("Email: ")
-                                Text(userid)
+                                Text(signedInEmailId)
                             }
                             HStack() {
                                 Text("Display Name: ")
@@ -58,8 +58,13 @@ struct DashboardSettingsView: View {
     private var userid: String {
         AccountManager.sharedInstance.currentUsername ?? "unknown"
     }
+    
     private var displayName: String {
         AccountManager.sharedInstance.displayName
+    }
+    
+    private var signedInEmailId : String {
+        AccountManager.sharedInstance.emailId
     }
 }
 

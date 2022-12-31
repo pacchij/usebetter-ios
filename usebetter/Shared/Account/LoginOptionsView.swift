@@ -123,7 +123,8 @@ struct LoginOptionsView: View {
             do {
                 let signInResult = try await Amplify.Auth.signInWithWebUI(for: .apple, presentationAnchor: self.window_!)
                 if signInResult.isSignedIn {
-                    print("Sign in succeeded")
+                    print("[LoginOptionsView] appleSignInWithWebUI: Sign in succeeded")
+                    AccountManager.sharedInstance.signedInState.send(.signedIn)
                 }
             } catch let error as AuthError {
                 print("Sign in failed \(error)")
@@ -138,7 +139,8 @@ struct LoginOptionsView: View {
             do {
                 let signInResult = try await Amplify.Auth.signInWithWebUI(for: .google, presentationAnchor: self.window_!)
                 if signInResult.isSignedIn {
-                    print("Sign in succeeded")
+                    print("[LoginOptionsView] googleSignInWithWebUI Sign in succeeded")
+                    AccountManager.sharedInstance.signedInState.send(.signedIn)
                 }
             } catch let error as AuthError {
                 print("Sign in failed \(error)")
