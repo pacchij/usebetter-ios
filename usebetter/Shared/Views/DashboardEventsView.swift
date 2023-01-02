@@ -118,7 +118,6 @@ struct DashboardEventsGridView: View {
                                     Button(pbText, action: {
                                         eventsModel.updateEventState(by: currentEvent.id, newState: uiState.primaryButtonActionState ?? EventState.archived)
                                     })
-                                    //                                                .overlay( RoundedRectangle(cornerRadius: 16).stroke(Color.blue.opacity(0.5), lineWidth: 1))
                                     .padding(10)
                                 }
                                 
@@ -126,7 +125,6 @@ struct DashboardEventsGridView: View {
                                     Button(sbText, action: {
                                         eventsModel.updateEventState(by: currentEvent.id, newState: uiState.secondaryButtonActionState ?? EventState.archived)
                                     })
-                                    //                                                .overlay( RoundedRectangle(cornerRadius: 16).stroke(Color.blue.opacity(0.5), lineWidth: 1))
                                     .padding(10)
                                 }
                             } //HStack for buttons

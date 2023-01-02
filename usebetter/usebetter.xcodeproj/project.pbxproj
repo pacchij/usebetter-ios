@@ -63,6 +63,9 @@
 		C02F44012960CB2100A76EC9 /* UBEvent+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02F43FE2960CB2100A76EC9 /* UBEvent+Schema.swift */; };
 		C02F44022960CB2100A76EC9 /* AmplifyModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02F43FF2960CB2100A76EC9 /* AmplifyModels.swift */; };
 		C02F44032960CB2100A76EC9 /* UBEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02F44002960CB2100A76EC9 /* UBEvent.swift */; };
+		C02F440529611C8300A76EC9 /* ValidateSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02F440429611C8300A76EC9 /* ValidateSignUpView.swift */; };
+		C04C20EE29635A5100936726 /* UBNavigationStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04C20ED29635A5100936726 /* UBNavigationStackView.swift */; };
+		C04C20EF29635A5100936726 /* UBNavigationStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04C20ED29635A5100936726 /* UBNavigationStackView.swift */; };
 		C08DA3F3294D5C5E00E8AF98 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = C08DA3F2294D5C5E00E8AF98 /* FirebaseAnalytics */; };
 		C08DA3F5294D5C5E00E8AF98 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C08DA3F4294D5C5E00E8AF98 /* FirebaseAnalyticsSwift */; };
 		C08DA3F7294D5C5E00E8AF98 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = C08DA3F6294D5C5E00E8AF98 /* FirebaseCrashlytics */; };
@@ -153,6 +156,8 @@
 		C02F43FE2960CB2100A76EC9 /* UBEvent+Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UBEvent+Schema.swift"; path = "amplify/generated/models/UBEvent+Schema.swift"; sourceTree = SOURCE_ROOT; };
 		C02F43FF2960CB2100A76EC9 /* AmplifyModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AmplifyModels.swift; path = amplify/generated/models/AmplifyModels.swift; sourceTree = SOURCE_ROOT; };
 		C02F44002960CB2100A76EC9 /* UBEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UBEvent.swift; path = amplify/generated/models/UBEvent.swift; sourceTree = SOURCE_ROOT; };
+		C02F440429611C8300A76EC9 /* ValidateSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateSignUpView.swift; sourceTree = "<group>"; };
+		C04C20ED29635A5100936726 /* UBNavigationStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UBNavigationStackView.swift; sourceTree = "<group>"; };
 		C08DA3FA294D5FFF00E8AF98 /* usebetter (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "usebetter (iOS).entitlements"; sourceTree = "<group>"; };
 		C08DA3FB294D615000E8AF98 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C0C1EDF92859622E00EB6AD5 /* graphql */ = {isa = PBXFileReference; lastKnownFileType = folder; path = graphql; sourceTree = "<group>"; };
@@ -309,6 +314,7 @@
 				C00169F228396B5B00523EFF /* ContactPicker.swift */,
 				C0E4ED2628429EEE002C29AA /* SplashView.swift */,
 				C0E4ED3F284C28F3002C29AA /* WebContentView.swift */,
+				C04C20ED29635A5100936726 /* UBNavigationStackView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -382,6 +388,7 @@
 			children = (
 				C0DDD585295CB10300516EAF /* LoginOptionsView.swift */,
 				C0DDD583295CB10300516EAF /* SignUPView.swift */,
+				C02F440429611C8300A76EC9 /* ValidateSignUpView.swift */,
 				C0DDD584295CB10300516EAF /* SignUpWithAppleView.swift */,
 				C0DDD582295CB10300516EAF /* SignUpWithAppleVIewModel.swift */,
 			);
@@ -591,6 +598,7 @@
 				C00169F328396B5B00523EFF /* ContactPicker.swift in Sources */,
 				C00169A1282D92D300523EFF /* UBItem.swift in Sources */,
 				C0016A1C2842864A00523EFF /* DashboardSettingsView.swift in Sources */,
+				C04C20EE29635A5100936726 /* UBNavigationStackView.swift in Sources */,
 				C0E4ED2D28431C42002C29AA /* JSONInterpreter.swift in Sources */,
 				C02F44032960CB2100A76EC9 /* UBEvent.swift in Sources */,
 				C00169ED2838A69F00523EFF /* ReadOnlyItemView.swift in Sources */,
@@ -602,6 +610,7 @@
 				C0016A0A283A08BE00523EFF /* AppDelegate.swift in Sources */,
 				C001699E282D921E00523EFF /* DashboardHomeViewModel.swift in Sources */,
 				C0DDD589295CB10300516EAF /* LoginOptionsView.swift in Sources */,
+				C02F440529611C8300A76EC9 /* ValidateSignUpView.swift in Sources */,
 				C0E4ED3A2845D614002C29AA /* ActionItemView.swift in Sources */,
 				C0016A19283AD45300523EFF /* AccountManager.swift in Sources */,
 				C0E4ED372845B664002C29AA /* DashboardEventsView.swift in Sources */,
@@ -639,6 +648,7 @@
 				C001699F282D921E00523EFF /* DashboardHomeViewModel.swift in Sources */,
 				C0E4ED3B2845D614002C29AA /* ActionItemView.swift in Sources */,
 				C0016A1A283AD45300523EFF /* AccountManager.swift in Sources */,
+				C04C20EF29635A5100936726 /* UBNavigationStackView.swift in Sources */,
 				C0E4ED382845B664002C29AA /* DashboardEventsView.swift in Sources */,
 				C0016979282C4E1800523EFF /* usebetterApp.swift in Sources */,
 				C00169D8282E203800523EFF /* DashboardMyStuffView.swift in Sources */,

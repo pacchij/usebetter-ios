@@ -18,17 +18,18 @@ struct LoginOptionsView: View {
     @State private var email = ""
     @State private var otp = ""
     @State private var userSignedIn = false
+    @State private var shouldShowOTPValidation: Int? = nil
     @State private var shouldShowErrorMsg: Bool = false
-    @State private var errorMessage: String = "Error Message..."
-    @State private var shouldHideOTP: Bool = true
+    private var errorMessage: String = "Password should be at least 6 digits"
     @State private var password: String = ""
-    @State private var signUpText: String = "Login"
+    private var signUpText: String = "Login"
     @FocusState private var phoneFieldIsFocused: Bool
     private let signUpWithAppleVIewModel = SignUpWithAppleVIewModel()
     private let accountManager = AccountManager.sharedInstance
     @State private var window_: UIWindow? = nil
     private var connectedScene = UIApplication.shared.connectedScenes.first
     private let googleSignInButtonViewModel = GoogleSignInButtonViewModel()
+    @EnvironmentObject var viewRouter: ViewRouter
     
     struct Constants {
         static let loginOptionWidth = CGFloat(280)
@@ -37,6 +38,12 @@ struct LoginOptionsView: View {
     }
     var body: some View {
         VStack {
+            
+            UBNavigationStackView {
+                NavigationLink(destination: ValidateSignUpView(email: $email.wrappedValue).environmentObject(viewRouter), tag: 1,  selection: $shouldShowOTPValidation) {
+                    EmptyView()
+                }
+            }
             SignUpWithAppleView()
                 .frame(width: Constants.loginOptionWidth, height: Constants.signInAppleHeight, alignment: .center)
                 .onTapGesture(perform: appleSignInWithWebUI)
@@ -46,7 +53,6 @@ struct LoginOptionsView: View {
                 .frame(width: Constants.loginOptionWidth, height: Constants.signInAppleHeight, alignment: .center)
                 .cornerRadius(10)
                 .padding()
-            //GoogleSignInButtonViewModel
             
             Text("or")
             TextField("Enter Email", text: $email)
@@ -60,14 +66,23 @@ struct LoginOptionsView: View {
                 .textFieldStyle(.roundedBorder)
                 .focused($phoneFieldIsFocused)
                 .onSubmit {
-                    validateEmail()
+                    validatePassword()
+                    if !shouldShowErrorMsg {
+                        onSingnUp()
+                    }
                 }
                 .frame(width: Constants.loginOptionWidth, alignment: .topLeading)
             
             Button(signUpText, action: {
-                onSingnUp()
+                validatePassword()
+                if !shouldShowErrorMsg {
+                    onSingnUp()
+                }
             })
             
+            Text(errorMessage)
+                .opacity(shouldShowErrorMsg ? 1 : 0)
+                .foregroundColor(Color.red)
         }
         .onAppear {
             window_ = window
@@ -91,28 +106,28 @@ struct LoginOptionsView: View {
     }
     
     func onSingnUp() {
-        let _ = accountManager.signIn(email: $email.wrappedValue, password: $password.wrappedValue)
+        let _ = accountManager.signUp(email: $email.wrappedValue, password: $password.wrappedValue)
         accountManager.signedInState.sink (
             receiveValue: { signInState in
-                logger.log("signedup view: reeived value \(signInState.hashValue)")
+                logger.log("[LoginOptionView] onSignedUp: signInState changed: reeived value \(signInState.hashValue)")
                 switch signInState {
                 case .notSignedIn:
                     self.userSignedIn = false
-                    self.shouldHideOTP = true
-                    self.shouldShowErrorMsg = false
+                    self.shouldShowOTPValidation = nil
                 case .signedIn:
                     self.userSignedIn = true
+                    shouldShowOTPValidation = nil
+                    moveToDashbordView()
                 case .alreadySignedIn:
                     self.userSignedIn = true
+                    viewRouter.currentPage = .dashboard
                 case .signedUp:
                     self.userSignedIn = false
                 case .error:
                     self.userSignedIn = false
-                case .pendingEmailConfirm:
-                    self.shouldHideOTP = false
-                    self.shouldShowErrorMsg = true
-                    self.errorMessage = "Enter Valid OTP sent to your email"
-                    self.signUpText = "Validate"
+                case .pendingEmailConfirm, .pendingEmailConfirmReSent:
+                    logger.log("[LoginOptionView] onSignUp: pendingEmailConfirm")
+                    self.shouldShowOTPValidation = 1
                 }
             })
         .store(in: &bag)
@@ -162,6 +177,21 @@ struct LoginOptionsView: View {
             
         }
         return window_
+    }
+    
+    private func validatePassword() {
+        if self.$password.wrappedValue.count < 6 {
+            shouldShowErrorMsg = true
+        }
+        else {
+            shouldShowErrorMsg = false
+        }
+    }
+    
+    private func moveToDashbordView() {
+        DispatchQueue.main.async {
+            viewRouter.currentPage = .dashboard
+        }
     }
 }
 

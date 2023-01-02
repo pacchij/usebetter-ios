@@ -29,22 +29,33 @@ struct SplashView: View {
                     .font(.largeTitle)
             }
             .onAppear {
+                //Get the current user
+                _ = AccountManager.sharedInstance.currentUsername
                 DispatchQueue.global().asyncAfter(deadline: .now() + 1.0 ) {
                     if !isAppAlreadyLaunchedOnce() {
                         Task {
-                            let result = await Amplify.Auth.signOut()
-                                self.isReady = true
+                            _ = await Amplify.Auth.signOut()
+                            self.isReady = true
                         }
                     }
                     else {
-                        self.isReady = true
                         self.eventsModel.initialize(userfeed: userFeedData, friendsFeed: friendsFeedData)
+                        //update only on the main ui thread
+                        DispatchQueue.main.async {
+                            if AccountManager.sharedInstance.currentUsername == nil {
+                                viewRouter.currentPage = .signUp
+                            }
+                            else {
+                                viewRouter.currentPage = .dashboard
+                            }
+                        }
+                        self.isReady = true
                     }
                 } //Dispatch
             } //onAppear
         } //else
     } //body
-        
+    
     func isAppAlreadyLaunchedOnce() -> Bool {
         let defaults = UserDefaults.standard
         if let _ = defaults.string(forKey: "isAppAlreadyLaunchedOnce") {

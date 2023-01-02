@@ -27,20 +27,7 @@ class S3FileManager {
                 completion(false)
             }
         }
-        receiveValue: { data in
-//            logger.log("S3FileManager: readRemote: Completed:")
-//            Amplify.Storage.getURL(key: key)
-//                .resultPublisher
-//                .sink { data in
-//                    logger.log("S3FileManager: readRemote: getURL: sink:")
-//                }
-//        receiveValue: { data in
-//                    logger.log("S3FileManager: readRemote: getURL: reeciveValue: \(data)")
-//                }
-//        .store(in: &self.bag)
-                
-            
-            
+        receiveValue: { _ in
             completion(true)
         }
         .store(in: &bag)

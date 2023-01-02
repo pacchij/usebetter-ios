@@ -39,13 +39,7 @@ struct ContentView: View {
             if AccountManager.sharedInstance.currentUsername == nil {
                 SignUpView().environmentObject(viewRouter)
             }
-            else {
-                DashboardView()
-                    .environmentObject(viewRouter)
-                    .environmentObject(userFeedData)
-                    .environmentObject(friendsFeedData)
-                    .environmentObject(eventsModel)
-            }
+            
         case .dashboard:
             DashboardView()
                 .environmentObject(viewRouter)
@@ -54,7 +48,6 @@ struct ContentView: View {
                 .environmentObject(eventsModel)
         }
     }
-
 }
 
 struct ContentView_Previews: PreviewProvider {

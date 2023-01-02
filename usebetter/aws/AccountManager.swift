@@ -19,6 +19,7 @@ enum SingInState {
     case alreadySignedIn
     case signedUp
     case pendingEmailConfirm
+    case pendingEmailConfirmReSent
     case notSignedIn
 }
 
@@ -73,14 +74,17 @@ class AccountManager {
                     self.signedInState.send(.notSignedIn)
                 }
             }
+            catch let authError as AuthError {
+                logger.error("AccountManager: signIn User Exists, try asign up \(authError)")
+            }
             catch {
-                logger.error("AccountManager: signIn Exception")
+                logger.error("AccountManager: signIn Exception \(error)")
                 self.signedInState.send(.error)
             }
         }
     }
     
-    private func signUp(email: String, password: String) {
+    public func signUp(email: String, password: String) {
         Task {
             do {
                 let userAttributes = [AuthUserAttribute(.email, value: email)]
@@ -91,12 +95,21 @@ class AccountManager {
                 }
                 else {
                     switch result.nextStep {
-                    case .confirmUser(let details, let info, let userid):
-                        logger.log("confirm user is pending")
+                    case .confirmUser(let details, let info, _):
+                        logger.log("[AccountManager] confirm user is pending \(String(describing: details)) info: \(String(describing: info))")
+                        self.signedInState.send(.pendingEmailConfirm)
                     case .done:
-                        logger.log("confirm user is done")
+                        logger.log("[AccountManager] confirm user is done")
+                        self.signedInState.send(.signedIn)
                     }
                 }
+            }
+            catch let authError as AuthError {
+                logger.error("AccountManager: signUp User Exists, try sign in \(authError)")
+                self.signIn(email: email, password: password)
+            }
+            catch {
+                logger.error("AccountManager: signUp Exception \(error)")
             }
         }
     }
@@ -114,11 +127,27 @@ class AccountManager {
                 }
             }
             catch {
-                logger.error("AccountManager: fetchAttributes Exception")
+                logger.error("AccountManager: confirmSignUp Exception \(error)")
                 otpState.send(.failure)
             }
         }
         return otpState
+    }
+    
+    func resendSignUpCode(for username: String) {
+        Task {
+            do {
+                let result = try await Amplify.Auth.resendSignUpCode(for: username)
+                
+                if case .email(let val) = result.destination {
+                    logger.log("[AccountManager] resendSignUPCode: code delivered to your email \(String(describing: val))")
+                    self.signedInState.send(.pendingEmailConfirmReSent)
+                }
+            }
+            catch {
+                logger.error("AccountManager: resendSignUpCode Exception \(error)")
+            }
+        }
     }
     
     private func fetchAttributes()  {
