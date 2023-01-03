@@ -11,7 +11,7 @@ import Amplify
 struct DashboardSettingsView: View {
     @State private var changedDisplayName = "DisplayName"
     var body: some View {
-        NavigationView {
+        UBNavigationStackView {
             ZStack(alignment: .top) {
                 ScrollView {
                     VStack(alignment: .leading) {

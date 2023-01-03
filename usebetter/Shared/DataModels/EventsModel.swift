@@ -208,3 +208,18 @@ class EventsModel: ObservableObject {
         return self.events
     }
 }
+
+
+class MockEventsModel: EventsModel {
+    override func filteredEvents() -> [UBEvent] {
+        var mockEvents: [UBEvent] = []
+        mockEvents.append(UBEvent(itemid: UUID().uuidString, ownerid: "ownerid1", receiverid: "receivedid1", state: EventState.requestInitiatedByOwner.rawValue))
+        mockEvents.append(UBEvent(itemid: UUID().uuidString, ownerid: "ownerid2", receiverid: "receivedid1", state: EventState.requestInitiatedByOwner.rawValue))
+        mockEvents.append(UBEvent(itemid: UUID().uuidString, ownerid: "ownerid3", receiverid: "receivedid1", state: EventState.requestInitiatedByOwner.rawValue))
+        return mockEvents
+    }
+    
+    override func item(by id: String) -> UBItem? {
+        UBItem(name: "item1", itemid: UUID())
+    }
+}
