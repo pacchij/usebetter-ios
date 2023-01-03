@@ -18,7 +18,7 @@ struct UBItem : Identifiable {
     var description: String?
     var price: String?
     var originalItemURL: String?
-    var id: String { name }
+    var id: String { itemid.uuidString }
 }
 
 extension UBItem {

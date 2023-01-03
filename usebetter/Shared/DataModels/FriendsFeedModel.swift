@@ -20,8 +20,8 @@ class FriendsFeedModel: ObservableObject {
         static var metaData = "metaData.json"
     }
     
-    @Published var friendsItems: [UBItem] = []
-    var mappedItems: [UUID: UBItem] = [:]
+    //@Published var friendsItems: [UBItem] = []
+    @Published var mappedItems: [UUID: UBItem] = [:]
     private var friendsRemoteItems: [UBItemRemote] = []
     private var s3FileManager = S3FileManager()
     private var subscriptions = Set<AnyCancellable>()
@@ -161,17 +161,19 @@ class FriendsFeedModel: ObservableObject {
                 item.originalItemURL = remoteItem.originalItemURL
                 item.itemCount = remoteItem.itemCount
                 item.ownerid = remoteItem.ownerid
-                
-                self.friendsItems.append(item)
+                self.mappedItems[item.itemid] = item
             }
-            self.updateMappedItems()
         }
     }
     
     private func convertRemoteData(friendUsername: String, remoteFriendsItems: [UBItemRemote]) {
         DispatchQueue.main.async {
             for remoteItem in remoteFriendsItems {
-                var item = UBItem(name: remoteItem.name, itemid: remoteItem.itemid)
+                let remoteItemName = remoteItem.name.trimmingCharacters(in: .whitespaces)
+                if remoteItemName.count < 1  {
+                    continue
+                }
+                var item = UBItem(name: remoteItemName, itemid: remoteItem.itemid)
                 item.imageURL = remoteItem.imageURL
                 item.tags = remoteItem.tags
                 item.price = remoteItem.price
@@ -179,27 +181,22 @@ class FriendsFeedModel: ObservableObject {
                 item.originalItemURL = remoteItem.originalItemURL
                 item.itemCount = remoteItem.itemCount
                 item.ownerid = remoteItem.ownerid
-                
-                self.friendsItems.append(item)
+                self.mappedItems[item.itemid] = item
             }
-            self.updateMappedItems()
-        }
-    }
-    
-    private func updateMappedItems() {
-        self.mappedItems = self.friendsItems.reduce(into: [UUID: UBItem]() ) {
-            $0[$1.itemid] = $1
         }
     }
     
     func filteredItems(searchText: String?) -> [UBItem] {
-        guard let searchText = searchText else {
-            return self.friendsItems
+        logger.log("[FriendsFeedModel] filteredItems: searchText = \(searchText ?? "empty")")
+        guard let searchText = searchText, searchText.count >= 1 else {
+            logger.log("[FriendsFeedModel] filteredItems: searchText is empty. Returnig unfiltered count =  \(self.mappedItems.count)")
+            return Array(self.mappedItems.values)
         }
         
-        let items = friendsItems.filter {
-            $0.includes(searchText)
+        let items = Array(self.mappedItems.values).filter {
+            $0.includes(searchText) && $0.name.count > 5
         }
+        logger.log("[FriendsFeedModel] filteredItems: count = \(items.count)")
         return items
     }
 }

@@ -24,25 +24,7 @@ struct ReadOnlyItemView: View {
             VStack {
                 Spacer()
                     .frame(height: 50)
-                if let imageURL = item.imageURL {
-                    AsyncImage(url: URL(string: imageURL)) { image1 in
-                        image1.resizable()
-                            .scaledToFit()
-                            .frame(width: 120, height: 120,  alignment: .center)
-                    } placeholder: {
-                        ProgressView()
-                    }
-                }
-                else {
-                    AsyncImage(url: URL(string: "notAvailable")) { image1 in
-                        image1.resizable()
-                            .scaledToFit()
-                            .frame(width: 120, height: 120,  alignment: .center)
-                    } placeholder: {
-                        ProgressView()
-                    }
-                }
-                
+                UBAsyncImageView(asyncImage: item.imageURL)
                 Spacer()
                     .frame(height: 50)
                 Text(item.name)

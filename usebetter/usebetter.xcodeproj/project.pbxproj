@@ -66,6 +66,10 @@
 		C02F440529611C8300A76EC9 /* ValidateSignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02F440429611C8300A76EC9 /* ValidateSignUpView.swift */; };
 		C04C20EE29635A5100936726 /* UBNavigationStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04C20ED29635A5100936726 /* UBNavigationStackView.swift */; };
 		C04C20EF29635A5100936726 /* UBNavigationStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04C20ED29635A5100936726 /* UBNavigationStackView.swift */; };
+		C04C20F229637F3A00936726 /* UBConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04C20F129637F3A00936726 /* UBConstants.swift */; };
+		C04C20F329637F3B00936726 /* UBConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04C20F129637F3A00936726 /* UBConstants.swift */; };
+		C04C20F52963808C00936726 /* UBAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04C20F42963808C00936726 /* UBAsyncImage.swift */; };
+		C04C20F62963808C00936726 /* UBAsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C04C20F42963808C00936726 /* UBAsyncImage.swift */; };
 		C08DA3F3294D5C5E00E8AF98 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = C08DA3F2294D5C5E00E8AF98 /* FirebaseAnalytics */; };
 		C08DA3F5294D5C5E00E8AF98 /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = C08DA3F4294D5C5E00E8AF98 /* FirebaseAnalyticsSwift */; };
 		C08DA3F7294D5C5E00E8AF98 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = C08DA3F6294D5C5E00E8AF98 /* FirebaseCrashlytics */; };
@@ -158,6 +162,8 @@
 		C02F44002960CB2100A76EC9 /* UBEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UBEvent.swift; path = amplify/generated/models/UBEvent.swift; sourceTree = SOURCE_ROOT; };
 		C02F440429611C8300A76EC9 /* ValidateSignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateSignUpView.swift; sourceTree = "<group>"; };
 		C04C20ED29635A5100936726 /* UBNavigationStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UBNavigationStackView.swift; sourceTree = "<group>"; };
+		C04C20F129637F3A00936726 /* UBConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UBConstants.swift; sourceTree = "<group>"; };
+		C04C20F42963808C00936726 /* UBAsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UBAsyncImage.swift; sourceTree = "<group>"; };
 		C08DA3FA294D5FFF00E8AF98 /* usebetter (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "usebetter (iOS).entitlements"; sourceTree = "<group>"; };
 		C08DA3FB294D615000E8AF98 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C0C1EDF92859622E00EB6AD5 /* graphql */ = {isa = PBXFileReference; lastKnownFileType = folder; path = graphql; sourceTree = "<group>"; };
@@ -245,6 +251,7 @@
 		C001694F282C4E1600523EFF /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				C04C20F029637F2300936726 /* Constants */,
 				C02F43FD2960CB0000A76EC9 /* amplify-generated */,
 				C0DDD581295CB0CA00516EAF /* Account */,
 				C00169E2283607E300523EFF /* DataModels */,
@@ -311,6 +318,7 @@
 				C00169EC2838A69F00523EFF /* ReadOnlyItemView.swift */,
 				C0E4ED392845D614002C29AA /* ActionItemView.swift */,
 				C0016995282CD49D00523EFF /* DashboardHomeView.swift */,
+				C04C20F42963808C00936726 /* UBAsyncImage.swift */,
 				C00169F228396B5B00523EFF /* ContactPicker.swift */,
 				C0E4ED2628429EEE002C29AA /* SplashView.swift */,
 				C0E4ED3F284C28F3002C29AA /* WebContentView.swift */,
@@ -381,6 +389,14 @@
 				C02F43FE2960CB2100A76EC9 /* UBEvent+Schema.swift */,
 			);
 			path = "amplify-generated";
+			sourceTree = "<group>";
+		};
+		C04C20F029637F2300936726 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				C04C20F129637F3A00936726 /* UBConstants.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 		C0DDD581295CB0CA00516EAF /* Account */ = {
@@ -611,6 +627,7 @@
 				C001699E282D921E00523EFF /* DashboardHomeViewModel.swift in Sources */,
 				C0DDD589295CB10300516EAF /* LoginOptionsView.swift in Sources */,
 				C02F440529611C8300A76EC9 /* ValidateSignUpView.swift in Sources */,
+				C04C20F229637F3A00936726 /* UBConstants.swift in Sources */,
 				C0E4ED3A2845D614002C29AA /* ActionItemView.swift in Sources */,
 				C0016A19283AD45300523EFF /* AccountManager.swift in Sources */,
 				C0E4ED372845B664002C29AA /* DashboardEventsView.swift in Sources */,
@@ -620,6 +637,7 @@
 				C00169DA282E225900523EFF /* AddItemView.swift in Sources */,
 				C0E4ED2A284314C6002C29AA /* S3FileManager.swift in Sources */,
 				C0E4ED3028457926002C29AA /* ContactHelper.swift in Sources */,
+				C04C20F52963808C00936726 /* UBAsyncImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -628,6 +646,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C021F447294AB385009A5E1C /* Logger.swift in Sources */,
+				C04C20F62963808C00936726 /* UBAsyncImage.swift in Sources */,
 				C0016997282CD49D00523EFF /* DashboardHomeView.swift in Sources */,
 				C00169E82836086400523EFF /* FriendsFeedModel.swift in Sources */,
 				C00169EB2838A65600523EFF /* UpdateItemView.swift in Sources */,
@@ -641,6 +660,7 @@
 				C00169A2282D92D300523EFF /* UBItem.swift in Sources */,
 				C0016A1D2842864A00523EFF /* DashboardSettingsView.swift in Sources */,
 				C0E4ED2E28431C42002C29AA /* JSONInterpreter.swift in Sources */,
+				C04C20F329637F3B00936726 /* UBConstants.swift in Sources */,
 				C00169EE2838A69F00523EFF /* ReadOnlyItemView.swift in Sources */,
 				C0E4ED41284C28F3002C29AA /* WebContentView.swift in Sources */,
 				C00169E52836084400523EFF /* UserFeedModel.swift in Sources */,

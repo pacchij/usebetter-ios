@@ -63,16 +63,5 @@ class S3FileManager {
                 logger.log("S3FileManager: listUserFolders: exception")
             }
         }
-//            .resultPublisher
-//            .sink {
-//                if case let .failure(storageError) = $0 {
-//                    logger.log("listUserFolders: Failed: \(storageError.errorDescription). \(storageError.recoverySuggestion)")
-//                }
-//            }
-//            receiveValue: { listResult in
-//                logger.log("listUserFolders: Completed")
-//                completion(listResult)
-//            }
-//            .store(in: &bag)
     }
 }

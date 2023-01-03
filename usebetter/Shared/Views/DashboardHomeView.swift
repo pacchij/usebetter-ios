@@ -8,85 +8,73 @@
 import SwiftUI
 
 struct DashboardHomeView: View {
-    @State var searchText: String
+    @State var searchText: String? = nil
+    @State private var searchText_: String = ""
     @EnvironmentObject var friendsFeedData: FriendsFeedModel
-    private static let iconSize = CGFloat(90)
-    let columns = [GridItem(.adaptive(minimum: DashboardHomeView.iconSize))]
+    let columns = [GridItem(.adaptive(minimum: UBConstants.itemIconSize))]
     var body: some View {
-        NavigationView {
-        ZStack(alignment: .top) {
-            HStack {
-                Image(systemName: "magnifyingglass.circle.fill")
-                    .foregroundColor(.gray)
-                    .padding(0)
-                    .font(.largeTitle)
-                    .frame(alignment: .topLeading)
-                TextField("Search", text: $searchText)
-                .font(.body)
-                .multilineTextAlignment(.center)
-                .padding()
-                .textFieldStyle(.roundedBorder)
-                .onSubmit {
-                    onSearchItem()
-                }
-                Spacer()
-                Button(action: {}) {
-                    Image(systemName: "slider.vertical.3")
-                        .renderingMode(.original)
-                        .font(.largeTitle)
-                }
-                Spacer()
-            }
-            .frame(minWidth: 0, maxHeight: 30, alignment: .topLeading)
-            .padding(5)
-            .offset(x:5, y: 5)
-            VStack(spacing: 0) {
-                ScrollView(.vertical, showsIndicators: false) {
-                    Spacer()
-                    LazyVGrid(columns: columns) {
-                        ForEach(friendsFeedData.filteredItems(searchText: $searchText.wrappedValue)) { item in
-                            NavigationLink(destination: ReadOnlyItemView(item: item), label: {
-                                if let imageURL = item.imageURL {
-                                    AsyncImage(url: URL(string: imageURL)) { image in
-                                        image.resizable()
-                                            .scaledToFit()
-                                            .frame(width: DashboardHomeView.iconSize, height: DashboardHomeView.iconSize,  alignment: .center)
-                                    } placeholder: {
-                                        ProgressView()
-                                    }
-                                }
-                                else {
-                                    AsyncImage(url: URL(string: "notAvailable")) { image in
-                                        image.resizable()
-                                            .scaledToFit()
-                                            .frame(width: DashboardHomeView.iconSize, height: DashboardHomeView.iconSize,  alignment: .center)
-                                    } placeholder: {
-                                        ProgressView()
-                                    }
-                                }
-                            })
+        UBNavigationStackView {
+            ZStack(alignment: .top) {
+                VStack {
+                    HStack {
+                        Image(systemName: "magnifyingglass.circle.fill")
+                            .foregroundColor(.gray)
+                            .font(.largeTitle)
+                            .frame(alignment: .topLeading)
+                        TextField("Search", text: $searchText_)
+                            .font(.body)
+                            .multilineTextAlignment(.center)
+                            .textFieldStyle(.roundedBorder)
+                            .onSubmit {
+                                onSearchItem()
+                            }
+                        Spacer()
+                        Button(action: {}) {
+                            Image(systemName: "slider.vertical.3")
+                                .renderingMode(.original)
+                                .font(.largeTitle)
                         }
-                        .padding(5)
-                        .overlay( RoundedRectangle(cornerRadius: 16).stroke(Color.blue.opacity(0.2), lineWidth: 1))
                     }
+                    .padding(5)
+                    VStack() {
+                        ScrollView(.vertical, showsIndicators: false) {
+                            LazyVGrid(columns: columns) {
+                                ForEach(friendsFeedData.filteredItems(searchText: searchText)) { item in
+                                    NavigationLink(destination: ReadOnlyItemView(item: item), label: {
+                                        UBAsyncImageView(asyncImage: item.imageURL)
+                                    })
+                                }
+                                .padding(2)
+                                .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.blue.opacity(0.2), lineWidth: 1))
+                            }
+                        }
+                        .padding()
+                    }
+                    .padding(5)
                 }
                 .padding()
+                .navigationBarHidden(true)
             }
-            .padding()
-            .offset(x:0, y:40)
-        }
-        .navigationBarHidden(true)
-        .edgesIgnoringSafeArea([.bottom])
         }
     }
     
     func onSearchItem() {
-        logger.log("on search")
+        searchText = $searchText_.wrappedValue
     }
 }
 
 struct DashboardHomeView_Previews: PreviewProvider {
     static var previews: some View {
         DashboardHomeView(searchText: "").environmentObject(FriendsFeedModel())
+    }
+}
+
+
+class MockFriendsFeedModel: FriendsFeedModel {
+    override func filteredItems(searchText: String?) -> [UBItem] {
+        var items: [UBItem] = []
+        items.append(UBItem(name: "item1", itemid: UUID(), imageURL: "https://cdn.pixabay.com/photo/2015/03/17/02/01/cubes-677092__480.png"))
+        items.append(UBItem(name: "item2", itemid: UUID(), imageURL: "https://cdn.pixabay.com/photo/2015/03/17/02/01/cubes-677092__480.png"))
+        return items
     }
 }
