@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>635028092555-4fgkgt9jka773s0lf04e31mad99v31dv.apps.googleusercontent.com</string>
+	<string>635028092555-748vgknffd96jtuk9hkoq34u6r151n52.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.635028092555-4fgkgt9jka773s0lf04e31mad99v31dv</string>
+	<string>com.googleusercontent.apps.635028092555-748vgknffd96jtuk9hkoq34u6r151n52</string>
 	<key>API_KEY</key>
 	<string>AIzaSyB6WBucphQlNCzDa5kUTX-dGTtVAF2AbAI</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.anahatabinary.usebetter</string>
+	<string>com.sharethings.usebetter</string>
 	<key>PROJECT_ID</key>
 	<string>usebetter-bee56</string>
 	<key>STORAGE_BUCKET</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:635028092555:ios:b1e3de99e6fdb4b504468e</string>
+	<string>1:635028092555:ios:c6730f98d83c8d6904468e</string>
 </dict>
 </plist>

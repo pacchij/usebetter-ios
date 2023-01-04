@@ -38,7 +38,6 @@ struct LoginOptionsView: View {
     }
     var body: some View {
         VStack {
-            
             UBNavigationStackView {
                 NavigationLink(destination: ValidateSignUpView(email: $email.wrappedValue).environmentObject(viewRouter), tag: 1,  selection: $shouldShowOTPValidation) {
                     EmptyView()
@@ -197,6 +196,6 @@ struct LoginOptionsView: View {
 
 struct LoginOptionsView_Preview: PreviewProvider {
     static var previews: some View {
-        LoginOptionsView()
+        LoginOptionsView().environmentObject(ViewRouter())
     }
 }
