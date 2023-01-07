@@ -15,6 +15,7 @@ struct usebetterApp: App {
     @StateObject var userFeedData = UserFeedModel()
     @StateObject var friendsFeedData = FriendsFeedModel()
     @StateObject var eventsModel = EventsModel()
+    @StateObject var notificationCenterDelegate = UBNotificationCenterDelegate()
     
     var body: some Scene {
         WindowGroup {
@@ -23,9 +24,14 @@ struct usebetterApp: App {
                 .environmentObject(userFeedData)
                 .environmentObject(friendsFeedData)
                 .environmentObject(eventsModel)
+                .environmentObject(notificationCenterDelegate)
                 .onOpenURL { url in
                     GIDSignIn.sharedInstance.handle(url)
                 }
         }
     }
+}
+
+
+class UBNotificationCenterDelegate: NSObject, UNUserNotificationCenterDelegate, ObservableObject {
 }

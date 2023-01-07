@@ -11,6 +11,7 @@ struct DashboardHomeView: View {
     @State var searchText: String? = nil
     @State private var searchText_: String = ""
     @EnvironmentObject var friendsFeedData: FriendsFeedModel
+    @EnvironmentObject var notificationCenterDelegate: UBNotificationCenterDelegate
     let columns = [GridItem(.adaptive(minimum: UBConstants.itemIconSize))]
     var body: some View {
         UBNavigationStackView {
@@ -56,10 +57,23 @@ struct DashboardHomeView: View {
                 .navigationBarHidden(true)
             }
         }
+        .onAppear {
+            self.requestNotification()
+        }
     }
     
     func onSearchItem() {
         searchText = $searchText_.wrappedValue
+    }
+    
+    private func requestNotification() {
+        UNUserNotificationCenter.current().delegate = self.notificationCenterDelegate
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { succeess, error in
+            guard succeess else {
+                logger.log("[AppDelegate] request authorization Result success= \(succeess) error= \(error)")
+                return
+            }
+        }
     }
 }
 

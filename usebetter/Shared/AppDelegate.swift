@@ -17,30 +17,23 @@ import FirebaseMessaging
 import UserNotifications
 import GoogleSignIn
 
-class AppDelegate: NSObject, UIApplicationDelegate, MessagingDelegate, UNUserNotificationCenterDelegate {
+class AppDelegate: NSObject, UIApplicationDelegate, MessagingDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        logger.log("UseBetter Logging initialized")
+        logger.log("[AppDelegate] UseBetter Logging initialized")
         do {
             Amplify.Logging.logLevel = .verbose
             try Amplify.add(plugin: AWSCognitoAuthPlugin())
             try Amplify.add(plugin: AWSS3StoragePlugin())
             try Amplify.add(plugin: AWSAPIPlugin())
             try Amplify.configure()
-            logger.log("Amplify configured with auth plugin")
+            logger.log("[AppDelegate] Amplify configured with auth plugin")
         } catch {
-            logger.log("Failed to initialize Amplify with \(error)")
+            logger.log("[AppDelegate] Failed to initialize Amplify with \(error)")
         }
         
         FirebaseApp.configure()
         
         Messaging.messaging().delegate = self
-        UNUserNotificationCenter.current().delegate = self
-        UNUserNotificationCenter.current().requestAuthorization() { succeess, error in
-            guard succeess else {
-                logger.log("[AppDelegate] request authorization failed")
-                return
-            }
-        }
         
         GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
             if error != nil || user == nil {
@@ -61,8 +54,25 @@ class AppDelegate: NSObject, UIApplicationDelegate, MessagingDelegate, UNUserNot
             guard let token = token else {
                 return
             }
-            logger.log("[AppDelegate] messaging token is \(token)")
+            logger.log("[AppDelegate] messaging:didReceiveRegistrationToken token is \(token)")
+            let fcmRegTokenKey = "fcmRegTokenKey"
+            let userDefaults = UserDefaults.standard
+            let storedToken = userDefaults.string(forKey: fcmRegTokenKey)
+            if storedToken == nil, fcmToken != storedToken {
+                userDefaults.set(token, forKey: fcmRegTokenKey)
+                logger.log("[AppDelegate] messaging:didReceiveRegistrationToken token changed or nil before. storing in user defaults")
+            }
+            else {
+                logger.log("[AppDelegate] messaging:didReceiveRegistrationToken Stored fcmToken is: \(storedToken ?? "")")
+            }
         }
+    }
+    
+    func application(_ application: UIApplication,
+                     didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let stringToken = String(decoding: deviceToken, as: UTF8.self)
+        logger.log("[AppDelegate] messaging:didRegisterForRemoteNotificationsWithDeviceToken APNS device Token is: \(stringToken)")
+        Messaging.messaging().apnsToken = deviceToken
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
