@@ -41,3 +41,123 @@ mutation DeleteUBEvent(
     updatedAt
   }
 }
+mutation CreateUBUser(
+  $input: CreateUBUserInput!
+  $condition: ModelUBUserConditionInput
+) {
+  createUBUser(input: $input, condition: $condition) {
+    userId
+    email
+    displayName
+    firstName
+    lastName
+    fcmToken
+    apnsToken
+    friends {
+      items {
+        userId
+        friendId
+        groups
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateUBUser(
+  $input: UpdateUBUserInput!
+  $condition: ModelUBUserConditionInput
+) {
+  updateUBUser(input: $input, condition: $condition) {
+    userId
+    email
+    displayName
+    firstName
+    lastName
+    fcmToken
+    apnsToken
+    friends {
+      items {
+        userId
+        friendId
+        groups
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteUBUser(
+  $input: DeleteUBUserInput!
+  $condition: ModelUBUserConditionInput
+) {
+  deleteUBUser(input: $input, condition: $condition) {
+    userId
+    email
+    displayName
+    firstName
+    lastName
+    fcmToken
+    apnsToken
+    friends {
+      items {
+        userId
+        friendId
+        groups
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateUBFriends(
+  $input: CreateUBFriendsInput!
+  $condition: ModelUBFriendsConditionInput
+) {
+  createUBFriends(input: $input, condition: $condition) {
+    userId
+    friendId
+    groups
+    id
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateUBFriends(
+  $input: UpdateUBFriendsInput!
+  $condition: ModelUBFriendsConditionInput
+) {
+  updateUBFriends(input: $input, condition: $condition) {
+    userId
+    friendId
+    groups
+    id
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteUBFriends(
+  $input: DeleteUBFriendsInput!
+  $condition: ModelUBFriendsConditionInput
+) {
+  deleteUBFriends(input: $input, condition: $condition) {
+    userId
+    friendId
+    groups
+    id
+    createdAt
+    updatedAt
+  }
+}

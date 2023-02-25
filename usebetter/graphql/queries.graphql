@@ -38,6 +38,88 @@ query ListUBEvents(
     nextToken
   }
 }
+query GetUBUser($userId: String!) {
+  getUBUser(userId: $userId) {
+    userId
+    email
+    displayName
+    firstName
+    lastName
+    fcmToken
+    apnsToken
+    friends {
+      items {
+        userId
+        friendId
+        groups
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+query ListUBUsers(
+  $userId: String
+  $filter: ModelUBUserFilterInput
+  $limit: Int
+  $nextToken: String
+  $sortDirection: ModelSortDirection
+) {
+  listUBUsers(
+    userId: $userId
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      userId
+      email
+      displayName
+      firstName
+      lastName
+      fcmToken
+      apnsToken
+      friends {
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetUBFriends($id: ID!) {
+  getUBFriends(id: $id) {
+    userId
+    friendId
+    groups
+    id
+    createdAt
+    updatedAt
+  }
+}
+query ListUBFriends(
+  $filter: ModelUBFriendsFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listUBFriends(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      userId
+      friendId
+      groups
+      id
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
 query EventsByOwner(
   $ownerid: String!
   $sortDirection: ModelSortDirection

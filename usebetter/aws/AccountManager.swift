@@ -156,6 +156,8 @@ class AccountManager {
             do {
                 self.attributes = try await Amplify.Auth.fetchUserAttributes()
                 logger.log("AccountManager: fetchAttributes: \(String(describing: self.attributes))")
+                AppUserDefaults.shared.emailId = emailId
+                AppUserDefaults.shared.displayName = displayName
             }
             catch {
                 logger.error("AccountManager: fetchAttributes Exception \(error)")
@@ -180,18 +182,22 @@ class AccountManager {
             let fName = self.attributes.filter { attr in
                 attr.key == firstNameKey
             }
+            
             let lastNameKey = AuthUserAttributeKey.custom("lastName")
             let lName = self.attributes.filter { attr in
                 attr.key == lastNameKey
             }
+            
             if fName.count > 0 || lName.count > 0 {
                 var displayName_ = ""
                 if fName.count > 0 {
                     displayName_ += fName[0].value
                     displayName_ += " "
+                    AppUserDefaults.shared.firstName = fName[0].value
                 }
                 if lName.count > 0 {
                     displayName_ += lName[0].value
+                    AppUserDefaults.shared.lastName = lName[0].value
                 }
                 return displayName_
             }

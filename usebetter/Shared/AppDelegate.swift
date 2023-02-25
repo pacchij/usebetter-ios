@@ -55,16 +55,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, MessagingDelegate {
                 return
             }
             logger.log("[AppDelegate] messaging:didReceiveRegistrationToken token is \(token)")
-            let fcmRegTokenKey = "fcmRegTokenKey"
-            let userDefaults = UserDefaults.standard
-            let storedToken = userDefaults.string(forKey: fcmRegTokenKey)
-            if storedToken == nil, fcmToken != storedToken {
-                userDefaults.set(token, forKey: fcmRegTokenKey)
-                logger.log("[AppDelegate] messaging:didReceiveRegistrationToken token changed or nil before. storing in user defaults")
-            }
-            else {
-                logger.log("[AppDelegate] messaging:didReceiveRegistrationToken Stored fcmToken is: \(storedToken ?? "")")
-            }
+            AppUserDefaults.shared.fcmToken = token
         }
     }
     
@@ -73,6 +64,7 @@ class AppDelegate: NSObject, UIApplicationDelegate, MessagingDelegate {
         let stringToken = String(decoding: deviceToken, as: UTF8.self)
         logger.log("[AppDelegate] messaging:didRegisterForRemoteNotificationsWithDeviceToken APNS device Token is: \(stringToken)")
         Messaging.messaging().apnsToken = deviceToken
+        AppUserDefaults.shared.apnsToken = stringToken
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {

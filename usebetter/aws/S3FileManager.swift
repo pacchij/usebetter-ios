@@ -60,7 +60,7 @@ class S3FileManager {
                 completion(result)
             }
             catch {
-                logger.log("S3FileManager: listUserFolders: exception")
+                logger.log("S3FileManager: listUserFolders: exception \(error)")
             }
         }
     }

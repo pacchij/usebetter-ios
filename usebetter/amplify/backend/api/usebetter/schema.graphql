@@ -14,3 +14,31 @@ type UBEvent @model
     receiverid: String! @index(name: "byReceiver", queryField: "eventsByReceiver")
     state: Int!
 }
+
+type UBUser @model
+    @auth(rules: [
+    { allow: private },
+    { allow: groups, groups: ["Admins"] }
+    ])
+{
+userId: String! @primaryKey
+email: String!
+displayName: String
+firstName: String
+lastName: String
+fcmToken: String
+apnsToken: String
+friends: [UBFriends] @hasMany(indexName: "byUserIdAndFriendId", fields: ["userId"])
+}
+
+
+type UBFriends @model
+    @auth(rules: [
+    { allow: private },
+    { allow: groups, groups: ["Admins"] }
+    ])
+{
+  userId: String! @index(name: "byUserIdAndFriendId", sortKeyFields: ["friendId"])
+  friendId: String!
+  groups: [String]
+}

@@ -1,6 +1,6 @@
 # this is an auto generated file. This will be overwritten
-subscription OnCreateUBEvent {
-  onCreateUBEvent {
+subscription OnCreateUBEvent($filter: ModelSubscriptionUBEventFilterInput) {
+  onCreateUBEvent(filter: $filter) {
     id
     itemid
     ownerid
@@ -10,8 +10,8 @@ subscription OnCreateUBEvent {
     updatedAt
   }
 }
-subscription OnUpdateUBEvent {
-  onUpdateUBEvent {
+subscription OnUpdateUBEvent($filter: ModelSubscriptionUBEventFilterInput) {
+  onUpdateUBEvent(filter: $filter) {
     id
     itemid
     ownerid
@@ -21,13 +21,115 @@ subscription OnUpdateUBEvent {
     updatedAt
   }
 }
-subscription OnDeleteUBEvent {
-  onDeleteUBEvent {
+subscription OnDeleteUBEvent($filter: ModelSubscriptionUBEventFilterInput) {
+  onDeleteUBEvent(filter: $filter) {
     id
     itemid
     ownerid
     receiverid
     state
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateUBUser($filter: ModelSubscriptionUBUserFilterInput) {
+  onCreateUBUser(filter: $filter) {
+    userId
+    email
+    displayName
+    firstName
+    lastName
+    fcmToken
+    apnsToken
+    friends {
+      items {
+        userId
+        friendId
+        groups
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateUBUser($filter: ModelSubscriptionUBUserFilterInput) {
+  onUpdateUBUser(filter: $filter) {
+    userId
+    email
+    displayName
+    firstName
+    lastName
+    fcmToken
+    apnsToken
+    friends {
+      items {
+        userId
+        friendId
+        groups
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteUBUser($filter: ModelSubscriptionUBUserFilterInput) {
+  onDeleteUBUser(filter: $filter) {
+    userId
+    email
+    displayName
+    firstName
+    lastName
+    fcmToken
+    apnsToken
+    friends {
+      items {
+        userId
+        friendId
+        groups
+        id
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+subscription OnCreateUBFriends($filter: ModelSubscriptionUBFriendsFilterInput) {
+  onCreateUBFriends(filter: $filter) {
+    userId
+    friendId
+    groups
+    id
+    createdAt
+    updatedAt
+  }
+}
+subscription OnUpdateUBFriends($filter: ModelSubscriptionUBFriendsFilterInput) {
+  onUpdateUBFriends(filter: $filter) {
+    userId
+    friendId
+    groups
+    id
+    createdAt
+    updatedAt
+  }
+}
+subscription OnDeleteUBFriends($filter: ModelSubscriptionUBFriendsFilterInput) {
+  onDeleteUBFriends(filter: $filter) {
+    userId
+    friendId
+    groups
+    id
     createdAt
     updatedAt
   }

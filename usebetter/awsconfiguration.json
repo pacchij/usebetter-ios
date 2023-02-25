@@ -73,7 +73,7 @@
             "ApiUrl": "https://ctcriln6rfbfnjqq7fgqktmrei.appsync-api.us-west-1.amazonaws.com/graphql",
             "Region": "us-west-1",
             "AuthMode": "API_KEY",
-            "ApiKey": "da2-bfswquagdndcnc3mer2jenjmye",
+            "ApiKey": "da2-kalfioapireuho4hagnjctyjxi",
             "ClientDatabasePrefix": "usebetter_API_KEY"
         }
     }

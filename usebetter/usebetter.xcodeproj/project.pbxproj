@@ -76,6 +76,12 @@
 		C08DA3F9294D5C5E00E8AF98 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = C08DA3F8294D5C5E00E8AF98 /* FirebaseMessaging */; };
 		C08DA3FC294D615000E8AF98 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C08DA3FB294D615000E8AF98 /* GoogleService-Info.plist */; };
 		C0C1EDFA2859622E00EB6AD5 /* graphql in Resources */ = {isa = PBXBuildFile; fileRef = C0C1EDF92859622E00EB6AD5 /* graphql */; };
+		C0DB2FCE29A2679900DFAA9E /* UBFriends+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DB2FCA29A2679800DFAA9E /* UBFriends+Schema.swift */; };
+		C0DB2FCF29A2679900DFAA9E /* UBUser+Schema.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DB2FCB29A2679800DFAA9E /* UBUser+Schema.swift */; };
+		C0DB2FD029A2679900DFAA9E /* UBUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DB2FCC29A2679800DFAA9E /* UBUser.swift */; };
+		C0DB2FD129A2679900DFAA9E /* UBFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DB2FCD29A2679900DFAA9E /* UBFriends.swift */; };
+		C0DB2FD329A269CC00DFAA9E /* UserInfoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DB2FD229A269CC00DFAA9E /* UserInfoModel.swift */; };
+		C0DB2FD529A3C00000DFAA9E /* AppUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DB2FD429A3C00000DFAA9E /* AppUserDefaults.swift */; };
 		C0DDD586295CB10300516EAF /* SignUpWithAppleVIewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DDD582295CB10300516EAF /* SignUpWithAppleVIewModel.swift */; };
 		C0DDD587295CB10300516EAF /* SignUPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DDD583295CB10300516EAF /* SignUPView.swift */; };
 		C0DDD588295CB10300516EAF /* SignUpWithAppleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DDD584295CB10300516EAF /* SignUpWithAppleView.swift */; };
@@ -167,6 +173,12 @@
 		C08DA3FA294D5FFF00E8AF98 /* usebetter (iOS).entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "usebetter (iOS).entitlements"; sourceTree = "<group>"; };
 		C08DA3FB294D615000E8AF98 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C0C1EDF92859622E00EB6AD5 /* graphql */ = {isa = PBXFileReference; lastKnownFileType = folder; path = graphql; sourceTree = "<group>"; };
+		C0DB2FCA29A2679800DFAA9E /* UBFriends+Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UBFriends+Schema.swift"; path = "amplify/generated/models/UBFriends+Schema.swift"; sourceTree = SOURCE_ROOT; };
+		C0DB2FCB29A2679800DFAA9E /* UBUser+Schema.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UBUser+Schema.swift"; path = "amplify/generated/models/UBUser+Schema.swift"; sourceTree = SOURCE_ROOT; };
+		C0DB2FCC29A2679800DFAA9E /* UBUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UBUser.swift; path = amplify/generated/models/UBUser.swift; sourceTree = SOURCE_ROOT; };
+		C0DB2FCD29A2679900DFAA9E /* UBFriends.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UBFriends.swift; path = amplify/generated/models/UBFriends.swift; sourceTree = SOURCE_ROOT; };
+		C0DB2FD229A269CC00DFAA9E /* UserInfoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoModel.swift; sourceTree = "<group>"; };
+		C0DB2FD429A3C00000DFAA9E /* AppUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUserDefaults.swift; sourceTree = "<group>"; };
 		C0DDD582295CB10300516EAF /* SignUpWithAppleVIewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpWithAppleVIewModel.swift; sourceTree = "<group>"; };
 		C0DDD583295CB10300516EAF /* SignUPView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUPView.swift; sourceTree = "<group>"; };
 		C0DDD584295CB10300516EAF /* SignUpWithAppleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpWithAppleView.swift; sourceTree = "<group>"; };
@@ -356,6 +368,7 @@
 			isa = PBXGroup;
 			children = (
 				C00169DC28317C1400523EFF /* URLParser.swift */,
+				C0DB2FD429A3C00000DFAA9E /* AppUserDefaults.swift */,
 				C021F445294AB385009A5E1C /* Logger.swift */,
 			);
 			path = Utils;
@@ -365,6 +378,7 @@
 			isa = PBXGroup;
 			children = (
 				C00169E32836084400523EFF /* UserFeedModel.swift */,
+				C0DB2FD229A269CC00DFAA9E /* UserInfoModel.swift */,
 				C0E4ED2C28431C42002C29AA /* JSONInterpreter.swift */,
 				C00169E62836086400523EFF /* FriendsFeedModel.swift */,
 				C0E4ED3328458BB2002C29AA /* EventsModel.swift */,
@@ -384,6 +398,10 @@
 		C02F43FD2960CB0000A76EC9 /* amplify-generated */ = {
 			isa = PBXGroup;
 			children = (
+				C0DB2FCD29A2679900DFAA9E /* UBFriends.swift */,
+				C0DB2FCA29A2679800DFAA9E /* UBFriends+Schema.swift */,
+				C0DB2FCC29A2679800DFAA9E /* UBUser.swift */,
+				C0DB2FCB29A2679800DFAA9E /* UBUser+Schema.swift */,
 				C02F43FF2960CB2100A76EC9 /* AmplifyModels.swift */,
 				C02F44002960CB2100A76EC9 /* UBEvent.swift */,
 				C02F43FE2960CB2100A76EC9 /* UBEvent+Schema.swift */,
@@ -606,19 +624,23 @@
 				C0E4ED3D28488856002C29AA /* DashboardEventsViewModel.swift in Sources */,
 				C0E4ED3428458BB2002C29AA /* EventsModel.swift in Sources */,
 				C0DDD587295CB10300516EAF /* SignUPView.swift in Sources */,
+				C0DB2FCF29A2679900DFAA9E /* UBUser+Schema.swift in Sources */,
 				C001698D282CB23F00523EFF /* ViewRouter.swift in Sources */,
 				C0DDD586295CB10300516EAF /* SignUpWithAppleVIewModel.swift in Sources */,
 				C0016993282CB4D000523EFF /* DashboardView.swift in Sources */,
 				C0E4ED2728429EEE002C29AA /* SplashView.swift in Sources */,
 				C001697A282C4E1800523EFF /* ContentView.swift in Sources */,
+				C0DB2FD529A3C00000DFAA9E /* AppUserDefaults.swift in Sources */,
 				C00169F328396B5B00523EFF /* ContactPicker.swift in Sources */,
 				C00169A1282D92D300523EFF /* UBItem.swift in Sources */,
+				C0DB2FD029A2679900DFAA9E /* UBUser.swift in Sources */,
 				C0016A1C2842864A00523EFF /* DashboardSettingsView.swift in Sources */,
 				C04C20EE29635A5100936726 /* UBNavigationStackView.swift in Sources */,
 				C0E4ED2D28431C42002C29AA /* JSONInterpreter.swift in Sources */,
 				C02F44032960CB2100A76EC9 /* UBEvent.swift in Sources */,
 				C00169ED2838A69F00523EFF /* ReadOnlyItemView.swift in Sources */,
 				C0DDD588295CB10300516EAF /* SignUpWithAppleView.swift in Sources */,
+				C0DB2FD329A269CC00DFAA9E /* UserInfoModel.swift in Sources */,
 				C0E4ED40284C28F3002C29AA /* WebContentView.swift in Sources */,
 				C02F44022960CB2100A76EC9 /* AmplifyModels.swift in Sources */,
 				C02F44012960CB2100A76EC9 /* UBEvent+Schema.swift in Sources */,
@@ -626,6 +648,7 @@
 				C0016A0A283A08BE00523EFF /* AppDelegate.swift in Sources */,
 				C001699E282D921E00523EFF /* DashboardHomeViewModel.swift in Sources */,
 				C0DDD589295CB10300516EAF /* LoginOptionsView.swift in Sources */,
+				C0DB2FD129A2679900DFAA9E /* UBFriends.swift in Sources */,
 				C02F440529611C8300A76EC9 /* ValidateSignUpView.swift in Sources */,
 				C04C20F229637F3A00936726 /* UBConstants.swift in Sources */,
 				C0E4ED3A2845D614002C29AA /* ActionItemView.swift in Sources */,
@@ -638,6 +661,7 @@
 				C0E4ED2A284314C6002C29AA /* S3FileManager.swift in Sources */,
 				C0E4ED3028457926002C29AA /* ContactHelper.swift in Sources */,
 				C04C20F52963808C00936726 /* UBAsyncImage.swift in Sources */,
+				C0DB2FCE29A2679900DFAA9E /* UBFriends+Schema.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
